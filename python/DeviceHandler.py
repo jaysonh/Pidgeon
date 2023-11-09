@@ -4,4 +4,5 @@ from typing import List
 class DeviceHandler:
 
     def __init__(self, json_data : str ):
+        print(json_data)
         pass

@@ -1,0 +1,22 @@
+{
+    "devices" :[
+            {
+                "name" : "Rebble01",
+                "id"   : "00000001",
+                "type" : "Rebble",
+                "numChannels" : 1
+            },
+            {
+                "name" : "Rebble0",
+                "id"   : "00000002",
+                "type" : "Rebble",
+                "numChannels" : 1
+            },
+            {
+                "name" : "RGB1",
+                "id"   : "00000003",
+                "type" : "DMX",
+                "numChannels" : 4
+            }
+    ]
+}
