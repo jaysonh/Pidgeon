@@ -3,19 +3,19 @@
             {
                 "name" : "Rebble01",
                 "id"   : "00000001",
-                "type" : "Rebble",
+                "type" : "rebble",
                 "numChannels" : 1
             },
             {
                 "name" : "Rebble0",
                 "id"   : "00000002",
-                "type" : "Rebble",
+                "type" : "rebble",
                 "numChannels" : 1
             },
             {
                 "name" : "RGB1",
                 "id"   : "00000003",
-                "type" : "DMX",
+                "type" : "dmx",
                 "numChannels" : 4
             }
     ]

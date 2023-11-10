@@ -4,6 +4,8 @@ from ConfigFile import ConfigFile
 
 class Configuration:
 
+    # Constructor
+    # opens a list of json file names, stores these in a dict
     def __init__(self, config_files : List[str] ):
         self.config_json = {}
 
