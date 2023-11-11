@@ -2,8 +2,36 @@
     "schedule" :[
            {
                 "id" : "s00001",
+                "time" : "* * * 11 * *",
                 "deviceID" : "00000001",
-                "data" : [ 0 ]
-           }
+                "action" : 
+                {
+                    "type" : "setData",
+                    "data" : [ 0 ]
+                }
+           },
+
+           {
+            "id" : "s00003",
+            "time" : "* * * 09 00 00",
+            "deviceID" : "00000001",
+            "action" : 
+            {
+                "type" : "command",
+                "data" : [ " echo 'hello world' > tmp.txt" ]
+            }
+         },
+
+         {
+          "id" : "s00004",
+          "time" : "* * * 10 00 00",
+          "deviceID" : "00000001",
+          "action" : 
+          {
+              "type" : "getData",
+              "getCmd" : { "" },
+              "output" : { "mqtt", "/data/sensorRead01"} 
+          }
+       }
     ]
 }
