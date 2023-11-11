@@ -1,0 +1,9 @@
+{
+    "devicesIn" :[
+            {
+                "name" : "sensor01",
+                "id"   : "00000004",
+                "type" : "modbus"
+            }
+    ]
+}
