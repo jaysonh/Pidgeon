@@ -4,19 +4,29 @@
                 "name" : "Rebble01",
                 "id"   : "00000001",
                 "type" : "rebble",
-                "numChannels" : 1
+                "numChannels" : 1,
+                "range" : { "min": 0, "max": 100 }
             },
             {
                 "name" : "Rebble0",
                 "id"   : "00000002",
                 "type" : "rebble",
-                "numChannels" : 1
+                "numChannels" : 1,
+                "range" : { "min": 0, "max": 100 }
             },
             {
                 "name" : "RGB1",
                 "id"   : "00000003",
                 "type" : "dmx",
-                "numChannels" : 4
+                "numChannels" : 4,
+                "range" : { "min": 0, "max": 255 }
+            },
+            {
+                "name" : "MQTT1",
+                "id"   : "00000010",
+                "type" : "mqtt",
+                "numChannels" : 1,
+                "range" : { "min": 0, "max": 255 }
             }
     ]
 }

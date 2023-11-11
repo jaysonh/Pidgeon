@@ -15,7 +15,7 @@ class Scheduler:
         for schedule_item in schedule_json:
             id = schedule_item["id"]
             device = schedule_item["deviceID"]
-            data = schedule_item["data"]
+            #data = schedule_item["data"]
 
             self.parse_cron( schedule_item["time" ])
     

@@ -18,7 +18,8 @@ class Configuration:
                     json_data = json.load(f)
                 key = list(json_data.keys())[0]              
                 
-                self.config_json[key] = json_data[key]     
+                self.config_json[key] = json_data[key]   
+                print(f"Saved json conifg for key: {key}: {self.config_json[key]}")  
         except IndexError:
             print("Error: Invalid config file list")
         except FileExistsError:

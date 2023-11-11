@@ -1,17 +1,45 @@
 {
     "schedule" :[
-           {
-                "id" : "s00001",
-                "time" : "* * * 11 * *",
-                "deviceID" : "00000001",
+            {
+                "id" : "s00011",
+                "time" : "* * * * * 1",
+                "deviceID" : "00000010",
+                "address" : "0",
                 "action" : 
                 {
                     "type" : "setData",
-                    "data" : [ 0 ]
+                    "data" : { "method" : "default", 
+                            "value": 66  }
                 }
-           },
+            },
 
-           {
+            {
+                "id" : "s00001",
+                "time" : "* * * 11 * *",
+                "deviceID" : "00000001",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "data" : { "method" : "default", 
+                               "value": 0  }
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "* * * 11 10 *",
+                "deviceID" : "00000001",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "data" : { "method" : "fade", 
+                               "time": 5.0,     
+                               "value": 255  }
+                }
+            },
+
+        {
             "id" : "s00003",
             "time" : "* * * 09 00 00",
             "deviceID" : "00000001",
@@ -20,7 +48,7 @@
                 "type" : "command",
                 "data" : [ " echo 'hello world' > tmp.txt" ]
             }
-         },
+        },
 
          {
           "id" : "s00004",
@@ -29,8 +57,8 @@
           "action" : 
           {
               "type" : "getData",
-              "getCmd" : { "" },
-              "output" : { "mqtt", "/data/sensorRead01"} 
+              "getCmd" : "",
+              "output" : { "type":"mqtt","address": "/data/sensorRead01"} 
           }
        }
     ]
