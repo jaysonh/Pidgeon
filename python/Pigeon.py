@@ -8,6 +8,9 @@ import time
 
 
 version = "0.0.1"
+def helloWorld():
+    print("hello world")
+    
 if __name__ == "__main__":
     print(f"Pigeon version {version}")
 
@@ -28,8 +31,12 @@ if __name__ == "__main__":
     # initalise scheduler last to ensure other components have been set up
     scheduler = Scheduler( configuration.get("schedule"))
      
+    
+    mqttHandler.subscribe("/hello", helloWorld); 
     # main loop
     while True:
         schedule.run_pending()
         time.sleep(1)
+    
+    print("Finish ed ")
    
