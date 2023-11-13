@@ -1,65 +1,28 @@
 {
     "schedule" :[
             {
-                "id" : "s00011",
+                "id" : "s00012",
                 "time" : "* * * * * 1",
                 "deviceID" : "00000010",
                 "address" : "0",
                 "action" : 
                 {
                     "type" : "setData",
-                    "data" : { "method" : "default", 
-                            "value": 66  }
+                    "value": 66  
                 }
             },
-
             {
-                "id" : "s00001",
-                "time" : "* * * 11 * *",
-                "deviceID" : "00000001",
+                "id" : "s00012",
+                "time" : "* * * * * 1",
+                "deviceID" : "00000010",
                 "address" : "0",
                 "action" : 
                 {
-                    "type" : "setData",
-                    "data" : { "method" : "default", 
-                               "value": 0  }
+                    "type" : "setRamp",
+                    "duration": 20.0,
+                    "start": 0,
+                    "end"  :127 
                 }
-            },
-            {
-                "id" : "s00002",
-                "time" : "* * * 11 10 *",
-                "deviceID" : "00000001",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setData",
-                    "data" : { "method" : "fade", 
-                               "time": 5.0,     
-                               "value": 255  }
-                }
-            },
-
-        {
-            "id" : "s00003",
-            "time" : "* * * 09 00 00",
-            "deviceID" : "00000001",
-            "action" : 
-            {
-                "type" : "command",
-                "data" : [ " echo 'hello world' > tmp.txt" ]
             }
-        },
-
-         {
-          "id" : "s00004",
-          "time" : "* * * 10 00 00",
-          "deviceID" : "00000001",
-          "action" : 
-          {
-              "type" : "getData",
-              "getCmd" : "",
-              "output" : { "type":"mqtt","address": "/data/sensorRead01"} 
-          }
-       }
     ]
 }

@@ -17,6 +17,6 @@ class Device:
         elif( self.type == "rebble"):
             self.outputDevice = DeviceRebble( json_data  )
         elif( self.type == "mqtt"):
-            self.outputDevice = DeviceMQTT( json_data  )
+            self.outputDevice = DeviceMQTT( json_data  )    
         else:
             raise  Exception(f"Invalid device type: {self.type}")

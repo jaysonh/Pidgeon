@@ -2,7 +2,7 @@ import json
 import paho.mqtt.client as mqtt
 
 class MQTTHandler:
-    def __init__(self ,mqtt_json : json):
+    def __init__(self, mqtt_json : json):
         
         self.funcList = []
 
@@ -10,8 +10,8 @@ class MQTTHandler:
         self.client = mqtt.Client()
 
         # Connect to the MQTT broker
-        self.port = mqtt_json[0].get("broker_port");
-        self.addr = mqtt_json[0].get("broker_addr");
+        self.port = mqtt_json.get( "port" );
+        self.addr = mqtt_json.get( "addr" );
 
         print(f"connecting to broker {self.addr} {self.port}")
         self.client.connect(self.addr, self.port)
@@ -27,4 +27,3 @@ class MQTTHandler:
 
         self.client.subscribe(topic)
         self.funcList.append( func)
-
