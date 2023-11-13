@@ -11,8 +11,21 @@
                     "value": 66  
                 }
             },
+            
             {
-                "id" : "s00012",
+                "id" : "s00013",
+                "time" : "* * * * * 1",
+                "deviceID" : "00000010",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 66  
+                }
+            },
+
+            {
+                "id" : "s00014",
                 "time" : "* * * * * 1",
                 "deviceID" : "00000010",
                 "address" : "0",

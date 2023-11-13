@@ -1,4 +1,6 @@
-class ActionSet:
+from Action import Action
+
+class ActionSet(Action):
 
     v = 0
     

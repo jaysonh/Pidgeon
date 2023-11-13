@@ -2,6 +2,7 @@ import json
 from DeviceDMX import DeviceDMX
 from DeviceRebble import DeviceRebble
 from DeviceMQTT import DeviceMQTT
+from DeviceOSC import DeviceOSC
 
 class Device:
     
@@ -17,6 +18,8 @@ class Device:
         elif( self.type == "rebble"):
             self.outputDevice = DeviceRebble( json_data  )
         elif( self.type == "mqtt"):
-            self.outputDevice = DeviceMQTT( json_data  )    
+            self.outputDevice = DeviceMQTT( json_data  )   
+        elif( self.type == "osc"):
+            self.outputDevice = DeviceOSC( json_data  )     
         else:
             raise  Exception(f"Invalid device type: {self.type}")

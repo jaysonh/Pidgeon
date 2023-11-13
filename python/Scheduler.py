@@ -6,6 +6,12 @@ from DeviceOutControl import DeviceOutControl
 from ActionSet import ActionSet
 from ActionRamp import ActionRamp
 from DeviceMQTT import DeviceMQTT
+import threading
+
+     
+def run_threaded(job_func):
+    job_thread = threading.Thread(target=job_func)
+    job_thread.start()   
 
 def hello_world( name : str ):
         print(f"hello world {name}")
@@ -13,15 +19,17 @@ def hello_world( name : str ):
 class ScheduleAction:
     deviceID = ""
     
-    def __init__(self, deviceID : str,  d :DeviceOutControl ,a : ActionSet,):
+    def __init__(self, deviceID : str,  d :DeviceOutControl, a : ActionSet ):
         self.deviceID = deviceID
         self.action = a
         self.device = d
 
-
     def hello(self):
         print(f"setting {self.action.get()} from: {self.deviceID} ")
-        self.device.outputDevice.sendData( self.action.get() )
+        
+        action.start()
+        while action.isRunning:
+            self.device.outputDevice.sendData( self.action.get() )
        
 class Scheduler:
     devices = {}        
@@ -70,11 +78,11 @@ class Scheduler:
                                     else:
                                         timeStr = ":" + sec
                                     print(f"Scheduling every second at {timeStr}")
-                                    schedule.every().minute.at(timeStr).do( action.hello )
+                                    schedule.every().minute.at(timeStr).do( run_threaded, action.hello )
                             else:
                                 timeStr = ":" + min
                                 print(f"Scheduling every minute at {timeStr}")
-                                schedule.every().hour.at(timeStr).do( action.hello )
+                                schedule.every().hour.at(timeStr).do( run_threaded, action.hello )
                                 pass
                         else:
                             if min == "*":
@@ -83,7 +91,7 @@ class Scheduler:
                                 secStr = "00"
                             timeStr = hour + ":" + minStr + ":" + secStr
                             print(f"Scheduling every day at {timeStr}")
-                            schedule.every().day.at(timeStr).do(action.hello )
+                            schedule.every().day.at(timeStr).do( run_threaded, action.hello )
                             pass
                     else:
                         pass
