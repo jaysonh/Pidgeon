@@ -1,5 +1,4 @@
 import json
-import schedule
 from crontab import CronTab
 from DeviceHandler import DeviceHandler
 from DeviceOutControl import DeviceOutControl
@@ -7,11 +6,15 @@ from ActionSet import ActionSet
 from ActionRamp import ActionRamp
 from DeviceMQTT import DeviceMQTT
 import threading
-
+from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime
      
 def run_threaded(job_func):
     job_thread = threading.Thread(target=job_func)
     job_thread.start()   
+
+def job():
+    print(f"running job ", str(datetime.now()))
 
 def hello_world( name : str ):
         print(f"hello world {name}")
@@ -28,7 +31,7 @@ class ScheduleAction:
         print(f"setting {self.action.get()} from: {self.deviceID} ")
         
         action.start()
-        while action.isRunning:
+        while action.is_running():
             self.device.outputDevice.sendData( self.action.get() )
        
 class Scheduler:
@@ -36,7 +39,8 @@ class Scheduler:
     scheduleActions = {}    
     def __init__(self, schedule_json : json, devices : DeviceHandler ):
 
-        
+        print("starting scheduler")
+        self.scheduler = BackgroundScheduler()
         for schedule_item in schedule_json:
             id = schedule_item["id"]
             deviceID = schedule_item["deviceID"]
@@ -52,63 +56,31 @@ class Scheduler:
             self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action  )
 
             self.parse_cron( schedule_item["time"], self.scheduleActions[ id ])
-    
+
+        self.scheduler.start()
+
+    def getTimeStr( self, cron_time : str ):
+
+        sec  = cron_time.split(" ")[5]
+        min  = cron_time.split(" ")[4]
+        hour = cron_time.split(" ")[3] 
+        dayMonth = cron_time.split(" ")[2]
+        month = cron_time.split(" ")[2]
+        dayWeek = cron_time.split(" ")[1]
+
+        pass
+
     def parse_cron( self, cron_time : str, action : ScheduleAction ):
         try:
             # all these are numbers represented as strings
-            sec  = cron_time.split(" ")[5]
-            min  = cron_time.split(" ")[4]
-            hour = cron_time.split(" ")[3] 
-            dayMonth = cron_time.split(" ")[2]
-            month = cron_time.split(" ")[2]
-            dayWeek = cron_time.split(" ")[1]
-
-            print(f"adding schedule item for time: {cron_time}")
-            
-            if dayWeek == "*":
-                if month == "*":
-                    if dayMonth == "*": # everyday
-                        if hour == "*":
-                            if min == "*":
-                                if sec == "*":
-                                    pass
-                                else:
-                                    if int(sec) < 10:
-                                        timeStr = ":0" + sec
-                                    else:
-                                        timeStr = ":" + sec
-                                    print(f"Scheduling every second at {timeStr}")
-                                    schedule.every().minute.at(timeStr).do( run_threaded, action.hello )
-                            else:
-                                timeStr = ":" + min
-                                print(f"Scheduling every minute at {timeStr}")
-                                schedule.every().hour.at(timeStr).do( run_threaded, action.hello )
-                                pass
-                        else:
-                            if min == "*":
-                                minStr = "00"
-                            if sec == "*":
-                                secStr = "00"
-                            timeStr = hour + ":" + minStr + ":" + secStr
-                            print(f"Scheduling every day at {timeStr}")
-                            schedule.every().day.at(timeStr).do( run_threaded, action.hello )
-                            pass
-                    else:
-                        pass
-                        #if min == "*":
-                        #    minStr = "00"
-                        #if sec == "*":
-                        #    secStr = "00"
-                        #if hour == "*":
-                        #    hourStr = "00"
-                        #timeStr = hourStr + ":" + minStr + ":" + secStr
-                        #print(f"Scheduling every dayOfMonth at {timeStr}")
-                else:
-                    pass
-            else:
-                 if dayWeek == "0": # monday
-                     pass
-            
+            secCron  = cron_time.split(" ")[5]
+            minCron  = cron_time.split(" ")[4]
+            hourCron = cron_time.split(" ")[3] 
+            dayMonthCron = cron_time.split(" ")[2]
+            monthCron = cron_time.split(" ")[2]
+            dayWeekCron = cron_time.split(" ")[1]
+                         
+            self.scheduler.add_job(job, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
 
         except IndexError:
             print("Error: Invalid cron time format")
