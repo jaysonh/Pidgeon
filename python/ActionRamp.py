@@ -18,16 +18,16 @@ class ActionRamp(Action):
         started = True
         pass
 
-    def get(self) -> int:
-        return 0
+    
     def run(self, device : DeviceOutControl):
         print("run ActionRamp")
 
         t_start = time.time()
         t_end   = t_start + self.timeLength
         
+        # loop over time
         while time.time() < t_end:
-            val = MapData( time.time(), t_start, t_end, self.min, self.max )#self.min + (self.max - self.min) * (time.time() / self.timeLength)
+            val = MapData( time.time(), t_start, t_end, self.min, self.max )
             device.sendData( val )
             time.sleep( self.intervalTime )
 

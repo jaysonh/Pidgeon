@@ -9,8 +9,6 @@ class ActionSet(Action):
         self.v = value
         pass
 
-    def get(self) -> int:
-        return self.v
     def run(self, device : DeviceOutControl):
         print(f"run ActionSet: {self.v}")
         device.sendData( self.v )
