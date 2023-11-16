@@ -5,11 +5,12 @@ from MQTTHandler import MQTTHandler
 
 import schedule
 import time
-
+from AsciiPigeon import drawPigeon
 
 version = "0.0.1"
     
 if __name__ == "__main__":
+    drawPigeon()
     print(f"Pigeon version {version}")
 
     # These files contain the scheduled iteams and the edeviceson which the yacttt

@@ -2,7 +2,7 @@
     "schedule" :[
             {
                 "id" : "s00012",
-                "time" : "* * * * * 1",
+                "time" : "* * * * * 6",
                 "deviceID" : "00000010",
                 "address" : "0",
                 "action" : 
@@ -13,28 +13,17 @@
             },
             
             {
-                "id" : "s00013",
-                "time" : "* * * * * 11",
-                "deviceID" : "00000010",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setData",
-                    "value": 66  
-                }
-            },
-
-            {
                 "id" : "s00014",
-                "time" : "* * * * * 5",
+                "time" : "* * * * * 3",
                 "deviceID" : "00000010",
                 "address" : "0",
                 "action" : 
                 {
                     "type" : "setRamp",
-                    "duration": 20.0,
+                    "duration": 5.0,
                     "start": 0,
-                    "end"  :127 
+                    "end"  :127 ,
+                    "interval": 0.2
                 }
             }
     ]
