@@ -1,6 +1,7 @@
 import json
 from crontab import CronTab
 from DeviceHandler import DeviceHandler
+from SensorHandler import SensorHandler
 from DeviceOutControl import DeviceOutControl
 from ActionSet import ActionSet
 from ActionRamp import ActionRamp
@@ -27,7 +28,7 @@ class ScheduleAction:
 class Scheduler:
     devices = {}        
     scheduleActions = {}    
-    def __init__(self, schedule_json : json, devices : DeviceHandler ):
+    def __init__(self, schedule_json : json, devices : DeviceHandler, sensors : SensorHandler ):
 
         print("starting scheduler")
         self.scheduler = BackgroundScheduler()
@@ -35,15 +36,19 @@ class Scheduler:
             id = schedule_item["id"]
             deviceID = schedule_item["deviceID"]
             
+            action = None
             if schedule_item["action"]["type"] == "setData":
-                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionSet( schedule_item["action"]["value"] )  )
+                action = ActionSet( schedule_item["action"]["value"] )
             elif schedule_item["action"]["type"] == "setRamp":
-                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+                action = ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
             elif schedule_item["action"]["type"] == "setRampTarget":
-                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+                action = ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
             else:
                 print("ERROR invalid action type")
 
+            if action != None:
+                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+            
             self.parse_cron( schedule_item["time"], self.scheduleActions[ id ].hello )
 
         self.scheduler.start()
@@ -56,7 +61,6 @@ class Scheduler:
         dayMonth = cron_time.split(" ")[2]
         month    = cron_time.split(" ")[2]
         dayWeek  = cron_time.split(" ")[1]
-        pass
 
     def parse_cron( self, cron_time : str, action : ScheduleAction ):
         try:
@@ -74,7 +78,3 @@ class Scheduler:
             print("Error: Invalid cron time format")
 
     
-#    "id" : "s00001",
-#               "time" : "0 * * * *",
-#               "deviceID" : "00000001",
-#               "data" : [ 0 ]

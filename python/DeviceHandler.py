@@ -6,7 +6,7 @@ from DeviceOutControl import DeviceOutControl
 class DeviceHandler:
     devices = {}
 
-    def __init__(self, devices_json_out : json, devices_json_in : json ):
+    def __init__(self, devices_json_out : json ):
         
 
         for json_device in devices_json_out:

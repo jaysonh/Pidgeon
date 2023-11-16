@@ -2,6 +2,7 @@ from Configuration import Configuration
 from DeviceHandler import DeviceHandler
 from Scheduler import Scheduler
 from MQTTHandler import MQTTHandler
+from SensorHandler import SensorHandler
 
 import schedule
 import time
@@ -15,17 +16,17 @@ if __name__ == "__main__":
 
     # These files contain the scheduled iteams and the edeviceson which the yacttt
     configFiles = []
-    configFiles.append("../data/config/devicesOut.json")
-    configFiles.append("../data/config/devicesIn.json")
+    configFiles.append("../data/config/devices.json")
+    configFiles.append("../data/config/sensors.json")
     configFiles.append("../data/config/schedule.json")
 
     configuration  = Configuration( configFiles )
     
-    device_handler = DeviceHandler( configuration.get("devicesOut"), 
-                                    configuration.get("devicesIn") )
+    device_handler = DeviceHandler( configuration.get("devices") )
+    sensor_handler = SensorHandler( configuration.get("sensors") )
     
     # initalise scheduler last to ensure other components have been set up
-    scheduler = Scheduler( configuration.get("schedule"), device_handler)
+    scheduler = Scheduler( configuration.get("schedule"), device_handler, sensor_handler )
      
     # main loop
     while True:

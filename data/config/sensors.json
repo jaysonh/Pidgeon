@@ -1,0 +1,15 @@
+{
+    "sensors" :[
+            {
+                "name" : "sensor01",
+                "id"   : "00000004",
+                "type" : "mqtt",
+                "topic" : "/devices/00000004",
+                "broker" :
+                {
+                    "addr" : "localhost",
+                    "port" : 1883
+                }
+            }
+    ]
+}
