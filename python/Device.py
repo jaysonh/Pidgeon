@@ -23,3 +23,7 @@ class Device:
             self.outputDevice = DeviceOSC( json_data  )     
         else:
             raise  Exception(f"Invalid device type: {self.type}")
+    
+    def sendData(self, v : int):
+        self.outputDevice.sendData( v )
+        pass

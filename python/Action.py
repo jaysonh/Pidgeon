@@ -1,4 +1,7 @@
 import json
+from DeviceOutControl import DeviceOutControl
+from DeviceMQTT import DeviceMQTT
+
 
 class Action:
     
@@ -9,5 +12,9 @@ class Action:
         return False
     
     def sendData(self, v : int):
+        pass
+
+    def run(self, device : DeviceOutControl):
+        
         pass
         

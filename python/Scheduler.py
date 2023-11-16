@@ -8,17 +8,7 @@ from DeviceMQTT import DeviceMQTT
 import threading
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-     
-def run_threaded(job_func):
-    job_thread = threading.Thread(target=job_func)
-    job_thread.start()   
-
-def job():
-    print(f"running job ", str(datetime.now()))
-
-def hello_world( name : str ):
-        print(f"hello world {name}")
-        
+             
 class ScheduleAction:
     deviceID = ""
     
@@ -28,11 +18,10 @@ class ScheduleAction:
         self.device = d
 
     def hello(self):
-        print(f"setting {self.action.get()} from: {self.deviceID} ")
-        
-        action.start()
-        while action.is_running():
-            self.device.outputDevice.sendData( self.action.get() )
+        self.time = str(datetime.now())
+        self.action.run( self.device )
+        #print(f"{self.time}setting {self.action.get()} from: {self.deviceID} ")  
+        #self.device.sendData( self.action.get() )      
        
 class Scheduler:
     devices = {}        
@@ -44,30 +33,26 @@ class Scheduler:
         for schedule_item in schedule_json:
             id = schedule_item["id"]
             deviceID = schedule_item["deviceID"]
-            #data = schedule_item["data"]
-
-            # need to find device with id = device
             
             if schedule_item["action"]["type"] == "setData":
-                action = ActionSet( schedule_item["action"]["value"] )
+                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionSet( schedule_item["action"]["value"] )  )
             elif schedule_item["action"]["type"] == "setRamp":
-                action = ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"] )
-            
-            self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action  )
+                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+            else:
+                print("ERROR invalid action type")
 
-            self.parse_cron( schedule_item["time"], self.scheduleActions[ id ])
+            self.parse_cron( schedule_item["time"], self.scheduleActions[ id ].hello )
 
         self.scheduler.start()
 
     def getTimeStr( self, cron_time : str ):
 
-        sec  = cron_time.split(" ")[5]
-        min  = cron_time.split(" ")[4]
-        hour = cron_time.split(" ")[3] 
+        sec      = cron_time.split(" ")[5]
+        min      = cron_time.split(" ")[4]
+        hour     = cron_time.split(" ")[3] 
         dayMonth = cron_time.split(" ")[2]
-        month = cron_time.split(" ")[2]
-        dayWeek = cron_time.split(" ")[1]
-
+        month    = cron_time.split(" ")[2]
+        dayWeek  = cron_time.split(" ")[1]
         pass
 
     def parse_cron( self, cron_time : str, action : ScheduleAction ):
@@ -80,7 +65,7 @@ class Scheduler:
             monthCron = cron_time.split(" ")[2]
             dayWeekCron = cron_time.split(" ")[1]
                          
-            self.scheduler.add_job(job, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
+            self.scheduler.add_job(action, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
 
         except IndexError:
             print("Error: Invalid cron time format")

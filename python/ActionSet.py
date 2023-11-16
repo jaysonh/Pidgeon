@@ -1,4 +1,5 @@
 from Action import Action
+from DeviceOutControl import DeviceOutControl
 
 class ActionSet(Action):
 
@@ -10,3 +11,7 @@ class ActionSet(Action):
 
     def get(self) -> int:
         return self.v
+    def run(self, device : DeviceOutControl):
+        print(f"run ActionSet: {self.v}")
+        device.sendData( self.v )
+        pass
