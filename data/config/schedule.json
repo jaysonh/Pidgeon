@@ -11,16 +11,27 @@
                     "value": 66  
                 }
             },
-            
             {
-                "id" : "s00014",
-                "time" : "* * * * * 3",
+                "id" : "s00013",
+                "time" : "* * * * * 1",
                 "deviceID" : "00000010",
                 "address" : "0",
                 "action" : 
                 {
+                    "type" : "setData",
+                    "value": 99  
+                }
+            },
+            
+            {
+                "id" : "s00014",
+                "time" : "* * * * * 3",
+                "deviceID" : "00000020",
+                "address" : "0",
+                "action" : 
+                {
                     "type" : "setRamp",
-                    "duration": 5.0,
+                    "duration": 2.0,
                     "start": 0,
                     "end"  :127 ,
                     "interval": 0.2

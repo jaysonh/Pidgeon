@@ -18,7 +18,6 @@ if __name__ == "__main__":
     configFiles.append("../data/config/devicesOut.json")
     configFiles.append("../data/config/devicesIn.json")
     configFiles.append("../data/config/schedule.json")
-    configFiles.append("../data/config/mqtt_broker.json")
 
     configuration  = Configuration( configFiles )
     

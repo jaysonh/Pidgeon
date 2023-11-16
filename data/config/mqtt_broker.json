@@ -1,8 +1,0 @@
-{
-    "broker" :[
-            {
-                "broker_addr" : "localhost",
-                "broker_port"   : 1883
-            }
-    ]
-}

@@ -1,6 +1,7 @@
 import time
 from Action import Action
 from DeviceOutControl import DeviceOutControl
+from MathHelper import *
 
 class ActionRamp(Action):
     v = 0
@@ -22,10 +23,14 @@ class ActionRamp(Action):
     def run(self, device : DeviceOutControl):
         print("run ActionRamp")
 
-        t_end = time.time() + self.timeLength
+        t_start = time.time()
+        t_end   = t_start + self.timeLength
+        
         while time.time() < t_end:
-            print(f"ActionRamp setting: {self.max} at {time.time()}")
-            device.sendData( self.max )
+            val = MapData( time.time(), t_start, t_end, self.min, self.max )#self.min + (self.max - self.min) * (time.time() / self.timeLength)
+            device.sendData( val )
             time.sleep( self.intervalTime )
+
+        device.sendData( self.max )
         print("finished ramp")
         pass

@@ -7,6 +7,7 @@
                 "numChannels" : 1,
                 "range" : { "min": 0, "max": 100 }
             },
+
             {
                 "name" : "Rebble0",
                 "id"   : "00000002",
@@ -14,6 +15,7 @@
                 "numChannels" : 1,
                 "range" : { "min": 0, "max": 100 }
             },
+
             {
                 "name" : "RGB1",
                 "id"   : "00000003",
@@ -21,6 +23,7 @@
                 "numChannels" : 4,
                 "range" : { "min": 0, "max": 255 }
             },
+            
             {
                 "name" : "MQTT1",
                 "id"   : "00000010",
@@ -45,13 +48,14 @@
                 }
             },
             {
+                "type" : "osc",
                 "name" : "OSC1",
                 "id"   : "00000020",
-                "type" : "osc",
+                "port" : 5005,
                 "numChannels" : 1,
                 "range" : { "min": 0, "max": 255 },
                 "host":"127.0.0.1",
-                "address":"/oscData"
+                "address":"/filter"
             }
     ]
 }
