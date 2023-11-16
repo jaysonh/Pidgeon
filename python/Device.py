@@ -6,6 +6,8 @@ from DeviceOSC import DeviceOSC
 
 class Device:
     
+    value = 0
+
     def __init__(self, json_data : json ):
         
         self.id = json_data["id"]
@@ -27,3 +29,6 @@ class Device:
     def sendData(self, v : int):
         self.outputDevice.sendData( v )
         pass
+
+    def getValue(self) -> int:
+        return self.outputDevice.getValue()

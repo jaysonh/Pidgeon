@@ -4,6 +4,7 @@ from DeviceHandler import DeviceHandler
 from DeviceOutControl import DeviceOutControl
 from ActionSet import ActionSet
 from ActionRamp import ActionRamp
+from ActionRampTarget import *
 from DeviceMQTT import DeviceMQTT
 import threading
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -38,6 +39,8 @@ class Scheduler:
                 self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionSet( schedule_item["action"]["value"] )  )
             elif schedule_item["action"]["type"] == "setRamp":
                 self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+            elif schedule_item["action"]["type"] == "setRampTarget":
+                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
             else:
                 print("ERROR invalid action type")
 

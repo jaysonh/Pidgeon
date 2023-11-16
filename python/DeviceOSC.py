@@ -19,5 +19,6 @@ class DeviceOSC(DeviceOutControl):
 
     def sendData(self, v : int):
         print(f"sendData OSC: {v}")
+        self.value = v
         self.client.send_message(self.addr, v)
         pass

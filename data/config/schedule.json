@@ -2,7 +2,7 @@
     "schedule" :[
             {
                 "id" : "s00012",
-                "time" : "* * * * * 6",
+                "time" : "* * * * * 0",
                 "deviceID" : "00000010",
                 "address" : "0",
                 "action" : 
@@ -26,14 +26,13 @@
             {
                 "id" : "s00014",
                 "time" : "* * * * * 3",
-                "deviceID" : "00000020",
+                "deviceID" : "00000010",
                 "address" : "0",
                 "action" : 
                 {
-                    "type" : "setRamp",
+                    "type" : "setRampTarget",
                     "duration": 2.0,
-                    "start": 0,
-                    "end"  :127 ,
+                    "target": 255,
                     "interval": 0.2
                 }
             }
