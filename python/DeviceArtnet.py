@@ -25,7 +25,7 @@ class DeviceArtnet(DeviceOutControl):
         
         pass
 
-    def sendData(self, v : int):
+    def sendData(self, v : float):
         print(f"sendData Artnet: {v}")
         self.value = v
         # need to implement this

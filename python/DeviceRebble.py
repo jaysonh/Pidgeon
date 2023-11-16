@@ -5,7 +5,7 @@ class DeviceRebble(DeviceOutControl):
     def __init__(self, json_data : json    ):
         super().__init__( json_data)
 
-    def sendData(self, v : int):
+    def sendData(self, v : float ):
         print(f"sendData Rebble: {v}")
         self.value = v
         pass

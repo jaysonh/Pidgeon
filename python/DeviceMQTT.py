@@ -13,7 +13,7 @@ class DeviceMQTT(DeviceOutControl):
         self.topic = json_data["topic"]
         pass
 
-    def sendData(self, v : int):
+    def sendData(self, v : float):
         self.value = v
         print(f"sendData MQTT: {v}")
         self.mqtt.send_msg( self.topic, str(v) )
