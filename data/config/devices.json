@@ -46,6 +46,17 @@
                     "addr" : "localhost",
                     "port"   : 1883
                 }
+            },{
+                "name" : "KKControl1",
+                "id"   : "00000012",
+                "type" : "kkc",
+                "numChannels" : 4,
+                "range" : { "min": 0, "max": 255 },
+                "topic" : "/zqwlGE104M_01/getData",
+                "broker":{
+                    "addr" : "localhost",
+                    "port"   : 1883
+                }
             },
             {
                 "type" : "osc",

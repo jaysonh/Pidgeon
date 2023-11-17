@@ -6,10 +6,18 @@ class ActionSet(Action):
     v = 0
     
     def __init__(self, value : int) -> None:
-        self.v = value
+        self.data = value
         pass
 
+    def __init__(self, data = []) -> None:
+    	self.data = data
+    	pass
+
     def run(self, device : DeviceOutControl):
-        print(f"run ActionSet: {self.v}")
-        device.sendData( self.v )
+        print(f"run ActionSet: {self.data}")
+        if type(self.data) is list:
+            device.sendData(self.data )
+        else:
+        	device.sendData([ self.data] )
+
         pass

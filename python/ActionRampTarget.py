@@ -18,7 +18,7 @@ class ActionRampTarget(Action):
         started = True
         pass
 
-    
+    # not working...
     def run(self, device : DeviceOutControl ):
         print("run ActionRampTarget")
 
@@ -30,9 +30,9 @@ class ActionRampTarget(Action):
         # loop over time
         while time.time() < t_end:
             val = MapData( time.time(), t_start, t_end, self.min, self.max )
-            device.sendData( val )
+            device.sendData([ val ])
             time.sleep( self.intervalTime )
 
-        device.sendData( self.max )
+        device.sendData( [self.max] )
         print("Finished RampTarget")
         pass

@@ -1,8 +1,9 @@
 import json
 from DeviceDMX import DeviceDMX
 from DeviceRebble import DeviceRebble
-from DeviceMQTT import DeviceMQTT
-from DeviceOSC import DeviceOSC
+from DeviceMQTT import *
+from DeviceOSC import *
+from DeviceKKC import *
 
 class Device:
     
@@ -22,11 +23,16 @@ class Device:
         elif( self.type == "mqtt"):
             self.outputDevice = DeviceMQTT( json_data  )   
         elif( self.type == "osc"):
-            self.outputDevice = DeviceOSC( json_data  )     
+            self.outputDevice = DeviceOSC( json_data  )  
+        elif( self.type == "kkc"):
+            self.outputDevice = DeviceKKC( json_data  )      
         else:
             raise  Exception(f"Invalid device type: {self.type}")
     
-    def sendData(self, v : int):
+    def sendData(self, data = [] ):
+        #self.outputDevice.sendData( data )
+        pass
+    def sendData(self, v : float):
         self.outputDevice.sendData( v )
         pass
 

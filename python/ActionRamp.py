@@ -28,9 +28,9 @@ class ActionRamp(Action):
         # loop over time
         while time.time() < t_end:
             val = MapData( time.time(), t_start, t_end, self.min, self.max )
-            device.sendData( val )
+            device.sendData( [val] )
             time.sleep( self.intervalTime )
 
-        device.sendData( self.max )
+        device.sendData(  [self.max  ])
         print("finished ramp")
         pass
