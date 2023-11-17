@@ -1,5 +1,4 @@
 import json
-from crontab import CronTab
 from DeviceHandler import DeviceHandler
 from SensorHandler import SensorHandler
 from DeviceOutControl import DeviceOutControl

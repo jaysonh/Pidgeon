@@ -4,7 +4,6 @@ from Scheduler import Scheduler
 from MQTTHandler import MQTTHandler
 from SensorHandler import SensorHandler
 
-import schedule
 import time
 from AsciiPigeon import drawPigeon
 
@@ -30,7 +29,6 @@ if __name__ == "__main__":
      
     # main loop
     while True:
-        schedule.run_pending()
         time.sleep(1)
     
     print("Finished ")
