@@ -23,33 +23,7 @@
                 }
             },
             
-            {
-                "id" : "s00014",
-                "time" : "* * * * * 3",
-                "deviceID" : "00000010",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setRampTarget",
-                    "duration": 2.0,
-                    "target": 255,
-                    "interval": 0.2
-                }
-            },
-	        {
-                "id" : "s00013",
-                "time" : "* * * * * 22",
-                "deviceID" : "00000012",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setRamp",
-                    "duration": 2.0,
-                    "start": 0,
-                    "end": 15,
-                    "interval": 0.2
-                }
-            },
+            
             {
                 "id" : "s00013",
                 "time" : "* * * * * 27",
@@ -59,6 +33,30 @@
                 {
                     "type" : "setData",
                     "value": [ 0, 0, 0, 0 ]  
+                }
+            },
+            {
+                "id" : "s00013",
+                "time" : "* * * * * 30",
+                "deviceID" : "00000012",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": [ 125, 54, 22, 233 ]  
+                }
+            },
+            {
+                "id" : "s00014",
+                "time" : "* * * * * 33",
+                "deviceID" : "00000012",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setRampTarget",
+                    "duration": 2.0,
+                    "target": [100, 100, 100,100],
+                    "interval": 0.2
                 }
             }
     ]

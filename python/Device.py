@@ -30,11 +30,11 @@ class Device:
             raise  Exception(f"Invalid device type: {self.type}")
     
     def sendData(self, data = [] ):
-        #self.outputDevice.sendData( data )
+        self.outputDevice.sendData( data )
         pass
-    def sendData(self, v : float):
-        self.outputDevice.sendData( v )
-        pass
+    #def sendData(self, v : float):
+    #    self.outputDevice.sendData( [v] )
+    #    pass
 
     def getValue(self) -> int:
         return self.outputDevice.getValue()

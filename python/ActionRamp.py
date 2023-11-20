@@ -21,7 +21,12 @@ class ActionRamp(Action):
         started = True
         pass
 
-    
+    #def sendDataArr( self, data : []):
+    #    for i in range(0, len(data) ):
+    #        vals.append( MapData( time.time(), t_start, t_end, self.start[i], self.end[i] ) )
+    #    device.sendData( vals )
+    #    pass
+
     def run(self, device : DeviceOutControl):
         print("run ActionRamp")
 
@@ -36,8 +41,5 @@ class ActionRamp(Action):
             device.sendData( vals )
             time.sleep( self.intervalTime )
 
-        vals = []
-        for i in range(0, self.numVals):
-            vals.append(self.end[i])
-        device.sendData( vals )
+        device.sendData( self.end[i] )
         pass

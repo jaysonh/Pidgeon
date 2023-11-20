@@ -7,6 +7,6 @@ class DeviceDMX(DeviceOutControl):
         super().__init__( json_data )
         pass
 
-    def sendData(self, v : float):
-        self.value = v
+    def sendData(self, v : []):
+        self.value = v[0]
         pass

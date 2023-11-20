@@ -9,9 +9,15 @@ class ActionRampTarget(Action):
     started = False
 
     def __init__(self, target : [], timeLength : float, intervalTime : float) -> None:
-        self.target = target
+
         self.timeLength = timeLength
         self.intervalTime = intervalTime
+
+        if type(target)  != list:
+            v = target
+            self.target = [ v ]
+        else:
+            self.target = target
         self.numVals = len(self.target) 
 
         pass
@@ -31,22 +37,13 @@ class ActionRampTarget(Action):
 
         while time.time() < t_end:
             vals = []
+            
+            print(f"self.numVals: {self.numVals}, startVals: {startVals} self.target: {self.target}")
             for i in range(0, self.numVals):
                 vals.append( MapData( time.time(), t_start, t_end, startVals[i], self.target[i] ) )
             device.sendData( vals )
+
             time.sleep( self.intervalTime )
 
-        vals = []
-        for i in range(0, self.numVals):
-            vals.append( self.target[i] )
-        device.sendData( vals )
-
-        #self.min = device.getValue()
-        #self.max = self.target
-        #while time.time() < t_end:
-        #    val = MapData( time.time(), t_start, t_end, self.min, self.max )
-        #    device.sendData([ val ])
-        #    time.sleep( self.intervalTime )
-        #device.sendData( [self.max] )
-        #print("Finished RampTarget")
+        device.sendData( self.target )      
         pass
