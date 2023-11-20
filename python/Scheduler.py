@@ -18,7 +18,7 @@ class ScheduleAction:
         self.action = a
         self.device = d
 
-    def hello(self):
+    def run(self):
         self.time = str(datetime.now())
         self.action.run( self.device )
         #print(f"{self.time}setting {self.action.get()} from: {self.deviceID} ")  
@@ -48,7 +48,7 @@ class Scheduler:
             if action != None:
                 self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
             
-            self.parse_cron( schedule_item["time"], self.scheduleActions[ id ].hello )
+            self.parse_cron( schedule_item["time"], self.scheduleActions[ id ].run )
 
         self.scheduler.start()
 
