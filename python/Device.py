@@ -38,3 +38,6 @@ class Device:
 
     def getValue(self) -> int:
         return self.outputDevice.getValue()
+    
+    def getValues(self) -> []:
+        return self.outputDevice.getValues()

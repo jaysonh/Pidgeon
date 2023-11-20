@@ -15,6 +15,7 @@ class DeviceKKC(DeviceOutControl):
 
     def sendData(self, data = []):
         
+        self.vals = data
         print("data: ", data)
         idata = []
         for x in data:

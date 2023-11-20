@@ -11,11 +11,15 @@ class DeviceOutControl:
         pass
 
     def sendData(self, data = [] ):
+        self.vals = data
         pass
 
     def sendData(self, v : json ):
         pass
 
+    def getValues(self) -> []:
+        return self.vals
+    
     def getValue(self) -> int:
         return self.value
         

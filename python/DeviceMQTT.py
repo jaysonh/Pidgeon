@@ -14,7 +14,12 @@ class DeviceMQTT(DeviceOutControl):
         pass
 
     def sendData(self, v = [] ):
-        self.value = v[0]
-        print(f"sendData MQTT: {self.value}")
-        self.mqtt.send_msg( self.topic, str(self.value) )
+        self.vals = v
+
+        if len(self.vals) == 1:
+            print(f"sendData MQTT: {self.vals[0]}")
+            self.mqtt.send_msg( self.topic, str(self.vals[0]) )
+        else:
+            print(f"sendData MQTT: {self.vals}")
+            self.mqtt.send_msg( self.topic, str(self.vals) )
         pass
