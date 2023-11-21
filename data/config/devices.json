@@ -16,13 +16,6 @@
                 "range" : { "min": 0, "max": 100 }
             },
 
-            {
-                "name" : "RGB1",
-                "id"   : "00000003",
-                "type" : "dmx",
-                "numChannels" : 4,
-                "range" : { "min": 0, "max": 255 }
-            },
             
             {
                 "name" : "MQTT1",
@@ -67,6 +60,15 @@
                 "range" : { "min": 0, "max": 255 },
                 "host":"127.0.0.1",
                 "address":"/filter"
+            },
+            {
+                "type" : "dmxftdi",
+                "name" : "DMXFTDI0",
+                "id"   : "00000030",
+                "numChannels" : 255,
+                "range" : { "min": 0, "max": 255 },
+                "host":"FT232R"
             }
+
     ]
 }

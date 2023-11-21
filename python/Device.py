@@ -1,5 +1,5 @@
 import json
-from DeviceDMX import DeviceDMX
+from DeviceDMXFTDI import DeviceDMXFTDI
 from DeviceRebble import DeviceRebble
 from DeviceMQTT import *
 from DeviceOSC import *
@@ -16,8 +16,8 @@ class Device:
         self.numChannels = json_data["numChannels"]
         self.type = json_data["type"]
 
-        if( self.type == "dmx"):
-            self.outputDevice = DeviceDMX(json_data  )
+        if( self.type == "dmxftdi"):
+            self.outputDevice = DeviceDMXFTDI(json_data  )
         elif( self.type == "rebble"):
             self.outputDevice = DeviceRebble( json_data  )
         elif( self.type == "mqtt"):

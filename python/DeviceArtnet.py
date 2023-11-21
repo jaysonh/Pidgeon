@@ -12,22 +12,26 @@ class DeviceArtnet(DeviceOutControl):
 
         print(f"creating device ArtNet at {self.host}, {self.port}")    
         self.node = ArtNetNode( self.host, self.port )   
+        await self.node.start()
         self.universe = self.node.add_universe(0) 
 
         self.universe.add_channel(start=0, width=255, channel_name='Dimmer1')
 
         # access is then by name
-        self.channel = universe['Dimmer1']
-        self.channel = universe.get_channel('Dimmer1')
+        self.channel = self.universe['Dimmer1']
+        self.channel = self.universe.get_channel('Dimmer1')
         
 
-        self.client = udp_client.SimpleUDPClient(self.host, self.port)
+        #self.client = udp_client.SimpleUDPClient(self.host, self.port)
         
         pass
 
     def sendData(self, v : float):
         print(f"sendData Artnet: {v}")
         self.value = v
-        # need to implement this
-        #self.channel.set
+        channel.add_fade([255,0,0], 5000)
+
+        # this can be used to wait till the fade is complete
+        await channel.wait_till_fade_complete()
+
         pass
