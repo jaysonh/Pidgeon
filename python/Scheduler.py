@@ -35,15 +35,6 @@ class Scheduler:
             id = schedule_item["id"]
             deviceID = schedule_item["deviceID"]
             
-            action = None
-            #if schedule_item["action"]["type"] == "setData":
-            #    action = ActionSet( schedule_item["action"]["value"] )
-            #elif schedule_item["action"]["type"] == "setRamp":
-            #    action = ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
-            #elif schedule_item["action"]["type"] == "setRampTarget":
-            #    action = ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
-            #else:
-            #    print("ERROR invalid action type")
             if schedule_item["action"]["type"] == "setData":
                 action = ActionSet( schedule_item["action"] )
             elif schedule_item["action"]["type"] == "setRamp":
@@ -51,6 +42,7 @@ class Scheduler:
             elif schedule_item["action"]["type"] == "setRampTarget":
                 action = ActionRampTarget( schedule_item["action"] )
             else:
+                action = None
                 print("ERROR invalid action type")
             if action != None:
                 self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
@@ -58,15 +50,6 @@ class Scheduler:
             self.parse_cron( schedule_item["time"], self.scheduleActions[ id ].run )
 
         self.scheduler.start()
-
-    def getTimeStr( self, cron_time : str ):
-
-        sec      = cron_time.split(" ")[5]
-        min      = cron_time.split(" ")[4]
-        hour     = cron_time.split(" ")[3] 
-        dayMonth = cron_time.split(" ")[2]
-        month    = cron_time.split(" ")[2]
-        dayWeek  = cron_time.split(" ")[1]
 
     def parse_cron( self, cron_time : str, action : ScheduleAction ):
         try:

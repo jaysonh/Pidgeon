@@ -10,10 +10,6 @@ class ActionSet(Action):
         self.data = json_data["value"]
         pass
 
-    #def __init__(self, data = []) -> None:
-    #    self.data = data
-    #    pass
-
     def run(self, device : DeviceOutControl):
         print(f"run ActionSet: {self.data}")
         if type(self.data) is list:
