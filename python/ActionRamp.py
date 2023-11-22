@@ -1,4 +1,5 @@
 import time
+import json
 from Action import Action
 from DeviceOutControl import DeviceOutControl
 from MathHelper import *
@@ -7,11 +8,11 @@ class ActionRamp(Action):
     v = 0
     started = False
 
-    def __init__(self, start : [], end : [], timeLength : float, intervalTime : float ) -> None:
-        self.start = start
-        self.end = end
-        self.timeLength = timeLength
-        self.intervalTime = intervalTime
+    def __init__(self, json_data : json ) -> None:
+        self.start = json_data["start"]
+        self.end = json_data["end"]
+        self.timeLength = json_data["timeLength"]
+        self.intervalTime =json_data[" intervalTime"]
         if len(self.start) != len(self.end):
             raise Exception("start and end arrays must be the same length")
         self.numVals = len(self.start) 

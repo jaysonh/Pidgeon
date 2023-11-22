@@ -1,4 +1,5 @@
 import time
+import json
 from Action import Action
 from DeviceOutControl import DeviceOutControl
 from MathHelper import *
@@ -8,10 +9,12 @@ class ActionRampTarget(Action):
     v = 0
     started = False
 
-    def __init__(self, target : [], timeLength : float, intervalTime : float) -> None:
+    def __init__(self, json_data : json) -> None:
 
-        self.timeLength = timeLength
-        self.intervalTime = intervalTime
+        self.duration = json_data["duration"]
+        self.interval = json_data["interval"]
+
+        target = json_data["target"]
 
         if type(target)  != list:
             v = target
@@ -31,7 +34,7 @@ class ActionRampTarget(Action):
         print("run ActionRampTarget")
 
         t_start = time.time()
-        t_end   = t_start + self.timeLength
+        t_end   = t_start + self.duration
         
         startVals = device.getValues()
 
@@ -43,7 +46,7 @@ class ActionRampTarget(Action):
                 vals.append( MapData( time.time(), t_start, t_end, startVals[i], self.target[i] ) )
             device.sendData( vals )
 
-            time.sleep( self.intervalTime )
+            time.sleep( self.interval )
 
         device.sendData( self.target )      
         pass

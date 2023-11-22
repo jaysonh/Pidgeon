@@ -15,6 +15,9 @@ class SensorMQTT(SensorControl):
         
         pass
 
+    def getData(self) ->float :
+        pass
+    
     def sendData(self, v : float):
         self.value = v
         print(f"sendData MQTT: {v}")

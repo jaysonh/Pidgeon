@@ -11,8 +11,6 @@ class DeviceCommandLine(DeviceOutControl):
         pass
 
     def sendData(self, v : []):
-        print(f"running subprocess.command: {self.command[0]} ")
-        subprocess.run([self.command[0]], shell=True, check=True) 
-        self.value = v[0]
+        print(f"running subprocess.command: {self.command} ")
+        subprocess.run(self.command, shell=True, check=True) 
         
-        pass

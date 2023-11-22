@@ -36,15 +36,22 @@ class Scheduler:
             deviceID = schedule_item["deviceID"]
             
             action = None
+            #if schedule_item["action"]["type"] == "setData":
+            #    action = ActionSet( schedule_item["action"]["value"] )
+            #elif schedule_item["action"]["type"] == "setRamp":
+            #    action = ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
+            #elif schedule_item["action"]["type"] == "setRampTarget":
+            #    action = ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
+            #else:
+            #    print("ERROR invalid action type")
             if schedule_item["action"]["type"] == "setData":
-                action = ActionSet( schedule_item["action"]["value"] )
+                action = ActionSet( schedule_item["action"] )
             elif schedule_item["action"]["type"] == "setRamp":
-                action = ActionRamp( schedule_item["action"]["start"], schedule_item["action"]["end"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
+                action = ActionRamp( schedule_item["action"] )
             elif schedule_item["action"]["type"] == "setRampTarget":
-                action = ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )
+                action = ActionRampTarget( schedule_item["action"] )
             else:
                 print("ERROR invalid action type")
-
             if action != None:
                 self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
             

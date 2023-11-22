@@ -12,7 +12,7 @@
                 "name" : "CustomScript1",
                 "id"   : "00000002",
                 "type" : "command_line",
-                "command" : "dir",
+                "command" : "dir ..",
                 "numChannels" : 1,
                 "range" : { "min": 0, "max": 100 }
             },
