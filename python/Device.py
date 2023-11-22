@@ -4,6 +4,7 @@ from DeviceRebble import DeviceRebble
 from DeviceMQTT import *
 from DeviceOSC import *
 from DeviceKKC import *
+from DeviceCommandLine import *
 
 class Device:
     
@@ -25,7 +26,9 @@ class Device:
         elif( self.type == "osc"):
             self.outputDevice = DeviceOSC( json_data  )  
         elif( self.type == "kkc"):
-            self.outputDevice = DeviceKKC( json_data  )      
+            self.outputDevice = DeviceKKC( json_data  )   
+        elif( self.type == "command_line"):
+            self.outputDevice = DeviceCommandLine( json_data )   
         else:
             raise  Exception(f"Invalid device type: {self.type}")
     

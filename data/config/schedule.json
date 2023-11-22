@@ -58,6 +58,19 @@
                     "target": [100, 100, 100,100],
                     "interval": 0.2
                 }
+            },
+            
+            
+            {
+                "id" : "s000172",
+                "time" : "* * * * * 50",
+                "deviceID" : "00000002",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 66  
+                }
             }
     ]
 }

@@ -9,9 +9,10 @@
             },
 
             {
-                "name" : "Rebble0",
+                "name" : "CustomScript1",
                 "id"   : "00000002",
-                "type" : "rebble",
+                "type" : "command_line",
+                "command" : "dir",
                 "numChannels" : 1,
                 "range" : { "min": 0, "max": 100 }
             },
@@ -60,14 +61,6 @@
                 "range" : { "min": 0, "max": 255 },
                 "host":"127.0.0.1",
                 "address":"/filter"
-            },
-            {
-                "type" : "dmxftdi",
-                "name" : "DMXFTDI0",
-                "id"   : "00000030",
-                "numChannels" : 255,
-                "range" : { "min": 0, "max": 255 },
-                "host":"FT232R"
             }
 
     ]
