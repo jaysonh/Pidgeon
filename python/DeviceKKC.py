@@ -9,8 +9,11 @@ class DeviceKKC(DeviceOutControl):
     def __init__(self, json_data : json):
         super().__init__( json_data )
         print("creating device MQTT")
-        self.mqtt = MQTTHandler( json_data["broker"] )
+        
+        m = MQTTHandler.getInstance()
         self.topic = json_data["topic"]
+        self.mqtt = m.add_broker( json_data["broker"]  )
+
         pass   
 
     def sendData(self, data = []):
@@ -28,3 +31,6 @@ class DeviceKKC(DeviceOutControl):
 
         self.mqtt.send_msg( self.topic, byte_arr )
         pass
+    
+    def getValues(self):
+        return self.vals

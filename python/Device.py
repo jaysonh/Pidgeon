@@ -1,4 +1,5 @@
 import json
+from MQTTHandler import *
 from DeviceDMXFTDI import DeviceDMXFTDI
 from DeviceRebble import DeviceRebble
 from DeviceMQTT import *
@@ -22,7 +23,7 @@ class Device:
         elif( self.type == "rebble"):
             self.outputDevice = DeviceRebble( json_data  )
         elif( self.type == "mqtt"):
-            self.outputDevice = DeviceMQTT( json_data  )   
+            self.outputDevice = DeviceMQTT( json_data )   
         elif( self.type == "osc"):
             self.outputDevice = DeviceOSC( json_data  )  
         elif( self.type == "kkc"):
