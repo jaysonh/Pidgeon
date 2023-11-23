@@ -15,9 +15,9 @@ if __name__ == "__main__":
 
     # These files contain the scheduled iteams and the edeviceson which the yacttt
     configFiles = []
-    configFiles.append("../data/config/devices.json")
-    configFiles.append("../data/config/sensors.json")
-    configFiles.append("../data/config/schedule.json")
+    configFiles.append("data/config/devices.json")
+    configFiles.append("data/config/sensors.json")
+    configFiles.append("data/config/schedule.json")
 
     configuration  = Configuration( configFiles )
     
