@@ -1,0 +1,5 @@
+APScheduler==3.10.4
+paho_mqtt==1.6.1
+pyartnet==1.0.1
+PyDMX==0.1.0
+python_osc==1.8.3
