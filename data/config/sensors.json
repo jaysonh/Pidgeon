@@ -4,8 +4,8 @@
                 "name" : "sensor01",
                 "id"   : "00000004",
                 "type" : "mqtt",
-                "requestTop" : "/devices/00000004/request",
-                "receiveTop" : "/devices/00000004/receive",
+                "requestTopic" : "/devices/00000004/request",
+                "receiveTopic" : "/devices/00000004/receive",
                 "broker" :
                 {
                     "addr" : "localhost",

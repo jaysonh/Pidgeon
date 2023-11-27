@@ -1,0 +1,10 @@
+{
+    "logic" :[
+            {
+                "name" : "tempControl",
+                "id"   : "log0001",
+                "input" : "mqtt",
+                "output" : "mqtt"
+            }
+    ]
+}

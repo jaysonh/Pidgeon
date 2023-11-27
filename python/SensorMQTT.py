@@ -11,8 +11,8 @@ class SensorMQTT(SensorControl):
         
         m = MQTTHandler.getInstance()
         self.mqtt = m.add_broker( json_data["broker"]  )
-        self.request_topic = json_data["requestTop"]
-        self.receive_topic = json_data["receiveTop"]
+        self.request_topic = json_data["requestTopic"]
+        self.receive_topic = json_data["receiveTopic"]
         self.mqtt.subscribe(self.receive_topic)
         self.mqtt.broker.on_message = self.on_message
         pass
