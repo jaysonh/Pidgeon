@@ -9,5 +9,7 @@ class Sensor:
         self.type = json_data["type"]
         if( self.type == "mqtt"):
             self.device = SensorMQTT(json_data  )
-
+        else:
+            print("Error invalid sensor type")
         pass
+                                                                                                                     

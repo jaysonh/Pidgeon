@@ -71,6 +71,35 @@
                     "type" : "setData",
                     "value": 66  
                 }
+            },
+
+
+            {
+                "id" : "s00014533",
+                "time" : "* * * * * 50",
+                "deviceID" : "00000020",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": [ 11, 22, 33, 44 ]  
+                }
+            },
+
+
+            {
+                "id" : "s00014533",
+                "time" : "* * * * * 55",
+                "deviceID" : "00000020",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setRamp",
+                    "duration": 2.0,
+                    "start": [10, 30, 50,60],
+                    "end": [100, 100, 100,100],
+                    "interval": 0.2 
+                }
             }
     ]
 }

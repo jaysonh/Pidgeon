@@ -10,6 +10,6 @@ class SensorHandler:
         for json_device in json_data:
             key = json_device["id"]
             self.sensors[key] = Sensor(json_device)
-            print(f"adding sensor {key}: {self.sensors[key]}")
+            print(f"added sensor {key}: {self.sensors[key]}")
         pass
 

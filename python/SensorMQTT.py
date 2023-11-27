@@ -7,19 +7,28 @@ class SensorMQTT(SensorControl):
     
     def __init__(self, json_data : json):
         super().__init__( json_data )
-        print("creating device MQTT")
+        print("creating sensor MQTT")
         
         m = MQTTHandler.getInstance()
         self.mqtt = m.add_broker( json_data["broker"]  )
-        self.topic = json_data["topic"]
-        
+        self.request_topic = json_data["requestTop"]
+        self.receive_topic = json_data["receiveTop"]
+        self.mqtt.subscribe(self.receive_topic)
+        self.mqtt.broker.on_message = self.on_message
         pass
+
+    def update(self):
+        self.mqtt.send_msg( self.request_topic, "")
+        pass
+
+    def on_message(client, userdata, msg):
+        print(f"Message received [{msg.topic}]: {msg.payload}")
 
     def getData(self) ->float :
         pass
     
     def sendData(self, v : float):
         self.value = v
-        print(f"sendData MQTT: {v}")
-        self.mqtt.send_msg( self.topic, str(v) )
+        #print(f"sendData MQTT: {v}")
+        #self.mqtt.send_msg( self.topic, str(v) )
         pass

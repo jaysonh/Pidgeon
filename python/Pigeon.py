@@ -13,8 +13,6 @@ if __name__ == "__main__":
     drawPigeon()
     print(f"Pigeon version {version}")
 
-    print("current dir: ", os.getcwd())
-
     configPath = os.getcwd() + "/../data/config"
 
     # These files contain the scheduled iteams and the edeviceson which the yacttt
@@ -35,5 +33,5 @@ if __name__ == "__main__":
     while True:
         time.sleep(1)
     
-    print("Finished ")
+    print("Exiting application") 
    

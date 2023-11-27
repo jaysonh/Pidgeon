@@ -15,24 +15,24 @@ class DeviceOSC(DeviceOutControl):
 
         print(f"creating device OSC at {self.host}, {self.port}")        
 
-        self.client = udp_client.SimpleUDPClient(self.host, self.port)
+        self.client =   udp_client.SimpleUDPClient(self.host, self.port)
         
         pass
 
     def sendData(self, data : []):
-        #print(f"sendData OSC: {v}")
-        #self.value = v[0]
-        #self.client.send_message(self.addr, v[0])
-
-        # send a bundle of data
-        bundle = osc_bundle_builder.OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
-        msg = osc_message_builder.OscMessageBuilder(address=self.addr)
-
-        for i in range(0,len(data)):
-            msg.add_arg( data[i] )
-            bundle.add_content(msg.build())
+       
+        print(f"osc sending data: {data}")
+        self.client.send_message(self.addr, data)  
         
-        bundle = bundle.build()
-        self.client.send_message( bundle )
+        # send a bundle of data
+        #bundle = osc_bundle_builder.OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
+        #msg = osc_message_builder.OscMessageBuilder(address=self.addr)
+        #for i in range(0,len(data)):
+        #    print(f"OSC: adding data to bundle: {data[i]}")
+        #    msg.add_arg( data[i] )
+        #bundle.add_content(msg.build())
+        #
+        #bundle = bundle.build()
+        #self.client.send_message(self.addr, bundle )
 
         pass

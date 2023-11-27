@@ -10,8 +10,8 @@ class ActionRamp(Action):
     def __init__(self, json_data : json ) -> None:
         self.start = json_data["start"]
         self.end = json_data["end"]
-        self.timeLength = json_data["timeLength"]
-        self.intervalTime =json_data[" intervalTime"]
+        self.duration = json_data["duration"]
+        self.intervalTime =json_data["interval"]
         if len(self.start) != len(self.end):
             raise Exception("start and end arrays must be the same length")
         self.numVals = len(self.start) 
@@ -20,7 +20,7 @@ class ActionRamp(Action):
         print("run ActionRamp")
 
         t_start = time.time()
-        t_end   = t_start + self.timeLength
+        t_end   = t_start + self.duration
         
         # loop over time
         while time.time() < t_end:            
