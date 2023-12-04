@@ -1,0 +1,14 @@
+{
+    "userinterface" :[
+            {
+                "title" : "Pigeon Scheduler",
+                "width"   : 600,
+                "height" : 400,
+                "tabs" :[
+                    {"title" : "Devices"},
+                    {"title" : "Sensors"},
+                    {"title" : "Schedule"}
+                ]
+            }
+    ]
+}
