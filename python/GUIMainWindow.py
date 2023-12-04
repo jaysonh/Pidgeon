@@ -37,23 +37,11 @@ class GuiMainWindow( ):
         
         self.tabControl.pack(expand = 1, fill ="both") 
 
-       #self.left_frame = Frame(self.root, width=self.width/2, height=self.height, bg='grey')
-       #self.left_frame.grid(row=0, column=0, padx=10, pady=5)
-
-       #self.right_frame = Frame(self.root, width=self.width/2, height=self.height, bg='grey')
-       #self.right_frame.grid(row=0, column=1, padx=10, pady=5)
-
-
-
         self.deviceTab = GUIDisplayDevice(self.tabList[0], devicesJson[0])
         self.sensorTab = GUIDisplaySensor(self.tabList[1], sensorsJson[0])
         self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0]) #self.left_frame)
         self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1]) #self.right_frame)
 
-        #tabControl = ttk.Notebook(self.root) 
-
-        #button = tk.Button(r, text='Stop', width=25, command=r.destroy)
-        #button.pack()
         self.root.mainloop()
 
     def createDevicesListBox( self, root : Tk, items : json, frame : Frame ):
