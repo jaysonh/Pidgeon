@@ -47,8 +47,8 @@ class GuiMainWindow( ):
 
         self.deviceTab = GUIDisplayDevice(self.tabList[0], devicesJson[0])
         self.sensorTab = GUIDisplaySensor(self.tabList[1], sensorsJson[0])
-        self.createDevicesListBox(self.tabList[0], devicesJson, self.root) #self.left_frame)
-        self.createDevicesListBox(self.tabList[1], sensorsJson, self.root) #self.right_frame)
+        self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0]) #self.left_frame)
+        self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1]) #self.right_frame)
 
         #tabControl = ttk.Notebook(self.root) 
 
