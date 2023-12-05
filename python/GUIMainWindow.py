@@ -37,14 +37,15 @@ class GuiMainWindow( ):
         
         self.tabControl.pack(expand = 1, fill ="both") 
 
+        self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0], self.onListboxSelectDevices) #self.left_frame)
+        self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1], self.onListboxSelectSensors) #self.right_frame)
+        
         self.deviceTab = GUIDisplayDevice(self.tabList[0], devicesJson[0])
         self.sensorTab = GUIDisplaySensor(self.tabList[1], sensorsJson[0])
-        self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0]) #self.left_frame)
-        self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1]) #self.right_frame)
 
         self.root.mainloop()
 
-    def createDevicesListBox( self, root : Tk, items : json, frame : Frame ):
+    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ):
         
         self.listbox = Listbox(frame, height = 10, 
                     width = 15, 
@@ -53,7 +54,8 @@ class GuiMainWindow( ):
                     font = "Helvetica",
                     fg = "yellow")
         
-        self.listbox.bind( '<<ListboxSelect>>', self.onListboxSelectDevices )
+        #self.listbox.bind( '<<ListboxSelect>>', self.onListboxSelectDevices )
+        self.listbox.bind( '<<ListboxSelect>>', func )
         
         for i in items:
             print("inserting " + i["id"] + " to listbox")
@@ -63,9 +65,20 @@ class GuiMainWindow( ):
     
     def onListboxSelectDevices(self, evt):
         w = evt.widget
-        index = int(w.curselection()[0])
-        value = w.get(index)
-        self.deviceTab.destroy()
-        self.deviceTab = GUIDisplayDevice(self.tabList[0], self.devices[index])
+        if len(w.curselection()) >= 0:
+            index = int(w.curselection()[0])
+            value = w.get(index)
+            self.deviceTab.destroy()
+            self.deviceTab = GUIDisplayDevice(self.tabList[0], self.devices[index])
 
-        print('You selected item %d: "%s"' % (index, value))
+            print('You selected item %d: "%s"' % (index, value))
+
+    def onListboxSelectSensors(self, evt):
+        w = evt.widget
+        if len(w.curselection()) >= 0:
+            index = int(w.curselection()[0])
+            value = w.get(index)
+            self.sensorTab.destroy()
+            self.sensorTab = GUIDisplaySensor(self.tabList[1], self.sensors[index])
+
+            print('You selected item %d: "%s"' % (index, value))

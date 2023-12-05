@@ -11,6 +11,18 @@
                     "addr" : "localhost",
                     "port" : 1883
                 }
+            },
+            {
+                "name" : "sensor02",
+                "id"   : "00000005",
+                "type" : "mqtt",
+                "requestTopic" : "/devices/00000005/request",
+                "receiveTopic" : "/devices/00000005/receive",
+                "broker" :
+                {
+                    "addr" : "localhost",
+                    "port" : 1883
+                }
             }
     ]
 }
