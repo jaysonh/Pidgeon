@@ -21,3 +21,4 @@ class GUIDisplaySensor:
 
     def destroy(self):
         self.listbox.destroy()
+        pass

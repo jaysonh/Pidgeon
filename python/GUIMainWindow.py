@@ -38,7 +38,7 @@ class GuiMainWindow( ):
             self.tabControl.add(tab, text =tabJson["title"]) 
             print(f"adding tab {tabJson['title']}")
         
-        self.tabControl.pack(expand = 1, fill ="both") 
+        self.tabControl.pack(fill ="both")
 
         self.devicesListBox = self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0], self.onListboxSelectDevices) 
         self.sensorsListBox = self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1], self.onListboxSelectSensors) 
@@ -53,7 +53,7 @@ class GuiMainWindow( ):
         listbox.pack()
         
         listbox = ttk.Treeview(root, columns=("Column1"))
-        listbox.pack(side="top", fill="both", expand=True)
+        listbox.pack(side="bottom", fill="both", expand=True)
                
         contacts = []
         for i in items:     
@@ -63,7 +63,6 @@ class GuiMainWindow( ):
         for contact in contacts:
             listbox.insert('', tk.END, values=contact)
  
-        #listbox.bind("<<TreeviewSelect>>", self.onListboxSelectDevices)
         listbox.bind("<<TreeviewSelect>>", func )
 
         return listbox

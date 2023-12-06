@@ -9,10 +9,7 @@ class GUIDisplayDevice:
 
     def __init__(self, root : Tk, json_data : json ):
 
-
         self.listbox = ttk.Treeview(root, columns=("Column1"))
-        #eframe = ttk.Frame(root)
-        #eframe.pack(side="bottom", fill="x")
         self.listbox.pack(side="top", fill="both", expand=True)
 
         self.listbox.insert("", "end", text=f"Name:", values=(json_data["name"] ))
@@ -24,4 +21,5 @@ class GUIDisplayDevice:
 
     def destroy(self):
         self.listbox.destroy()
+        pass
         
