@@ -8,19 +8,16 @@ class GUIDisplaySensor:
 
     def __init__(self, root : Tk, json_data : json ):
 
-        #f = ttk.Frame(root)
-        #f['padding'] = (5,5,100,5)
+        self.listbox = ttk.Treeview(root, columns=("Column1"))
+        #eframe = ttk.Frame(root)
+        #eframe.pack(side="bottom", fill="x")
+        self.listbox.pack(side="top", fill="both", expand=True)
 
-        self.labelName = Label( root, text=str("Name: " + json_data["name"]), relief=RAISED )
-        self.labelID   = Label( root, text=str("ID:   " + json_data["id"]),   relief=RAISED )
-        self.labelType = Label( root, text=str("Type: " + json_data["id"]),   relief=RAISED )
-        self.labelName.pack()
-        self.labelID.pack()
-        self.labelType.pack()
-
+        self.listbox.insert("", "end", text=f"Name:", values=(json_data["name"] ))
+        self.listbox.insert("", "end", text=f"ID: ", values=(json_data["id"],  ))
+        self.listbox.insert("", "end", text=f"Type: ", values=(json_data["type"] ))
+        
         pass
 
     def destroy(self):
-        self.labelName.destroy()
-        self.labelID.destroy()
-        self.labelType.destroy()
+        self.listbox.destroy()

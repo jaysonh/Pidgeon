@@ -3,7 +3,7 @@
             {
                 "title" : "Pigeon Scheduler",
                 "width"   : 600,
-                "height" : 400,
+                "height" : 700,
                 "tabs" :[
                     {"title" : "Devices"},
                     {"title" : "Sensors"},
