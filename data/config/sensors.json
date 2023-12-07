@@ -23,6 +23,12 @@
                     "addr" : "localhost",
                     "port" : 1883
                 }
-            }
+            },{
+                   "name" : "Siggrow 44192",
+                   "id"   : "00044192",
+                   "type" : "httpGet",
+                   "requestAddr" : "https://app.sigrow.com/api/v2/remote/44192/data",
+                   "apiKey" : "c61e7d20-3ab1-43f9-ad32-b04e3fd9a822"
+                }
     ]
 }
