@@ -1,7 +1,8 @@
 import json
 from DeviceHandler import DeviceHandler
-from SensorHandler import SensorHandler
+from DeviceInHandler import DeviceInHandler
 from DeviceOutControl import DeviceOutControl
+from DeviceInControl import DeviceInControl
 from ActionSet import ActionSet
 from ActionRamp import ActionRamp
 from ActionRampTarget import *
@@ -27,7 +28,7 @@ class ScheduleAction:
 class Scheduler:
     devices = {}        
     scheduleActions = {}    
-    def __init__(self, schedule_json : json, devices : DeviceHandler, sensors : SensorHandler ):
+    def __init__(self, schedule_json : json, devices : DeviceHandler, sensors : DeviceInControl ):
 
         print("starting scheduler")
         self.scheduler = BackgroundScheduler()

@@ -1,9 +1,9 @@
 import json
 import paho.mqtt.client as mqtt 
 from MQTTHandler import MQTTHandler
-from SensorControl import *
+from DeviceInControl import *
 
-class SensorMQTT(SensorControl):
+class DeviceInMQTT(DeviceInControl):
     
     def __init__(self, json_data : json):
         super().__init__( json_data )

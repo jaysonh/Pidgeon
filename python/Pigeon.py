@@ -2,7 +2,7 @@ from Configuration import Configuration
 from DeviceHandler import DeviceHandler
 from Scheduler import Scheduler
 from MQTTHandler import MQTTHandler
-from SensorHandler import SensorHandler
+from DeviceInHandler import DeviceInHandler
 import os
 import time
 from AsciiPigeon import drawPigeon
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     configuration  = Configuration( configFiles )
     
     device_handler = DeviceHandler( configuration.get("devices") )
-    sensor_handler = SensorHandler( configuration.get("sensors") )
+    sensor_handler = DeviceInHandler( configuration.get("sensors") )
     
     # initalise scheduler last to ensure other components have been set up
     scheduler = Scheduler( configuration.get("schedule"), device_handler, sensor_handler )

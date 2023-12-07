@@ -8,10 +8,10 @@
 
 import json
 from MQTTHandler import MQTTHandler
-from SensorControl import *
+from DeviceInControl import *
 import urllib.request
 
-class DeviceInGetHttp(SensorControl):
+class DeviceInGetHttp(DeviceInControl):
     
     def __init__(self, json_data : json):
         super().__init__( json_data )
@@ -19,8 +19,6 @@ class DeviceInGetHttp(SensorControl):
         
         self.request_addr = json_data["requestAddr"]
         self.api_key = json_data["apiKey"]
-
-        self.update()
 
         pass
 

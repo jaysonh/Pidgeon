@@ -1,7 +1,7 @@
 import json
 
 
-class SensorControl:
+class DeviceInControl:
     
     value = 0.0
 
