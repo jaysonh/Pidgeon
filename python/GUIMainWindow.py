@@ -3,8 +3,8 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 import json
-from GUIDisplayDevice import *
-from GUIDisplaySensor import *
+from GUIDisplayDeviceOut import *
+from GUIDisplayDeviceIn import *
 from ttkthemes import ThemedTk
 
 class GuiMainWindow( ):
@@ -43,8 +43,8 @@ class GuiMainWindow( ):
         self.devicesListBox = self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0], self.onListboxSelectDevices) 
         self.sensorsListBox = self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1], self.onListboxSelectSensors) 
         
-        self.deviceTab = GUIDisplayDevice(self.tabList[0], devicesJson[0])
-        self.sensorTab = GUIDisplaySensor(self.tabList[1], sensorsJson[0])
+        self.deviceTab = GUIDisplayDeviceOut(self.tabList[0], devicesJson[0])
+        self.sensorTab = GUIDisplayDeviceIn (self.tabList[1], sensorsJson[0])
 
         self.root.mainloop()
 
