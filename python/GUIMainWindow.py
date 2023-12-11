@@ -74,7 +74,7 @@ class GuiMainWindow( ):
         print("selection: " +  str(current_idx)) 
         
         self.deviceTab.destroy()
-        self.deviceTab = GUIDisplayDevice(self.tabList[0], self.devices[current_idx])
+        self.deviceTab = GUIDisplayDeviceOut(self.tabList[0], self.devices[current_idx])
         
         
         #curItem = self.devicesListBox.focus()
@@ -84,5 +84,5 @@ class GuiMainWindow( ):
         current_idx = self.sensorsListBox.index(selection)
         print("selection: " +  str(current_idx))
         self.sensorTab.destroy()
-        self.sensorTab = GUIDisplaySensor(self.tabList[1],  self.sensors[current_idx])
+        self.sensorTab = GUIDisplayDeviceOut(self.tabList[1],  self.sensors[current_idx])
         #curItem = self.devicesListBox.focus()
