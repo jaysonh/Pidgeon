@@ -35,7 +35,7 @@ if __name__ == "__main__":
     scheduler = Scheduler( configuration.get("schedule"), device_handler, sensor_handler )
      
     # main loop
-    gui = GuiMainWindow(configuration.get("userinterface"), configuration.get("devices"), configuration.get("sensors"))
+    gui = GuiMainWindow(configuration.get("userinterface"), configuration.get("devices"), configuration.get("sensors"), configuration.get("schedule"))
     #createMainWindow(  )
     
     print("Exiting application") 

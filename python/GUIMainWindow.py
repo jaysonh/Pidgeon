@@ -5,10 +5,11 @@ import tkinter as tk
 import json
 from GUIDisplayDeviceOut import *
 from GUIDisplayDeviceIn import *
+from GuiScheduleDisplay import *
 from ttkthemes import ThemedTk
 
 class GuiMainWindow( ):
-    def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json ):
+    def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json , scheduleJson : json):
         #jsonSettings : json, devicesJson : json, sensorsJson : json):
         print(jsonSettings)
         #self.root = tk.Tk()
@@ -45,6 +46,7 @@ class GuiMainWindow( ):
         
         self.deviceTab = GUIDisplayDeviceOut(self.tabList[0], devicesJson[0])
         self.sensorTab = GUIDisplayDeviceIn (self.tabList[1], sensorsJson[0])
+        self.scheduleTab = GuiScheduleDisplay( self.tabList[2], scheduleJson)
 
         self.root.mainloop()
 
