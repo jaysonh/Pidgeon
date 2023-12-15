@@ -5,6 +5,7 @@ from ActionRampTarget import *
 from ScheduleAction import *
 
 from apscheduler.schedulers.background import BackgroundScheduler
+from jsonLogic import *
 
 class LogicUnit:
     def __init__(self, json_data : json):
@@ -48,4 +49,5 @@ class LogicUnit:
             print("Error: Invalid cron time format")
 
     def add_cron(self, scheduler : BackgroundScheduler):
-        scheduler.add_job(self.action, 'cron', second=self.secCron, minute=self.minCron, hour=self.hourCron, day_of_week=self.dayWeekCron, month=self.monthCron )
+        pass
+        #scheduler.add_job(self.action, 'cron', second=self.secCron, minute=self.minCron, hour=self.hourCron, day_of_week=self.dayWeekCron, month=self.monthCron )

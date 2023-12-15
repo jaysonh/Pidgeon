@@ -1,6 +1,7 @@
 import json
 
-from json_logic import jsonLogic
+from jsonLogic import *
+#from json_logic import jsonLogic
 from LogicUnit import *
 
 class LogicHandler:
