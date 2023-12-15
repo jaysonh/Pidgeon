@@ -18,7 +18,6 @@ class GuiScheduleDisplay:
         #self.listbox.insert("", "end", text=f"Type: ", values=(json_data["type"] ))
         #self.listbox.insert("", "end", text=f"Num Channels: ", values=(json_data["numChannels"] ))
 
-
         for job in json_data:
             self.listbox.insert("", "end", text=job["id"], values=( job["time"], job["deviceID"], job["address"], "next run:", job["action"] ))
             print(job)

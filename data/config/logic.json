@@ -3,8 +3,15 @@
             {
                 "name" : "tempControl",
                 "id"   : "log0001",
-                "input" : "mqtt",
-                "output" : "mqtt"
+                "inputDevice" : "sens00000004",
+                "outputDevice" : "00000010",
+                "updateTime" : "* * * * * 50",
+                "logic" : { ">": [{"var": "temp"}, 30]},
+                "action" : 
+                    {
+                        "type" : "setData",
+                        "value": 100  
+                    }
             }
     ]
 }
