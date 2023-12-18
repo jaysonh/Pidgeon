@@ -6,7 +6,7 @@ import json
 
 class GUIDisplayDeviceIn:
 
-    def __init__(self, root : Tk, json_data : json ):
+    def __init__( self, root : Tk, json_data : json ):
 
         self.parent = root
         self.listbox = ttk.Treeview(root, columns=("Column1"))
@@ -46,7 +46,6 @@ class GUIDisplayDeviceIn:
                    height = 1, 
                    width = 20)
         name_input.grid(row=0, column=2)
-
         
         # device id input
         frame_id_input = Frame(self.pop, bg="gray71")

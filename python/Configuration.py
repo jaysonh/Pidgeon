@@ -27,6 +27,15 @@ class Configuration:
  
     def get(self, key : str):
         return self.config_json[key]
+    
+    # add this json item to the array at key
+    def add(self, key : str, json_data : json): 
+        if key in self.config_json:
+            self.config_json[key].append( json_data )            
+        else:
+            print(f"Cannot find key: {key}")
+            raise KeyError
+        pass
 
 if __name__ == "__main__":
     print("testing Configuration.py")
