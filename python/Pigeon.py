@@ -38,7 +38,7 @@ if __name__ == "__main__":
      
     logic = LogicHandler( configuration.get("logic") ) 
     # main loop
-    gui = GuiMainWindow(configuration.get("userinterface"), configuration.get("devices"), configuration.get("sensors"), configuration.get("schedule"))
+    gui = GuiMainWindow(configuration.get("userinterface"), configuration.get("devices"), configuration.get("sensors"), configuration.get("schedule"), configuration.get("logic") )
     #createMainWindow(  )
     
     print("Exiting application") 

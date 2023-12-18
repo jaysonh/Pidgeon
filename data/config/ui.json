@@ -5,9 +5,10 @@
                 "width"   : 600,
                 "height" : 700,
                 "tabs" :[
-                    {"title" : "DevicesOut"},
-                    {"title" : "DevicesIn"},
-                    {"title" : "Schedule"}
+                    { "title" : "DevicesOut" },
+                    { "title" : "DevicesIn"  },
+                    { "title" : "Schedule"   },
+                    { "title" : "Logic"      }
                 ]
             }
     ]

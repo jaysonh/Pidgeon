@@ -160,9 +160,9 @@ class GuiScheduleDisplay:
         frameBtns = Frame(self.pop, bg="gray71")
         frameBtns.pack(pady=10)
         # Add Button for making selection
-        button1 = Button(frameBtns, text="add", command=self.okDialog, bg="blue", fg="white")
+        button1 = Button(frameBtns, text="add", command=self.okDialog, bg="grey", fg="white")
         button1.grid(row=0, column=1)
-        button2 = Button(frameBtns, text="cancel", command= self.closeDialog, bg="blue", fg="white")
+        button2 = Button(frameBtns, text="cancel", command= self.closeDialog, bg="grey", fg="white")
         button2.grid(row=0, column=2)
         pass
 

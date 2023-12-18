@@ -12,6 +12,18 @@
                         "type" : "setData",
                         "value": 100  
                     }
+            },{
+                "name" : "tempControl",
+                "id"   : "log0002",
+                "inputDevice" : "sens00000004",
+                "outputDevice" : "00000010",
+                "updateTime" : "* * * * 1 *",
+                "logic" : { ">": [{"var": "temp"}, 30]},
+                "action" : 
+                    {
+                        "type" : "setData",
+                        "value": 100  
+                    }
             }
     ]
 }

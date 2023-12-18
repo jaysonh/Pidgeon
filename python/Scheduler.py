@@ -10,21 +10,8 @@ from DeviceMQTT import DeviceMQTT
 import threading
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-             
-class ScheduleAction:
-    deviceID = ""
+from ScheduleAction import *
     
-    def __init__(self, deviceID : str,  d :DeviceOutControl, a : ActionSet ):
-        self.deviceID = deviceID
-        self.action = a
-        self.device = d
-
-    def run(self):
-        self.time = str(datetime.now())
-        self.action.run( self.device )
-        #print(f"{self.time}setting {self.action.get()} from: {self.deviceID} ")  
-        #self.device.sendData( self.action.get() )      
-       
 class Scheduler:
     devices = {}        
     scheduleActions = {}    

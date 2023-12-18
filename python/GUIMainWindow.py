@@ -3,13 +3,16 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 import json
+
 from GUIDisplayDeviceOut import *
 from GUIDisplayDeviceIn import *
 from GuiScheduleDisplay import *
+from GuiDisplayLogic import *
+
 from ttkthemes import ThemedTk
 
 class GuiMainWindow( ):
-    def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json , scheduleJson : json):
+    def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json , scheduleJson : json, logicJson : json):
         #jsonSettings : json, devicesJson : json, sensorsJson : json):
         print(jsonSettings)
         #self.root = tk.Tk()
@@ -17,6 +20,7 @@ class GuiMainWindow( ):
 
         self.devices = devicesJson
         self.sensors = sensorsJson
+        self.logic   = logicJson
 
         self.tabControl = ttk.Notebook(self.root) 
         self.title  = jsonSettings[0]["title"]
@@ -43,10 +47,12 @@ class GuiMainWindow( ):
 
         self.devicesListBox = self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0], self.onListboxSelectDevices) 
         self.sensorsListBox = self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1], self.onListboxSelectSensors) 
+        self.logicListBox = self.createDevicesListBox(self.tabList[3], logicJson, self.tabList[3], self.onListboxSelectLogic) 
         
         self.deviceTab = GUIDisplayDeviceOut(self.tabList[0], devicesJson[0])
         self.sensorTab = GUIDisplayDeviceIn (self.tabList[1], sensorsJson[0])
         self.scheduleTab = GuiScheduleDisplay( self.tabList[2], scheduleJson)
+        self.logicTab = GuiDisplayLogic( self.tabList[3], logicJson[0])
 
         self.root.mainloop()
 
@@ -68,7 +74,16 @@ class GuiMainWindow( ):
         listbox.bind("<<TreeviewSelect>>", func )
 
         return listbox
-
+    
+    def onListboxSelectLogic(self, evt):
+        selection = self.logicListBox.selection()
+        current_idx = self.logicListBox.index(selection)
+        print("selection: " +  str(current_idx)) 
+        
+        self.logicTab.destroy()
+        self.logicTab = GuiDisplayLogic(self.tabList[3], self.logic[current_idx])
+        
+        
     
     def onListboxSelectDevices(self, evt):
         selection = self.devicesListBox.selection()
