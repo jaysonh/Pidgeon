@@ -43,13 +43,14 @@ class Scheduler:
     def parse_cron( self, cron_time : str, action : ScheduleAction ):
         try:
             # all these are numbers represented as strings
-            secCron  = cron_time.split(" ")[5]
-            minCron  = cron_time.split(" ")[4]
-            hourCron = cron_time.split(" ")[3] 
-            dayMonthCron = cron_time.split(" ")[2]
-            monthCron = cron_time.split(" ")[2]
-            dayWeekCron = cron_time.split(" ")[1]
-                         
+
+            secCron  = cron_time.split(" ")[0]
+            minCron  = cron_time.split(" ")[1]
+            hourCron = cron_time.split(" ")[2] 
+            dayMonthCron = cron_time.split(" ")[3]
+            monthCron = cron_time.split(" ")[4]
+            dayWeekCron = cron_time.split(" ")[5]
+
             self.scheduler.add_job(action, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
 
         except IndexError:
