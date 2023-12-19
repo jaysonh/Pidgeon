@@ -3,12 +3,12 @@ import json
 from jsonLogic import *
 #from json_logic import jsonLogic
 from LogicUnit import *
-
+from JsonParams import *
 class LogicHandler:
-    def __init__(self, json_data : json):
+    def __init__(self, json_data : JsonParams):
 
         self.scheduler = BackgroundScheduler()
-        for json_rule in json_data:
+        for json_rule in json_data.getJson():
             logic = LogicUnit(json_rule)
             logic.add_cron( self.scheduler )
 

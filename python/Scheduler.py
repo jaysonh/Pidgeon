@@ -11,15 +11,16 @@ import threading
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from ScheduleAction import *
-    
+from JsonParams import *
+
 class Scheduler:
     devices = {}        
     scheduleActions = {}    
-    def __init__(self, schedule_json : json, devices : DeviceHandler, sensors : DeviceInControl ):
+    def __init__(self, schedule_json : JsonParams, devices : DeviceHandler, sensors : DeviceInControl ):
 
         print("starting scheduler")
         self.scheduler = BackgroundScheduler()
-        for schedule_item in schedule_json:
+        for schedule_item in schedule_json.getJson():
             id = schedule_item["id"]
             deviceID = schedule_item["deviceID"]
             

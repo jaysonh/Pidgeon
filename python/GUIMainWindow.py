@@ -8,14 +8,13 @@ from GUIDisplayDeviceOut import *
 from GUIDisplayDeviceIn import *
 from GuiScheduleDisplay import *
 from GuiDisplayLogic import *
-
+from JsonParams import *
 from ttkthemes import ThemedTk
 
 class GuiMainWindow( ):
-    def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json , scheduleJson : json, logicJson : json):
-        #jsonSettings : json, devicesJson : json, sensorsJson : json):
-        print(jsonSettings)
-        #self.root = tk.Tk()
+    #def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json , scheduleJson : json, logicJson : json):
+    def __init__(self, ui_settings : JsonParams, devicesJson : JsonParams, sensorsJson : JsonParams , scheduleJson : JsonParams, logicJson : JsonParams):
+         
         self.root = ThemedTk(theme="clam")
 
         self.devices = devicesJson
@@ -23,16 +22,16 @@ class GuiMainWindow( ):
         self.logic   = logicJson
 
         self.tabControl = ttk.Notebook(self.root) 
-        self.title  = jsonSettings[0]["title"]
-        self.width  = jsonSettings[0]["width"]
-        self.height = jsonSettings[0]["height"]
+        self.title  = ui_settings.getJson()[0]["title"]
+        self.width  = ui_settings.getJson()[0]["width"]
+        self.height = ui_settings.getJson()[0]["height"]
         dimStr = str(self.width) + "x" + str(self.height)
         print(f"Creating window with title {self.title}")
 
         self.root.title( self.title)
         self.root.geometry( dimStr)
 
-        tabListJson = jsonSettings[0]["tabs"]
+        tabListJson = ui_settings.getJson()[0]["tabs"]
 
         print("num tabs: " + str(len(tabListJson)))
 
@@ -45,14 +44,14 @@ class GuiMainWindow( ):
         
         self.tabControl.pack(fill ="both")
 
-        self.devicesListBox = self.createDevicesListBox(self.tabList[0], devicesJson, self.tabList[0], self.onListboxSelectDevices) 
-        self.sensorsListBox = self.createDevicesListBox(self.tabList[1], sensorsJson, self.tabList[1], self.onListboxSelectSensors) 
-        self.logicListBox = self.createDevicesListBox(self.tabList[3], logicJson, self.tabList[3], self.onListboxSelectLogic) 
+        self.devicesListBox = self.createDevicesListBox(self.tabList[0], devicesJson.getJson(), self.tabList[0], self.onListboxSelectDevices) 
+        self.sensorsListBox = self.createDevicesListBox(self.tabList[1], sensorsJson.getJson(), self.tabList[1], self.onListboxSelectSensors) 
+        self.logicListBox = self.createDevicesListBox(self.tabList[3], logicJson.getJson(), self.tabList[3], self.onListboxSelectLogic) 
         
-        self.deviceTab = GUIDisplayDeviceOut(self.tabList[0], devicesJson[0])
-        self.sensorTab = GUIDisplayDeviceIn (self.tabList[1], sensorsJson[0])
-        self.scheduleTab = GuiScheduleDisplay( self.tabList[2], scheduleJson)
-        self.logicTab = GuiDisplayLogic( self.tabList[3], logicJson[0])
+        self.deviceTab = GUIDisplayDeviceOut( self.tabList[0], devicesJson.getJson()[0] )
+        self.sensorTab = GUIDisplayDeviceIn (self.tabList[1], sensorsJson.getJson()[0])
+        self.scheduleTab = GuiScheduleDisplay( self.tabList[2], scheduleJson.getJson())
+        self.logicTab = GuiDisplayLogic( self.tabList[3], logicJson.getJson()[0])
 
         self.root.mainloop()
 
