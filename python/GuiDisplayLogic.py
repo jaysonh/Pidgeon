@@ -5,8 +5,9 @@ from tkinter import *
 import json
 
 class GuiDisplayLogic:
-    def __init__(self, root : tk , json_data : json) -> None:
+    def __init__(self, root : tk , json_data : json, addJsonFunc = None, saveJsonFunc = None) -> None:
         self.parent = root
+        self.addJsonFunc = addJsonFunc
         self.listbox = ttk.Treeview(root, columns=("Column1"))
         #eframe = ttk.Frame(root)
         #eframe.pack(side="bottom", fill="x")
@@ -29,6 +30,9 @@ class GuiDisplayLogic:
         
         self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeLogicItem)
         self.removeButton.pack(side="left", fill="none", expand=False)
+
+        self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
+        self.saveButton.pack(side="left", fill="none", expand=False)
 
         pass
 
@@ -108,60 +112,60 @@ class GuiDisplayLogic:
         frame_name_input.pack(pady=2)
         name_label = tk.Label( frame_name_input, text="name")
         name_label.grid(row=0, column=1)
-        name_input = tk.Text(frame_name_input, 
+        self.name_input = tk.Text(frame_name_input, 
                    height = 1, 
                    width = 20) 
-        name_input.grid(row=0, column=2)
+        self.name_input.grid(row=0, column=2)
 
         # address input
         frame_id_input = Frame(self.pop, bg="gray71")
         frame_id_input.pack(pady=2)
         id_label = tk.Label( frame_id_input, text="id")
         id_label.grid(row=0, column=1)
-        id_input = tk.Text(frame_id_input, 
+        self.id_input = tk.Text(frame_id_input, 
                    height = 1, 
                    width = 20) 
-        id_input.grid(row=0, column=2)
+        self.id_input.grid(row=0, column=2)
 
         # input device input
         frame_input_device = Frame(self.pop, bg="gray71")
         frame_input_device.pack(pady=2)
         input_device_label = tk.Label( frame_input_device, text="input device")
         input_device_label.grid(row=0, column=1)
-        in_device_input = tk.Text(frame_input_device, 
+        self.in_device_input = tk.Text(frame_input_device, 
                    height = 5, 
                    width = 20) 
-        in_device_input.grid(row=0, column=2)
+        self.in_device_input.grid(row=0, column=2)
         
         # output device input
         frame_output_device = Frame(self.pop, bg="gray71")
         frame_output_device.pack(pady=2)
         output_device_label = tk.Label( frame_output_device, text="output device")
         output_device_label.grid(row=0, column=1)
-        out_device_input = tk.Text(frame_output_device, 
+        self.out_device_input = tk.Text(frame_output_device, 
                    height = 5, 
                    width = 20) 
-        out_device_input.grid(row=0, column=2)
+        self.out_device_input.grid(row=0, column=2)
         
         # output device input
         frame_logic = Frame(self.pop, bg="gray71")
         frame_logic.pack(pady=2)
         logic_label = tk.Label( frame_logic, text="logic")
         logic_label.grid(row=0, column=1)
-        logic_input = tk.Text(frame_logic, 
+        self.logic_input = tk.Text(frame_logic, 
                    height = 5, 
                    width = 20) 
-        logic_input.grid(row=0, column=2)
+        self.logic_input.grid(row=0, column=2)
         
         # output device input
         frame_action = Frame(self.pop, bg="gray71")
         frame_action.pack(pady=2)
         action_label = tk.Label( frame_action, text="action")
         action_label.grid(row=0, column=1)
-        action_input = tk.Text(frame_action, 
+        self.action_input = tk.Text(frame_action, 
                    height = 5, 
                    width = 20) 
-        action_input.grid(row=0, column=2)
+        self.action_input.grid(row=0, column=2)
 
 
         # Add a Frame
@@ -180,9 +184,11 @@ class GuiDisplayLogic:
 
     def okDialog(self):
 
-        #print("close dialog: " + self.cron_day_week_var.get())
-        #cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
-        #self.add_schedule( cron_str )
+        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), "id" : self.id_input.get("1.0", 'end-1c') }
+        print("saving deviceOut json:")
+        print(json_data)
+        self.addJsonFunc( json_data )
+        
         self.pop.destroy()
         self.pop.update()
 

@@ -3,13 +3,16 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 import json
+from tkinter.filedialog import asksaveasfile
 
 
 class GUIDisplayDeviceOut:
 
-    def __init__(self, root : Tk, json_data : json ):
+    def __init__(self, root : Tk, json_data : json, addJsonFunc = None, saveJsonFunc = None):
+
 
         self.parent = root
+        self.addJsonFunc = addJsonFunc
         self.listbox = ttk.Treeview(root, columns=("Column1"))
         self.listbox.pack(side="top", fill="both", expand=True)
 
@@ -27,7 +30,10 @@ class GUIDisplayDeviceOut:
         self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeDeviceOutItem)
         self.removeButton.pack(side="left", fill="none", expand=False)
 
-        pass
+        self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
+        self.saveButton.pack(side="left", fill="none", expand=False)
+
+    
 
     def openAddDeviceOutDialog(self):
         #global pop
@@ -42,10 +48,10 @@ class GUIDisplayDeviceOut:
         frame_name_input.pack(pady=2)
         name_label = tk.Label( frame_name_input, text="name")
         name_label.grid(row=0, column=1)
-        name_input = tk.Text(frame_name_input, 
+        self.name_input = tk.Text(frame_name_input, 
                    height = 1, 
                    width = 20)
-        name_input.grid(row=0, column=2)
+        self.name_input.grid(row=0, column=2)
 
         
         # device id input
@@ -53,10 +59,10 @@ class GUIDisplayDeviceOut:
         frame_id_input.pack(pady=2)
         id_label = tk.Label( frame_id_input, text="id")
         id_label.grid(row=0, column=1)
-        id_input = tk.Text(frame_id_input, 
+        self.id_input = tk.Text(frame_id_input, 
                    height = 1, 
                    width = 20)
-        id_input.grid(row=0, column=2)
+        self.id_input.grid(row=0, column=2)
 
         
         # Add a Frame
@@ -84,6 +90,11 @@ class GUIDisplayDeviceOut:
         self.pop.update()
 
     def okDialog(self):
+
+        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), "id" : self.id_input.get("1.0", 'end-1c') }
+        print("saving deviceOut json:")
+        print(json_data)
+        self.addJsonFunc( json_data )
         #print("close dialog: " + self.cron_day_week_var.get())
         #cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
         self.pop.destroy()

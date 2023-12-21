@@ -7,9 +7,10 @@ import json
 class GuiScheduleDisplay:
     deviceID = ""
     
-    def __init__(self, root : tk , json_data : json ):
+    def __init__(self, root : tk , json_data : json , addJsonFunc = None, saveJsonFunc = None):
 
         self.parent = root
+        self.addJsonFunc = addJsonFunc
         self.listbox = ttk.Treeview(root, columns=("Column1", "Column2", "Column3", "Column4", "Column5"))
         self.listbox.pack(side="top", fill="both", expand=True)
 
@@ -33,6 +34,9 @@ class GuiScheduleDisplay:
         self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeScheduleItem)
         self.removeButton.pack(side="left", fill="none", expand=False)
 
+        self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
+        self.saveButton.pack(side="left", fill="none", expand=False)
+
         pass
         #self.schedule = schedule
 
@@ -42,7 +46,10 @@ class GuiScheduleDisplay:
         self.pop.update()
 
     def okDialog(self):
-
+        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), "id" : self.id_input.get("1.0", 'end-1c') }
+        print("saving deviceOut json:")
+        print(json_data)
+        self.addJsonFunc( json_data )
         #print("close dialog: " + self.cron_day_week_var.get())
         cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
         self.add_schedule( cron_str )
@@ -66,10 +73,20 @@ class GuiScheduleDisplay:
         frame_id_input.pack(pady=2)
         id_label = tk.Label( frame_id_input, text="id")
         id_label.grid(row=0, column=1)
-        id_input = tk.Text(frame_id_input, 
+        self.id_input = tk.Text(frame_id_input, 
                    height = 1, 
                    width = 20) 
-        id_input.grid(row=0, column=2)
+        self.id_input.grid(row=0, column=2)
+
+        # schedule name input
+        frame_name_input = Frame(self.pop, bg="gray71")
+        frame_name_input.pack(pady=2)
+        name_label = tk.Label( frame_id_input, text="id")
+        name_label.grid(row=0, column=1)
+        self.name_input = tk.Text(frame_id_input, 
+                   height = 1, 
+                   width = 20) 
+        self.name_input.grid(row=0, column=2)
         
         # cron schedule input
         frame_cron_input = Frame(self.pop, bg="gray71")
@@ -131,30 +148,30 @@ class GuiScheduleDisplay:
         frame_device_id_input.pack(pady=2)
         device_id_label = tk.Label( frame_device_id_input, text="device id")
         device_id_label.grid(row=0, column=1)
-        device_id_input = tk.Text(frame_device_id_input, 
+        self.device_id_input = tk.Text(frame_device_id_input, 
                    height = 1, 
                    width = 20) 
-        device_id_input.grid(row=0, column=2)
+        self.device_id_input.grid(row=0, column=2)
 
         # address input
         frame_address_input = Frame(self.pop, bg="gray71")
         frame_address_input.pack(pady=2)
         address_label = tk.Label( frame_address_input, text="address")
         address_label.grid(row=0, column=1)
-        address_input = tk.Text(frame_address_input, 
+        self.address_input = tk.Text(frame_address_input, 
                    height = 1, 
                    width = 20) 
-        address_input.grid(row=0, column=2)
+        self.address_input.grid(row=0, column=2)
 
         # action input
         frame_action_input = Frame(self.pop, bg="gray71")
         frame_action_input.pack(pady=2)
         action_label = tk.Label( frame_action_input, text="action")
         action_label.grid(row=0, column=1)
-        action_input = tk.Text(frame_action_input, 
+        self.action_input = tk.Text(frame_action_input, 
                    height = 5, 
                    width = 20) 
-        action_input.grid(row=0, column=2)
+        self.action_input.grid(row=0, column=2)
 
         # Add a Frame
         frameBtns = Frame(self.pop, bg="gray71")
