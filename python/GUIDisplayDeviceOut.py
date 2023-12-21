@@ -13,13 +13,6 @@ class GUIDisplayDeviceOut:
 
         self.parent = root
         self.addJsonFunc = addJsonFunc
-        self.listbox = ttk.Treeview(root, columns=("Column1"))
-        self.listbox.pack(side="top", fill="both", expand=True)
-
-        self.listbox.insert("", "end", text=f"Name:", values=(json_data["name"] ))
-        self.listbox.insert("", "end", text=f"ID: ", values=(json_data["id"],  ))
-        self.listbox.insert("", "end", text=f"Type: ", values=(json_data["type"] ))
-        self.listbox.insert("", "end", text=f"Num Channels: ", values=(json_data["numChannels"] ))
 
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
@@ -33,7 +26,27 @@ class GUIDisplayDeviceOut:
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 
-    
+        self.tree = ttk.Treeview(root)
+        self.tree["columns"]=("paramName","paramValue")
+        self.tree.column("paramName", width=100 )
+        self.tree.column("paramValue", width=100)
+        self.tree.heading("paramName", text="Name")
+        self.tree.heading("paramValue", text="Value")
+        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("Num Channels",json_data["numChannels"]))
+        self.tree.pack(side="top", fill="both", expand=True)
+
+    def fromJson(self, json_data : json):
+                
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+
+        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("Num Channels",json_data["numChannels"]))
 
     def openAddDeviceOutDialog(self):
         #global pop
@@ -79,9 +92,9 @@ class GUIDisplayDeviceOut:
     def removeDeviceOutItem(self):
         pass
 
-    def destroy(self):
-        self.listbox.destroy()
-        pass
+    #def destroy(self):
+    #    self.listbox.destroy()
+    #    pass
 
 
 

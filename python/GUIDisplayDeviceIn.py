@@ -10,14 +10,18 @@ class GUIDisplayDeviceIn:
 
         self.parent = root
         self.addJsonFunc = addJsonFunc
-        self.listbox = ttk.Treeview(root, columns=("Column1"))
-        #eframe = ttk.Frame(root)
-        #eframe.pack(side="bottom", fill="x")
-        self.listbox.pack(side="top", fill="both", expand=True)
-
-        self.listbox.insert("", "end", text=f"Name:", values=(json_data["name"] ))
-        self.listbox.insert("", "end", text=f"ID: ", values=(json_data["id"],  ))
-        self.listbox.insert("", "end", text=f"Type: ", values=(json_data["type"] ))
+        
+        
+        self.tree = ttk.Treeview(root)
+        self.tree["columns"]=("paramName","paramValue")
+        self.tree.column("paramName", width=100 )
+        self.tree.column("paramValue", width=100)
+        self.tree.heading("paramName", text="Name")
+        self.tree.heading("paramValue", text="Value")
+        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
+        self.tree.pack(side="top", fill="both", expand=True)
     
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
@@ -32,6 +36,16 @@ class GUIDisplayDeviceIn:
         self.saveButton.pack(side="left", fill="none", expand=False)
 
         pass
+
+    def fromJson(self, json_data : json):
+                
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+
+        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("Num Channels",json_data["numChannels"]))
 
     def openAddDeviceInDialog(self):
         #global pop

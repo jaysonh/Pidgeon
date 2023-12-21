@@ -183,6 +183,11 @@ class GuiScheduleDisplay:
         button2.grid(row=0, column=2)
         pass
 
+    def fromJson(self, json_data : json):
+        
+        
+        pass        
+
     def removeScheduleItem(self):
         selected = self.listbox.selection()
         current_idx = self.listbox.index(selected)

@@ -78,28 +78,15 @@ class GuiMainWindow( ):
     def onListboxSelectLogic(self, evt):
         selection = self.logicListBox.selection()
         current_idx = self.logicListBox.index(selection)
-        print("selection: " +  str(current_idx)) 
-        
-        self.logicTab.destroy()
-        self.logicTab = GuiDisplayLogic(self.tabList[3], self.logic[current_idx])
-        
-        
+        self.logicTab.fromJson(self.logic.getJson()[current_idx] )
     
     def onListboxSelectDevices(self, evt):
         selection = self.devicesListBox.selection()
-        current_idx = self.devicesListBox.index(selection)
-        print("selection: " +  str(current_idx)) 
-        
-        self.deviceTab.destroy()
-        self.deviceTab = GUIDisplayDeviceOut(self.tabList[0], self.devices[current_idx])
-        
-        
-        #curItem = self.devicesListBox.focus()
+        current_idx = self.devicesListBox.index(selection)        
+        self.deviceTab.fromJson(self.devices.getJson()[current_idx] )
 
     def onListboxSelectSensors(self, evt):
         selection = self.sensorsListBox.selection()
         current_idx = self.sensorsListBox.index(selection)
-        print("selection: " +  str(current_idx))
-        self.sensorTab.destroy()
-        self.sensorTab = GUIDisplayDeviceOut(self.tabList[1],  self.sensors[current_idx])
-        #curItem = self.devicesListBox.focus()
+        self.sensorTab.fromJson(self.sensors.getJson()[current_idx] )
+        

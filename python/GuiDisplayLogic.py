@@ -8,19 +8,22 @@ class GuiDisplayLogic:
     def __init__(self, root : tk , json_data : json, addJsonFunc = None, saveJsonFunc = None) -> None:
         self.parent = root
         self.addJsonFunc = addJsonFunc
-        self.listbox = ttk.Treeview(root, columns=("Column1"))
-        #eframe = ttk.Frame(root)
-        #eframe.pack(side="bottom", fill="x")
-        self.listbox.pack(side="top", fill="both", expand=True)
 
-        print("displaying logic json: " + json.dumps(json_data))
-        self.listbox.insert("", "end", text=f"name",  values=(json_data["name"] ))
-        self.listbox.insert("", "end", text=f"id"  ,  values=(json_data["id"] ))
-        self.listbox.insert("", "end", text=f"inputDevice" ,  values=(json_data["inputDevice"] ))
-        self.listbox.insert("", "end", text=f"outputDevice" ,  values=(json_data["outputDevice"] ))
-        self.listbox.insert("", "end", text=f"updateTime" ,  values=(json_data["updateTime"] ))
-        self.listbox.insert("", "end", text=f"logic",  values=(json_data["logic"] ))
-        self.listbox.insert("", "end", text=f"action" ,  values=(json_data["action"] ))
+        self.tree = ttk.Treeview(root)
+        self.tree["columns"]=("paramName","paramValue")
+        self.tree.column("paramName", width=100 )
+        self.tree.column("paramValue", width=100)
+        self.tree.heading("paramName", text="Name")
+        self.tree.heading("paramValue", text="Value")
+        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("inputDevice",json_data["inputDevice"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("outputDevice",json_data["outputDevice"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("updateTime",json_data["updateTime"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("logic",json_data["logic"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("action",json_data["action"]))
+        self.tree.pack(side="top", fill="both", expand=True)
+
            
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
@@ -178,6 +181,19 @@ class GuiDisplayLogic:
         button2.grid(row=0, column=2)
         pass
 
+    def fromJson(self, json_data : json):
+        pass        
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+
+        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("inputDevice",json_data["inputDevice"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("outputDevice",json_data["outputDevice"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("updateTime",json_data["updateTime"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("logic",json_data["logic"]))
+        self.tree.insert("" , "end",    text="Line 1", values=("action",json_data["action"]))
+        
     def closeDialog(self):
         self.pop.destroy()
         self.pop.update()
@@ -188,7 +204,7 @@ class GuiDisplayLogic:
         print("saving deviceOut json:")
         print(json_data)
         self.addJsonFunc( json_data )
-        
+
         self.pop.destroy()
         self.pop.update()
 
