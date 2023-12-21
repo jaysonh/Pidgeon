@@ -4,16 +4,16 @@ from tkinter import ttk
 import tkinter as tk
 import json
 from tkinter.filedialog import asksaveasfile
-
+from JsonParams import *
 
 class GUIDisplayDeviceOut:
 
-    def __init__(self, root : Tk, json_data : json, addJsonFunc = None, saveJsonFunc = None):
+    def __init__(self, root : Tk, json_data : json, json_data_parent : JsonParams, addJsonFunc = None, saveJsonFunc = None):
 
 
         self.parent = root
         self.addJsonFunc = addJsonFunc
-
+        self.devices = json_data_parent
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
 
@@ -37,6 +37,34 @@ class GUIDisplayDeviceOut:
         self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
         self.tree.insert("" , "end",    text="Line 1", values=("Num Channels",json_data["numChannels"]))
         self.tree.pack(side="top", fill="both", expand=True)
+
+        self.devicesListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
+
+
+    def onListboxSelectDevices(self, evt):
+        
+        selection = self.devicesListBox.selection()
+        current_idx = self.devicesListBox.index(selection)        
+        self.fromJson(self.devices.getJson()[current_idx] )
+
+    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
+        listbox = ttk.Treeview(root, selectmode="extended",show='headings')
+        listbox.pack()
+        
+        listbox = ttk.Treeview(root, columns=("Column1"))
+        listbox.pack(side="bottom", fill="both", expand=True)
+               
+        contacts = []
+        for i in items:     
+            contacts.append(i["id"])
+
+        # add data to the treeview
+        for contact in contacts:
+            listbox.insert('', tk.END, values=contact)
+ 
+        listbox.bind("<<TreeviewSelect>>", func )
+
+        return listbox
 
     def fromJson(self, json_data : json):
                 

@@ -3,11 +3,13 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 import json
+from JsonParams import *
 
 class GuiDisplayLogic:
-    def __init__(self, root : tk , json_data : json, addJsonFunc = None, saveJsonFunc = None) -> None:
+    def __init__(self, root : tk , json_data : json,json_data_parent : JsonParams,  addJsonFunc = None, saveJsonFunc = None) -> None:
         self.parent = root
         self.addJsonFunc = addJsonFunc
+        self.logic = json_data_parent
 
         self.tree = ttk.Treeview(root)
         self.tree["columns"]=("paramName","paramValue")
@@ -37,7 +39,32 @@ class GuiDisplayLogic:
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 
-        pass
+        self.logicListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
+
+
+    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
+        listbox = ttk.Treeview(root, selectmode="extended",show='headings')
+        listbox.pack()
+        
+        listbox = ttk.Treeview(root, columns=("Column1"))
+        listbox.pack(side="bottom", fill="both", expand=True)
+               
+        contacts = []
+        for i in items:     
+            contacts.append(i["id"])
+
+        # add data to the treeview
+        for contact in contacts:
+            listbox.insert('', tk.END, values=contact)
+ 
+        listbox.bind("<<TreeviewSelect>>", func )
+
+        return listbox
+
+    def onListboxSelectDevices(self, evt):
+        selection = self.logicListBox.selection()
+        current_idx = self.logicListBox.index(selection)
+        self.fromJson(self.logic.getJson()[current_idx] )
 
     def openAddLogicDialog(self):
         #global pop
