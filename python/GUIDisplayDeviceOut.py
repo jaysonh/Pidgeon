@@ -16,6 +16,9 @@ class GUIDisplayDeviceOut:
         self.devices = json_data_parent
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
+        
+        self.topframe = Frame(root)
+        self.topframe.pack( side = BOTTOM )
 
         self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceOutDialog)
         self.addButton.pack(side="right", fill="none", expand=False)
@@ -26,7 +29,7 @@ class GUIDisplayDeviceOut:
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 
-        self.tree = ttk.Treeview(root)
+        self.tree = ttk.Treeview(self.topframe)
         self.tree["columns"]=("paramName","paramValue")
         self.tree.column("paramName", width=100 )
         self.tree.column("paramValue", width=100)
@@ -36,9 +39,9 @@ class GUIDisplayDeviceOut:
         self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
         self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
         self.tree.insert("" , "end",    text="Line 1", values=("Num Channels",json_data["numChannels"]))
-        self.tree.pack(side="top", fill="both", expand=True)
+        self.tree.pack(side=TOP, fill="both", expand=True)
 
-        self.devicesListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
+        self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
 
 
     def onListboxSelectDevices(self, evt):
@@ -47,24 +50,30 @@ class GUIDisplayDeviceOut:
         current_idx = self.devicesListBox.index(selection)        
         self.fromJson(self.devices.getJson()[current_idx] )
 
-    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
-        listbox = ttk.Treeview(root, selectmode="extended",show='headings')
-        listbox.pack()
+    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ):
+        self.midframe = Frame(root)
+        self.midframe.pack( side = TOP )
         
-        listbox = ttk.Treeview(root, columns=("Column1"))
-        listbox.pack(side="bottom", fill="both", expand=True)
-               
+        self.devicesListBox = ttk.Treeview(self.midframe, columns=("Column1"))
+        self.devicesListBox.pack(side="left", fill="both", expand=True)
+            
         contacts = []
         for i in items:     
             contacts.append(i["id"])
-
         # add data to the treeview
         for contact in contacts:
-            listbox.insert('', tk.END, values=contact)
- 
-        listbox.bind("<<TreeviewSelect>>", func )
+            self.devicesListBox.insert('', tk.END, values=contact)
+        self.devicesListBox.bind("<<TreeviewSelect>>", func )
 
-        return listbox
+    def replaceDevicesListBox(self, items : json):
+        
+        # clear treeview
+        self.devicesListBox.delete(*self.devicesListBox.get_children())
+
+        # add data to the treeview
+        for i in items:
+            self.devicesListBox.insert('', tk.END, values=i["id"])             
+        pass
 
     def fromJson(self, json_data : json):
                 
@@ -136,7 +145,8 @@ class GUIDisplayDeviceOut:
         print("saving deviceOut json:")
         print(json_data)
         self.addJsonFunc( json_data )
-        #print("close dialog: " + self.cron_day_week_var.get())
-        #cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
+        # update the listbox
+        self.replaceDevicesListBox(self.devices.getJson())
+
         self.pop.destroy()
         self.pop.update()

@@ -40,6 +40,16 @@ class GUIDisplayDeviceIn:
         
         pass
 
+    def replaceDevicesListBox(self, items : json):
+        
+        # clear treeview
+        self.sensorsListBox.delete(*self.sensorsListBox.get_children())
+
+        # add data to the treeview
+        for i in items:
+            self.sensorsListBox.insert('', tk.END, values=i["id"])             
+        pass
+
     def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
         listbox = ttk.Treeview(root, selectmode="extended",show='headings')
         listbox.pack()
@@ -135,6 +145,6 @@ class GUIDisplayDeviceIn:
         print("saving deviceInjson:")
         print(json_data)
         self.addJsonFunc( json_data )
-
+        self.replaceDevicesListBox(self.sensors.getJson())
         self.pop.destroy()
         self.pop.update()

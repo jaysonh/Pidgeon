@@ -40,6 +40,15 @@ class GuiDisplayLogic:
 
         self.logicListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
 
+    def replaceDevicesListBox(self, items : json):
+        
+        # clear treeview
+        self.logicListBox.delete(*self.logicListBox.get_children())
+
+        # add data to the treeview
+        for i in items:
+            self.logicListBox.insert('', tk.END, values=i["id"])             
+        pass
 
     def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
         listbox = ttk.Treeview(root, selectmode="extended",show='headings')
@@ -226,10 +235,19 @@ class GuiDisplayLogic:
 
     def okDialog(self):
 
-        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), "id" : self.id_input.get("1.0", 'end-1c') }
+        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
+                      "id" : self.id_input.get("1.0", 'end-1c'),
+                      "inputDevice" : self.in_device_input.get("1.0", 'end-1c'),
+                      "outputDevice" : self.out_device_input.get("1.0", 'end-1c'),
+                      "updateTime" : "",
+                      "logic" : self.logic_input.get("1.0", 'end-1c'),
+                      "action" : self.action_input.get("1.0", 'end-1c')
+                        }
         print("saving deviceOut json:")
         print(json_data)
         self.addJsonFunc( json_data )
+
+        self.replaceDevicesListBox(self.logic.getJson())
 
         self.pop.destroy()
         self.pop.update()

@@ -55,30 +55,3 @@ class GuiMainWindow( ):
 
 
         self.root.mainloop()
-
-    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
-        listbox = ttk.Treeview(root, selectmode="extended",show='headings')
-        listbox.pack()
-        
-        listbox = ttk.Treeview(root, columns=("Column1"))
-        listbox.pack(side="bottom", fill="both", expand=True)
-               
-        contacts = []
-        for i in items:     
-            contacts.append(i["id"])
-
-        # add data to the treeview
-        for contact in contacts:
-            listbox.insert('', tk.END, values=contact)
- 
-        listbox.bind("<<TreeviewSelect>>", func )
-
-        return listbox
-    
-    
-    def onListboxSelectDevices(self, evt):
-        selection = self.devicesListBox.selection()
-        current_idx = self.devicesListBox.index(selection)        
-        self.deviceTab.fromJson(self.devices.getJson()[current_idx] )
-
-        

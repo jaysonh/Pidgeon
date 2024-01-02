@@ -11,6 +11,7 @@ class GuiScheduleDisplay:
 
         self.parent = root
         self.addJsonFunc = addJsonFunc
+        self.schedule = json_data
         self.listbox = ttk.Treeview(root, columns=("Column1", "Column2", "Column3", "Column4", "Column5"))
         self.listbox.pack(side="top", fill="both", expand=True)
 
@@ -40,19 +41,36 @@ class GuiScheduleDisplay:
         pass
         #self.schedule = schedule
 
+    def replaceDevicesListBox(self, items : json):
+        
+        # clear treeview
+        self.listbox.delete(*self.listbox.get_children())
+
+        # add data to the treeview
+        for job in items:
+            print( "job[id]: " + job["id"])
+            self.listbox.insert("", "end", text=job["id"], values=( job["time"], job["deviceID"], job["address"], "next run:", job["action"] ))          
+        pass
 
     def closeDialog(self):
         self.pop.destroy()
         self.pop.update()
 
     def okDialog(self):
-        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), "id" : self.id_input.get("1.0", 'end-1c') }
-        print("saving deviceOut json:")
-        print(json_data)
+        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
+                       "id" : self.name_input.get("1.0", 'end-1c'),
+                       "time" : "* * * * ",
+                       "deviceID" : self.device_id_input.get("1.0", 'end-1c'),
+                       "address" : self.address_input.get("1.0", 'end-1c'),
+                       "next run" : "",
+                       "action" : self.action_input.get("1.0", 'end-1c')
+                       }
+        
         self.addJsonFunc( json_data )
         #print("close dialog: " + self.cron_day_week_var.get())
         cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
         self.add_schedule( cron_str )
+        self.replaceDevicesListBox( self.schedule)
         self.pop.destroy()
         self.pop.update()
 
