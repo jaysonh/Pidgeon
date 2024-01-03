@@ -56,6 +56,27 @@ class GuiScheduleDisplay:
         self.pop.destroy()
         self.pop.update()
 
+    def get_action(self, selection : str) -> json:
+        action_json = {""}
+        if selection == "ActionRamp":
+            action_json = { "type"     : "setRamp",
+                            "start"    : self.action_ramp_start_input.get("1.0", "end-1c"),
+                            "end"      : self.action_ramp_end_input.get("1.0", "end-1c"),
+                            "duration" : self.action_ramp_duration_input.get("1.0", "end-1c"),
+                            "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") }            
+            
+        elif selection == "ActionRampTarget":
+            action_json = { "type"     : "setRampTarget",
+                            "target"    : self.action_ramp_end_input.get("1.0", "end-1c"),
+                            "duration" : self.action_ramp_duration_input.get("1.0", "end-1c"),
+                            "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") }  
+            
+        elif selection == "ActionSet":
+            action_json = { "type"     : "setData",
+                            "value"    : self.action_set_input.get("1.0", "end-1c") }  
+            
+        return action_json
+    
     def okDialog(self):
         json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
                        "id" : self.name_input.get("1.0", 'end-1c'),
@@ -63,8 +84,10 @@ class GuiScheduleDisplay:
                        "deviceID" : self.device_id_input.get("1.0", 'end-1c'),
                        "address" : self.address_input.get("1.0", 'end-1c'),
                        "next run" : "",
-                       "action" : self.action_input.get("1.0", 'end-1c')
+                       #"action" : self.action_input.get("1.0", 'end-1c')
+                       "action" : self.get_action(self.action_str.get())
                        }
+        
         
         self.addJsonFunc( json_data )
         #print("close dialog: " + self.cron_day_week_var.get())
@@ -277,12 +300,8 @@ class GuiScheduleDisplay:
         self.frameBtns.pack(pady=10)
         self.button1 = Button(self.frameBtns, text="add", command=self.okDialog, bg="grey", fg="white")
         self.button1.grid(row=4, column=1)
-        self.button1.destroy()
-        self.button1.update()
         self.button2 = Button(self.frameBtns, text="cancel", command= self.closeDialog, bg="grey", fg="white")
         self.button2.grid(row=4, column=2)
-        self.button2.destroy()
-        self.button2.update()
 
     def fromJson(self, json_data : json):
         
