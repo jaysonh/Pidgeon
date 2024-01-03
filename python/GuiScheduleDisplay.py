@@ -186,20 +186,103 @@ class GuiScheduleDisplay:
         frame_action_input.pack(pady=2)
         action_label = tk.Label( frame_action_input, text="action")
         action_label.grid(row=0, column=1)
-        self.action_input = tk.Text(frame_action_input, 
-                   height = 5, 
-                   width = 20) 
-        self.action_input.grid(row=0, column=2)
+        #self.action_input = tk.Text(frame_action_input, 
+        #           height = 5, 
+        #           width = 20) 
+        #self.action_input.grid(row=0, column=2)
+        self.action_str = tk.StringVar() 
+        action_select = ttk.Combobox(frame_action_input, width = 20, textvariable = self.action_str)
+        action_select['values'] = ('ActionSet', 'ActionRamp', 'ActionRampTarget') 
+        action_select.current(0)
+        action_select.grid(row = 0, column = 12) 
+        action_select.bind('<<ComboboxSelected>>', self.action_select_change)
+
+        self.action_set_frame = Frame(self.pop, bg="gray71")
+        self.action_set_frame.pack(pady=2)
+
 
         # Add a Frame
-        frameBtns = Frame(self.pop, bg="gray71")
-        frameBtns.pack(pady=10)
+        self.frameBtns = Frame(self.pop, bg="gray71")
+        self.frameBtns.pack(pady=10)
         # Add Button for making selection
-        button1 = Button(frameBtns, text="add", command=self.okDialog, bg="grey", fg="white")
-        button1.grid(row=0, column=1)
-        button2 = Button(frameBtns, text="cancel", command= self.closeDialog, bg="grey", fg="white")
-        button2.grid(row=0, column=2)
+        self.button1 = Button(self.frameBtns, text="add", command=self.okDialog, bg="grey", fg="white")
+        self.button1.grid(row=0, column=1)
+        self.button2 = Button(self.frameBtns, text="cancel", command= self.closeDialog, bg="grey", fg="white")
+        self.button2.grid(row=0, column=2)
+
+        self.change_action("ActionSet")
         pass
+
+    def action_select_change(self, event):
+        print(f"action selected {self.action_str.get()}")
+        selection = self.action_str.get()
+        self.change_action(self.action_str.get())
+        
+        pass
+    def change_action(self, selection):
+        if selection == "ActionRamp":
+            self.action_set_frame.destroy()
+            self.action_set_frame.update()
+            self.action_set_frame = Frame(self.pop, bg="gray71")
+            self.action_set_frame.pack(pady=2)
+            action_ramp_start_label = tk.Label( self.action_set_frame, text="Start Value")
+            action_ramp_start_label.grid(row=0, column=1)
+            self.action_ramp_start_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_start_input.grid(row=0, column=2)
+            action_ramp_end_label = tk.Label( self.action_set_frame, text="End Value")
+            action_ramp_end_label.grid(row=1, column=1)
+            self.action_ramp_end_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_end_input.grid(row=1, column=2)
+            action_ramp_duration_label = tk.Label( self.action_set_frame, text="Duration")
+            action_ramp_duration_label.grid(row=2, column=1)
+            self.action_ramp_duration_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_duration_input.grid(row=2, column=2)
+            action_ramp_interval_label = tk.Label( self.action_set_frame, text="Interval")
+            action_ramp_interval_label.grid(row=3, column=1)
+            self.action_ramp_interval_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_interval_input.grid(row=3, column=2)
+            pass
+        elif selection == "ActionRampTarget":
+            self.action_set_frame.destroy()
+            self.action_set_frame.update()
+            self.action_set_frame = Frame(self.pop, bg="gray71")
+            self.action_set_frame.pack(pady=2)
+            action_ramp_end_label = tk.Label( self.action_set_frame, text="End Value")
+            action_ramp_end_label.grid(row=0, column=1)
+            self.action_ramp_end_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_end_input.grid(row=0, column=2)
+            action_ramp_duration_label = tk.Label( self.action_set_frame, text="Duration")
+            action_ramp_duration_label.grid(row=1, column=1)
+            self.action_ramp_duration_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_duration_input.grid(row=1, column=2)
+            action_ramp_interval_label = tk.Label( self.action_set_frame, text="Interval")
+            action_ramp_interval_label.grid(row=2, column=1)
+            self.action_ramp_interval_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_interval_input.grid(row=2, column=2)
+            pass
+        elif selection == "ActionSet":
+            self.action_set_frame.destroy()
+            self.action_set_frame.update()
+            self.action_set_frame = Frame(self.pop, bg="gray71")
+            self.action_set_frame.pack(pady=2)
+            action_set_label = tk.Label( self.action_set_frame, text="Set Value")
+            action_set_label.grid(row=0, column=1)
+            self.action_set_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_set_input.grid(row=0, column=2)
+            pass
+        # Add Button for making selection
+        self.frameBtns.destroy()
+        self.frameBtns.update()
+        self.frameBtns = Frame(self.pop, bg="gray71")
+        self.frameBtns.pack(pady=10)
+        self.button1 = Button(self.frameBtns, text="add", command=self.okDialog, bg="grey", fg="white")
+        self.button1.grid(row=4, column=1)
+        self.button1.destroy()
+        self.button1.update()
+        self.button2 = Button(self.frameBtns, text="cancel", command= self.closeDialog, bg="grey", fg="white")
+        self.button2.grid(row=4, column=2)
+        self.button2.destroy()
+        self.button2.update()
 
     def fromJson(self, json_data : json):
         
