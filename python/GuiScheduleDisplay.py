@@ -59,21 +59,44 @@ class GuiScheduleDisplay:
     def get_action(self, selection : str) -> json:
         action_json = {""}
         if selection == "ActionRamp":
+            start = 0
+            end = 0
+            if self.num_channels_str.get("1.0", "end-1c").count(",") == 0:
+                start = int(self.action_ramp_start_input.get("1.0", "end-1c"))
+                end   = int(self.action_ramp_end_input.get("1.0", "end-1c")  )
+            else:
+                pass
+
             action_json = { "type"     : "setRamp",
-                            "start"    : self.action_ramp_start_input.get("1.0", "end-1c"),
-                            "end"      : self.action_ramp_end_input.get("1.0", "end-1c"),
+                            "start"    : start,
+                            "end"      : end,
                             "duration" : self.action_ramp_duration_input.get("1.0", "end-1c"),
                             "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") }            
             
         elif selection == "ActionRampTarget":
+            start = 0
+            end = 0
+            if self.num_channels_str.get("1.0", "end-1c").count(",") == 0:
+                start = int(self.action_ramp_target_start_input.get("1.0", "end-1c"))
+                end   = int(self.action_ramp_target_end_input.get("1.0", "end-1c")  )
+                
+            else:
+                start = self.action_ramp_target_start_input.get("1.0", "end-1c").split(',')
+                end = self.action_ramp_target_end_input.get("1.0", "end-1c").split(',')
+                
             action_json = { "type"     : "setRampTarget",
-                            "target"    : self.action_ramp_end_input.get("1.0", "end-1c"),
+                            "target"   : self.action_ramp_end_input.get("1.0", "end-1c"),
                             "duration" : self.action_ramp_duration_input.get("1.0", "end-1c"),
                             "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") }  
             
         elif selection == "ActionSet":
-            action_json = { "type"     : "setData",
-                            "value"    : self.action_set_input.get("1.0", "end-1c") }  
+            value = 0
+            if self.num_channels_str.get().count(",") == 0:
+                value = int(self.action_set_input.get("1.0", "end-1c"))
+            else:
+                value = self.action_set_input.get("1.0", "end-1c").split(',')
+            action_json = { "type"  : "setData",
+                            "value" : value }  
             
         return action_json
     
@@ -241,7 +264,7 @@ class GuiScheduleDisplay:
         selection = self.action_str.get()
         self.change_action(self.action_str.get())
         
-        pass
+        
     def change_action(self, selection):
         if selection == "ActionRamp":
             self.action_set_frame.destroy()
@@ -264,7 +287,15 @@ class GuiScheduleDisplay:
             action_ramp_interval_label.grid(row=3, column=1)
             self.action_ramp_interval_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
             self.action_ramp_interval_input.grid(row=3, column=2)
-            pass
+            num_channels_label = tk.Label( self.action_set_frame, text="Num Channels")
+            num_channels_label.grid(row=4, column=1)
+            self.num_channels_str = tk.StringVar() 
+            num_channels_select = ttk.Combobox(self.action_set_frame, width = 4, textvariable = self.num_channels_str)
+            num_channels_select['values'] = ( '1', '2', '3', '4', '5', '6', '7', '8', '9', '10') 
+            num_channels_select.current(0)
+            num_channels_select.grid(row = 4, column = 2) 
+            num_channels_select.bind('<<ComboboxSelected>>', self.action_set_num_channels)
+            
         elif selection == "ActionRampTarget":
             self.action_set_frame.destroy()
             self.action_set_frame.update()
@@ -272,27 +303,43 @@ class GuiScheduleDisplay:
             self.action_set_frame.pack(pady=2)
             action_ramp_end_label = tk.Label( self.action_set_frame, text="End Value")
             action_ramp_end_label.grid(row=0, column=1)
-            self.action_ramp_end_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
-            self.action_ramp_end_input.grid(row=0, column=2)
-            action_ramp_duration_label = tk.Label( self.action_set_frame, text="Duration")
-            action_ramp_duration_label.grid(row=1, column=1)
-            self.action_ramp_duration_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
-            self.action_ramp_duration_input.grid(row=1, column=2)
-            action_ramp_interval_label = tk.Label( self.action_set_frame, text="Interval")
-            action_ramp_interval_label.grid(row=2, column=1)
-            self.action_ramp_interval_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
-            self.action_ramp_interval_input.grid(row=2, column=2)
-            pass
+            self.action_ramp_target_end_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_target_end_input.grid(row=0, column=2)
+            action_ramp_target_duration_input = tk.Label( self.action_set_frame, text="Duration")
+            action_ramp_target_duration_input.grid(row=1, column=1)
+            self.action_ramp_target_duration_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramp_target_duration_input.grid(row=1, column=2)
+            action_ramp_target_interval_label = tk.Label( self.action_set_frame, text="Interval")
+            action_ramp_target_interval_label.grid(row=2, column=1)
+            self.action_ramptarget__interval_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramptarget__interval_input.grid(row=2, column=2)
+            num_channels_label = tk.Label( self.action_set_frame, text="Num Channels")
+            num_channels_label.grid(row=3, column=1)
+            self.num_channels_str = tk.StringVar() 
+            num_channels_select = ttk.Combobox(self.action_set_frame, width = 4, textvariable = self.num_channels_str)
+            num_channels_select['values'] = ( '1', '2', '3', '4', '5', '6', '7', '8', '9', '10') 
+            num_channels_select.current(0)
+            num_channels_select.grid(row = 3, column = 2) 
+            num_channels_select.bind('<<ComboboxSelected>>', self.action_set_num_channels)
+            
         elif selection == "ActionSet":
             self.action_set_frame.destroy()
             self.action_set_frame.update()
             self.action_set_frame = Frame(self.pop, bg="gray71")
             self.action_set_frame.pack(pady=2)
-            action_set_label = tk.Label( self.action_set_frame, text="Set Value")
+            action_set_label = tk.Label( self.action_set_frame, text="Values(seperate with a comma)")
             action_set_label.grid(row=0, column=1)
             self.action_set_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
             self.action_set_input.grid(row=0, column=2)
-            pass
+            num_channels_label = tk.Label( self.action_set_frame, text="Num Channels")
+            num_channels_label.grid(row=1, column=1)
+            self.num_channels_str = tk.StringVar() 
+            num_channels_select = ttk.Combobox(self.action_set_frame, width = 4, textvariable = self.num_channels_str)
+            num_channels_select['values'] = ( '1', '2', '3', '4', '5', '6', '7', '8', '9', '10') 
+            num_channels_select.current(0)
+            num_channels_select.grid(row = 1, column = 2) 
+            num_channels_select.bind('<<ComboboxSelected>>', self.action_set_num_channels)
+            
         # Add Button for making selection
         self.frameBtns.destroy()
         self.frameBtns.update()
@@ -303,17 +350,14 @@ class GuiScheduleDisplay:
         self.button2 = Button(self.frameBtns, text="cancel", command= self.closeDialog, bg="grey", fg="white")
         self.button2.grid(row=4, column=2)
 
-    def fromJson(self, json_data : json):
-        
-        
+    def action_set_num_channels(self, event):
+        pass
+
+    def fromJson(self, json_data : json):   
         pass        
 
     def removeScheduleItem(self):
         selected = self.listbox.selection()
         current_idx = self.listbox.index(selected)
-        print("remove: " + str(current_idx))
-
         self.listbox.delete(selected)
-
         pass
-
