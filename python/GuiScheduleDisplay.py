@@ -59,47 +59,42 @@ class GuiScheduleDisplay:
     def get_action(self, selection : str) -> json:
         action_json = {""}
         if selection == "ActionRamp":
-            start = 0
-            end = 0
-            if self.num_channels_str.get("1.0", "end-1c").count(",") == 0:
-                start = int(self.action_ramp_start_input.get("1.0", "end-1c"))
-                end   = int(self.action_ramp_end_input.get("1.0", "end-1c")  )
-            else:
-                pass
-
+            
             action_json = { "type"     : "setRamp",
-                            "start"    : start,
-                            "end"      : end,
+                            "start"    : self.get_elements(self.action_ramp_start_input.get("1.0", "end-1c")),
+                            "end"      : self.get_elements(self.action_ramp_end_input.get("1.0", "end-1c")),
                             "duration" : self.action_ramp_duration_input.get("1.0", "end-1c"),
-                            "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") }            
+                            "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") } 
+                      
             
         elif selection == "ActionRampTarget":
-            start = 0
-            end = 0
-            if self.num_channels_str.get("1.0", "end-1c").count(",") == 0:
-                start = int(self.action_ramp_target_start_input.get("1.0", "end-1c"))
-                end   = int(self.action_ramp_target_end_input.get("1.0", "end-1c")  )
-                
-            else:
-                start = self.action_ramp_target_start_input.get("1.0", "end-1c").split(',')
-                end = self.action_ramp_target_end_input.get("1.0", "end-1c").split(',')
-                
-            action_json = { "type"     : "setRampTarget",
-                            "target"   : self.action_ramp_end_input.get("1.0", "end-1c"),
+            
+            action_json = { "type"  : "setRampTarget",
+                            "target"   : self.get_elements(self.action_ramp_end_input.get("1.0", "end-1c")),
                             "duration" : self.action_ramp_duration_input.get("1.0", "end-1c"),
-                            "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") }  
+                            "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") } 
+            
             
         elif selection == "ActionSet":
-            value = 0
-            if self.num_channels_str.get().count(",") == 0:
-                value = int(self.action_set_input.get("1.0", "end-1c"))
-            else:
-                value = self.action_set_input.get("1.0", "end-1c").split(',')
-            action_json = { "type"  : "setData",
-                            "value" : value }  
             
+            action_json = { "type"  : "setData",
+                            "value" : self.get_elements( self.action_set_input.get("1.0", "end-1c")) } 
+        
+        print(f"action_json: {action_json}")
         return action_json
     
+    def get_elements(self, input : str):
+        value = 0
+        valueStr = input #self.action_set_input.get("1.0", "end-1c")
+        numElements = len(valueStr.split(',') )
+        if numElements == 1:
+            value = int(valueStr)
+        else:
+            value = valueStr.split(',')
+            value = [int(x) for x in value]
+        return value 
+        
+        pass
     def okDialog(self):
         json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
                        "id" : self.name_input.get("1.0", 'end-1c'),
@@ -311,8 +306,8 @@ class GuiScheduleDisplay:
             self.action_ramp_target_duration_input.grid(row=1, column=2)
             action_ramp_target_interval_label = tk.Label( self.action_set_frame, text="Interval")
             action_ramp_target_interval_label.grid(row=2, column=1)
-            self.action_ramptarget__interval_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
-            self.action_ramptarget__interval_input.grid(row=2, column=2)
+            self.action_ramptarget_interval_input = tk.Text(self.action_set_frame, height = 1, width = 20) 
+            self.action_ramptarget_interval_input.grid(row=2, column=2)
             num_channels_label = tk.Label( self.action_set_frame, text="Num Channels")
             num_channels_label.grid(row=3, column=1)
             self.num_channels_str = tk.StringVar() 
