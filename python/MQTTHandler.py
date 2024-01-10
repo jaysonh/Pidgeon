@@ -22,25 +22,14 @@ class MQTTHandler():
     
     def add_broker(self, mqtt_json : json) -> MQTTBroker:
 
-        key = json.dumps(mqtt_json, separators=(',', ':'))
-
+        print(f"mqttJson: {mqtt_json}")
+        key = mqtt_json["addr"] #json.dumps(mqtt_json, separators=(',', ':'))
+        print(f"mqtt key: {key}")
         if key in self.broker_list:
-            print("MQTT broker alread found")
+            print("MQTT broker already found")
         else:
             print("adding broker: ", mqtt_json)
             # Connect to the MQTT broker
             self.broker_list[ key ] = MQTTBroker( mqtt_json )
 
         return self.broker_list[key]
-
-    def send_msg( self, topic : str, msg : str):
-        self.client.publish(topic, msg)
-        
-    def on_message(client, userdata, msg):
-        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-
-    def subscribe( self, topic : str, func):
-        
-
-        self.client.subscribe(topic)
-        self.funcList.append( func)

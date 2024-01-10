@@ -1,18 +1,30 @@
 import json
 
+class DeviceValueRange:
+    def __init__(self, json_data : json) -> None:
+        self.min = json_data["min"]
+        self.max = json_data["max"]
+        pass
+
+    def clamp(self, v : float) -> float:
+        return max(min(v, self.max), self.min)
+    def clamp(self, arr : []) -> []:
+        result = []
+        for v in arr:
+            result.append( max(min(v, self.max), self.min) )
+        return result
+    
 class DeviceOutControl:
     
     value = 0.0
 
     def __init__(self, json_data : json ):
         self.numChannels = json_data["numChannels"]
+        self.range       = DeviceValueRange( json_data["range"] )
 
     def sendData(self, data = [] ):
         self.vals = data
         pass
-
-    #def sendData(self, v : json ):
-    #    pass
 
     def getValues(self) -> []:
         return self.vals

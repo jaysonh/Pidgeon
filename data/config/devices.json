@@ -6,7 +6,12 @@
                 "type" : "rebble",
                 "remoteAddr" : "192.168.1.101",
                 "numChannels" : 1,
-                "range" : { "min": 0, "max": 100 }
+                "range" : { "min": 0, "max": 100 },
+                "mqttTopic" : "/devices/00000001",
+                "broker":{
+                    "addr" : "127.0.0.1",
+                    "port"   : 1883
+                }
             },
 
             {
@@ -27,7 +32,7 @@
                 "range" : { "min": 0, "max": 255 },
                 "topic" : "/devices/00000010",
                 "broker":{
-                    "addr" : "localhost",
+                    "addr" : "127.0.0.1",
                     "port"   : 1883
                 }
             },{
@@ -38,10 +43,11 @@
                 "range" : { "min": 0, "max": 255 },
                 "topic" : "/devices/00000011",
                 "broker":{
-                    "addr" : "localhost",
+                    "addr"   : "127.0.0.1",
                     "port"   : 1883
                 }
-            },{
+            },
+            {
                 "name" : "KKControl1",
                 "id"   : "00000012",
                 "type" : "kkc",
@@ -49,7 +55,7 @@
                 "range" : { "min": 0, "max": 255 },
                 "topic" : "/zqwlGE104M_01/getData",
                 "broker":{
-                    "addr" : "localhost",
+                    "addr"   : "127.0.0.1",
                     "port"   : 1883
                 }
             },

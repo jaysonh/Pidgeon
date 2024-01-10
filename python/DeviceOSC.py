@@ -20,9 +20,10 @@ class DeviceOSC(DeviceOutControl):
         pass
 
     def sendData(self, data : []):
-       
-        print(f"osc sending data: {data}")
-        self.client.send_message(self.addr, data)  
+        
+        self.values = self.range.clamp(data)
+        print(f"osc sending data: {self.values}")
+        self.client.send_message(self.addr, self.values)  
         
         # send a bundle of data
         #bundle = osc_bundle_builder.OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
