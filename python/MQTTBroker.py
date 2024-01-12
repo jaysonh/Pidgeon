@@ -13,24 +13,22 @@ class MQTTBroker:
         
         self.port = mqtt_json.get( "port" )
         self.addr = mqtt_json.get( "addr" )
-        
+         
         print(f"connecting to broker {self.addr} {self.port}")
         client_id = f'subscribe-{random.randint(0, 100)}'
         self.broker = mqtt.Client(client_id)
-        
+        def on_connect(client, userdata, flags, rc):
+           if rc == 0:
+               print("Connected to MQTT Broker!")
+           else:
+               print("Failed to connect, return code %d\n", rc)
         #self.broker.on_message = self.on_message
-
-
-        self.broker.connect(self.addr, self.port)
-        self.broker.on_connect = self.on_connect
+        self.broker.on_connect = on_connect
+        self.broker.connect(self.addr, self.port)        
+        self.broker.loop_start()
         pass  
 
 
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
-            print("Connected to MQTT Broker!")
-        else:
-            print("Failed to connect, return code %d\n", rc)
     def subscribe( self, topic : str ):
         def on_message(client, userdata, msg):
             print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
