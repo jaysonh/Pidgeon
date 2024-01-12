@@ -7,10 +7,11 @@ from JsonParams import *
 
 class GUIDisplayDeviceIn:
 
-    def __init__(self, root : Tk, json_data : json, json_data_parent : JsonParams, addJsonFunc = None, saveJsonFunc = None):
+    def __init__(self, root : Tk, json_data : json, json_data_parent : JsonParams, addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None):
 
         self.parent = root
         self.addJsonFunc = addJsonFunc
+        self.removeJsonFunc = removeJsonFunc
              
         self.sensors = json_data_parent
         self.tree = ttk.Treeview(root)
@@ -129,7 +130,10 @@ class GUIDisplayDeviceIn:
             #    "type" : "mqtt",
         pass
 
-    def removeDeviceInItem(self):
+    def removeDeviceInItem(self):        
+        selection = self.sensorsListBox.selection()
+        self.removeJsonFunc( self.sensorsListBox.index(selection) )
+        self.sensorsListBox.delete( selection )
         pass
 
     def destroy(self):

@@ -7,10 +7,11 @@ import json
 class GuiScheduleDisplay:
     deviceID = ""
     
-    def __init__(self, root : tk , json_data : json , addJsonFunc = None, saveJsonFunc = None):
+    def __init__(self, root : tk , json_data : json , addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None):
 
         self.parent = root
         self.addJsonFunc = addJsonFunc
+        self.removeJsonFunc = removeJsonFunc
         self.schedule = json_data
         self.listbox = ttk.Treeview(root, columns=("Column1", "Column2", "Column3", "Column4", "Column5"))
         self.listbox.pack(side="top", fill="both", expand=True)
@@ -347,7 +348,7 @@ class GuiScheduleDisplay:
         pass        
 
     def removeScheduleItem(self):
-        selected = self.listbox.selection()
-        current_idx = self.listbox.index(selected)
-        self.listbox.delete(selected)
+        selection = self.listbox.selection()
+        self.removeJsonFunc( self.listbox.index(selection) )
+        self.listbox.delete( selection )
         pass

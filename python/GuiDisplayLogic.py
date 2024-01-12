@@ -6,9 +6,10 @@ import json
 from JsonParams import *
 
 class GuiDisplayLogic:
-    def __init__(self, root : tk , json_data : json,json_data_parent : JsonParams,  addJsonFunc = None, saveJsonFunc = None) -> None:
+    def __init__(self, root : tk , json_data : json,json_data_parent : JsonParams,  addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None) -> None:
         self.parent = root
         self.addJsonFunc = addJsonFunc
+        self.removeJsonFunc = removeJsonFunc
         self.logic = json_data_parent
 
         self.tree = ttk.Treeview(root)
@@ -253,8 +254,11 @@ class GuiDisplayLogic:
         self.pop.update()
 
 
-    def removeLogicItem(self):
-        pass
+    def removeLogicItem(self):      
+        selection = self.logicListBox.selection()
+        self.removeJsonFunc( self.logicListBox.index(selection) )
+        self.logicListBox.delete( selection )
+ 
     def destroy(self):
         self.listbox.destroy()
         pass

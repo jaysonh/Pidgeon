@@ -48,10 +48,10 @@ class GuiMainWindow( ):
         #self.sensorsListBox = self.createDevicesListBox(self.tabList[1], sensorsJson.getJson(), self.tabList[1], self.onListboxSelectSensors) 
         #self.logicListBox = self.createDevicesListBox(self.tabList[3], logicJson.getJson(), self.tabList[3], self.onListboxSelectLogic) 
         
-        self.deviceTab = GUIDisplayDeviceOut ( self.tabList[0], devicesJson.getJson()[0], devicesJson, devicesJson.addWithoutKey, devicesJson.save_file )
-        self.sensorTab = GUIDisplayDeviceIn  ( self.tabList[1], sensorsJson.getJson()[0], sensorsJson, sensorsJson.addWithoutKey, sensorsJson.save_file )
-        self.scheduleTab = GuiScheduleDisplay( self.tabList[2], scheduleJson.getJson(), scheduleJson.addWithoutKey, scheduleJson.save_file)
-        self.logicTab = GuiDisplayLogic      ( self.tabList[3], logicJson.getJson()[0], logicJson, logicJson.addWithoutKey, logicJson.save_file)
+        self.deviceTab = GUIDisplayDeviceOut ( self.tabList[0], devicesJson.getJson()[0], devicesJson, devicesJson.addWithoutKey, devicesJson.save_file, devicesJson.remove )
+        self.sensorTab = GUIDisplayDeviceIn  ( self.tabList[1], sensorsJson.getJson()[0], sensorsJson, sensorsJson.addWithoutKey, sensorsJson.save_file, sensorsJson.remove )
+        self.scheduleTab = GuiScheduleDisplay( self.tabList[2], scheduleJson.getJson(), scheduleJson.addWithoutKey, scheduleJson.save_file, scheduleJson.remove)
+        self.logicTab = GuiDisplayLogic      ( self.tabList[3], logicJson.getJson()[0], logicJson, logicJson.addWithoutKey, logicJson.save_file, logicJson.remove)
 
 
         self.root.mainloop()

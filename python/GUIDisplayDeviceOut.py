@@ -8,11 +8,12 @@ from JsonParams import *
 
 class GUIDisplayDeviceOut:
 
-    def __init__(self, root : Tk, json_data : json, json_data_parent : JsonParams, addJsonFunc = None, saveJsonFunc = None):
+    def __init__(self, root : Tk, json_data : json, json_data_parent : JsonParams, addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None):
 
 
         self.parent = root
         self.addJsonFunc = addJsonFunc
+        self.removeJsonFunc = removeJsonFunc
         self.devices = json_data_parent
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
@@ -127,13 +128,10 @@ class GUIDisplayDeviceOut:
         pass
 
     def removeDeviceOutItem(self):
-        pass
-
-    #def destroy(self):
-    #    self.listbox.destroy()
-    #    pass
-
-
+        
+        selection = self.devicesListBox.selection()
+        self.removeJsonFunc( self.devicesListBox.index(selection) )
+        self.devicesListBox.delete( selection )
 
     def closeDialog(self):
         self.pop.destroy()

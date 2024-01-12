@@ -18,6 +18,10 @@ class JsonParams:
         self.json_data.append( json_data )
     
 
+    def remove(self, indx):
+        del self.json_data[indx]
+        pass
+
     # add this json item to the array at key
     def add(self, key : str, json_data : json): 
         if key == self.key:
