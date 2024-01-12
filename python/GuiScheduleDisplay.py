@@ -69,7 +69,7 @@ class GuiScheduleDisplay:
             
         elif selection == "ActionRampTarget":
             
-            action_json = { "type"  : "setRampTarget",
+            action_json = { "type"     : "setRampTarget",
                             "target"   : self.get_elements(self.action_ramp_end_input.get("1.0", "end-1c")),
                             "duration" : self.action_ramp_duration_input.get("1.0", "end-1c"),
                             "interval" : self.action_ramp_interval_input.get("1.0", "end-1c") } 
@@ -102,7 +102,6 @@ class GuiScheduleDisplay:
                        "deviceID" : self.device_id_input.get("1.0", 'end-1c'),
                        "address" : self.address_input.get("1.0", 'end-1c'),
                        "next run" : "",
-                       #"action" : self.action_input.get("1.0", 'end-1c')
                        "action" : self.get_action(self.action_str.get())
                        }
         
@@ -153,53 +152,49 @@ class GuiScheduleDisplay:
         cron_label = tk.Label( frame_cron_input, text="schedule time")
         cron_label.grid(row=0, column=1)
 
+        sequential_list_lambda = lambda start, end, wildcard: [str(num) if num != wildcard else '*' for num in range(start, end + 1)]
+        
         cron_second_label = tk.Label( frame_cron_input, text="sec")
         cron_second_label.grid(row=0, column=2)
         self.cron_second_var = tk.StringVar() 
-        cron_second = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_second_var)
-        cron_second['values'] = ('*', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59' ) 
+        cron_second = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_second_var,values =sequential_list_lambda(0,59,0))
         cron_second.current(0)
         cron_second.grid(row = 0, column = 3) 
         
         cron_minute_label = tk.Label( frame_cron_input, text="min")
         cron_minute_label.grid(row=0, column=4)
         self.cron_minute_var = tk.StringVar() 
-        cron_minute = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_minute_var)
-        cron_minute['values'] = ('*', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59') 
+        cron_minute = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_minute_var, values=sequential_list_lambda(0,59,0))
         cron_minute.current(0)
         cron_minute.grid(row = 0, column = 5) 
      
         cron_hour_label = tk.Label( frame_cron_input, text="hour")
-        cron_hour_label.grid(row=0, column=5)
+        cron_hour_label.grid(row=0, column=6)
         self.cron_hour_var = tk.StringVar() 
-        cron_hour = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_hour_var)
-        cron_hour['values'] = ( '*', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24' ) 
+        cron_hour = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_hour_var, values =sequential_list_lambda(0,24,0))
         cron_hour.current(0)
-        cron_hour.grid(row = 0, column = 6) 
+        cron_hour.grid(row = 0, column = 7) 
         
         cron_day_label = tk.Label( frame_cron_input, text="day")
-        cron_day_label.grid(row=0, column=7)
+        cron_day_label.grid(row=0, column=8)
         self.cron_day_var = tk.StringVar() 
-        cron_day = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_day_var)
-        cron_day['values'] = ('*', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31') 
+        cron_day = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_day_var, values =sequential_list_lambda(0,31,0))
         cron_day.current(0)
-        cron_day.grid(row = 0, column = 8) 
+        cron_day.grid(row = 0, column = 9) 
 
         cron_month_label = tk.Label( frame_cron_input, text="month")
-        cron_month_label.grid(row=0, column=9)
+        cron_month_label.grid(row=0, column=10)
         self.cron_month_var = tk.StringVar() 
-        cron_month = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_month_var)
-        cron_month['values'] = ('*', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12') 
+        cron_month = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_month_var, values =sequential_list_lambda(0,12,0))
         cron_month.current(0)
-        cron_month.grid(row = 0, column = 10) 
+        cron_month.grid(row = 0, column = 11) 
         
         cron_day_week_label = tk.Label( frame_cron_input, text="day_week")
-        cron_day_week_label.grid(row=0, column=11)
+        cron_day_week_label.grid(row=0, column=12)
         self.cron_day_week_var = tk.StringVar() 
-        cron_day_week = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_day_week_var)
-        cron_day_week['values'] = ('*', '1', '2', '3', '4', '5', '6', '7') 
+        cron_day_week = ttk.Combobox(frame_cron_input, width = 2, textvariable = self.cron_day_week_var, values =sequential_list_lambda(0,7,0))
         cron_day_week.current(0)
-        cron_day_week.grid(row = 0, column = 12) 
+        cron_day_week.grid(row = 0, column = 13) 
 
 
         # device id input
