@@ -3,12 +3,14 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 import json
+from Logging import *
 
 class GuiScheduleDisplay:
     deviceID = ""
     
     def __init__(self, root : tk , json_data : json , addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None):
 
+        logger.info("Initialising GuiScheduleDisplay")
         self.parent = root
         self.addJsonFunc = addJsonFunc
         self.removeJsonFunc = removeJsonFunc
@@ -16,31 +18,20 @@ class GuiScheduleDisplay:
         self.listbox = ttk.Treeview(root, columns=("Column1", "Column2", "Column3", "Column4", "Column5"))
         self.listbox.pack(side="top", fill="both", expand=True)
 
-        #self.listbox.insert("", "end", text=f"Name:", values=(json_data["name"] ))
-        #self.listbox.insert("", "end", text=f"ID: ", values=(json_data["id"],  ))
-        #self.listbox.insert("", "end", text=f"Type: ", values=(json_data["type"] ))
-        #self.listbox.insert("", "end", text=f"Num Channels: ", values=(json_data["numChannels"] ))
-
         for job in json_data:
             self.listbox.insert("", "end", text=job["id"], values=( job["time"], job["deviceID"], job["address"], "next run:", job["action"] ))
-            print(job)
-
                 
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
 
         self.addButton = Button(self.bottomframe, text ="add", command = self.openAddScheduleDialog)
         self.addButton.pack(side="right", fill="none", expand=False)
-
         
         self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeScheduleItem)
         self.removeButton.pack(side="left", fill="none", expand=False)
 
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
-
-        pass
-        #self.schedule = schedule
 
     def replaceDevicesListBox(self, items : json):
         
@@ -49,11 +40,10 @@ class GuiScheduleDisplay:
 
         # add data to the treeview
         for job in items:
-            print( "job[id]: " + job["id"])
             self.listbox.insert("", "end", text=job["id"], values=( job["time"], job["deviceID"], job["address"], "next run:", job["action"] ))          
-        pass
-
+        
     def closeDialog(self):
+        logger.debug("closing dialog")
         self.pop.destroy()
         self.pop.update()
 
@@ -81,7 +71,6 @@ class GuiScheduleDisplay:
             action_json = { "type"  : "setData",
                             "value" : self.get_elements( self.action_set_input.get("1.0", "end-1c")) } 
         
-        print(f"action_json: {action_json}")
         return action_json
     
     def get_elements(self, input : str):
@@ -93,9 +82,9 @@ class GuiScheduleDisplay:
         else:
             value = valueStr.split(',')
             value = [int(x) for x in value]
+
         return value 
         
-        pass
     def okDialog(self):
         json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
                        "id" : self.name_input.get("1.0", 'end-1c'),
@@ -108,7 +97,7 @@ class GuiScheduleDisplay:
         
         
         self.addJsonFunc( json_data )
-        #print("close dialog: " + self.cron_day_week_var.get())
+
         cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
         self.add_schedule( cron_str )
         self.replaceDevicesListBox( self.schedule)
@@ -121,6 +110,8 @@ class GuiScheduleDisplay:
         pass
 
     def openAddScheduleDialog(self):
+        logger.debug("Opening add schedule dialog")
+        
         #global pop
         self.pop = Toplevel(self.parent)
         self.pop.title("Add Schedule Item")

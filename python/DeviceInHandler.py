@@ -2,6 +2,7 @@ import json
 from typing import List
 from DeviceIn import *
 from JsonParams import *
+from Logging import *
 
 class DeviceInHandler:
     sensors = {}
@@ -11,6 +12,6 @@ class DeviceInHandler:
         for json_device in json_data.getJson():
             key = json_device["id"]
             self.sensors[key] = DeviceIn(json_device)
-            print(f"added sensor {key}: {self.sensors[key]}")
+            logger.info(f"added sensor {key}: {self.sensors[key]}")
         pass
 

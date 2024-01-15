@@ -1,13 +1,15 @@
 import json
+from Logging import *
 
 class DeviceValueRange:
     def __init__(self, json_data : json) -> None:
         self.min = json_data["min"]
         self.max = json_data["max"]
-        pass
-
+        logger.debug("Creating DeviceValueRange {self.min} {self.max}")
+        
     def clamp(self, v : float) -> float:
         return max(min(v, self.max), self.min)
+    
     def clamp(self, arr : []) -> []:
         result = []
         for v in arr:

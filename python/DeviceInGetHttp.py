@@ -10,28 +10,25 @@ import json
 from MQTTHandler import MQTTHandler
 from DeviceInControl import *
 import urllib.request
+from Logging import *
 
 class DeviceInGetHttp(DeviceInControl):
     
     def __init__(self, json_data : json):
         super().__init__( json_data )
-        print("creating sensor Rest HTTP")
         
         self.request_addr = json_data["requestAddr"]
         self.api_key = json_data["apiKey"]
-
-        pass
+        logger.info("creating sensor Rest HTTP: {self.request_addr}")
 
     def update(self):       
                 
-        url = self.request_addr
         headers={"x-api-key" : self.api_key}
         response = requests.get(self.request_addr, headers=headers)
 
         resultJson = response.json()
-        print( resultJson )
+        logger.debug(f"Result from HTTP: {resultJson}" )
 
-        pass
 
     def on_message(client, userdata, msg):
         #print(f"Message received [{msg.topic}]: {msg.payload}")

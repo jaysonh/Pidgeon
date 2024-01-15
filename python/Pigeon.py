@@ -5,18 +5,21 @@ from MQTTHandler import MQTTHandler
 from DeviceInHandler import DeviceInHandler
 import os
 import time
-from AsciiPigeon import drawPigeon
+from AsciiPigeon import DrawAsciiPigeon
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 from GUIMainWindow import *
 from LogicHandler import *
+from Logging import *
 
 version = "0.0.1"
     
 if __name__ == "__main__":
-    drawPigeon()
-    print(f"Pigeon version {version}")
+
+    SetupLogging()
+    DrawAsciiPigeon()
+    logger.info(f"Pigeon version {version}")
 
     configPath = os.getcwd() + "/../data/config"
 
@@ -43,7 +46,6 @@ if __name__ == "__main__":
                          configuration.get("sensors"), 
                          configuration.get("schedule"), 
                          configuration.get("logic") )
-    #createMainWindow(  )
     
-    print("Exiting application") 
+    logger.info("End of application") 
    

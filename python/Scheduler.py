@@ -18,7 +18,7 @@ class Scheduler:
     scheduleActions = {}    
     def __init__(self, schedule_json : JsonParams, devices : DeviceHandler, sensors : DeviceInControl ):
 
-        print("starting scheduler")
+        logger.info(f"Loading Scheduler")
         self.scheduler = BackgroundScheduler()
         for schedule_item in schedule_json.getJson():
             id = schedule_item["id"]
@@ -32,12 +32,12 @@ class Scheduler:
                 action = ActionRampTarget( schedule_item["action"] )
             else:
                 action = None
-                print("ERROR invalid action type")
+                logger.error("ERROR invalid action type")
             if action != None:
                 self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
             
             self.parse_cron( schedule_item["time"], self.scheduleActions[ id ].run )
-
+        logger.info(f"Starting scheduler")
         self.scheduler.start()
 
     def parse_cron( self, cron_time : str, action : ScheduleAction ):
@@ -51,9 +51,10 @@ class Scheduler:
             monthCron = cron_time.split(" ")[4]
             dayWeekCron = cron_time.split(" ")[5]
 
+            logger.info(f"Adding job to scheduler {secCron} {minCron} {hourCron} {dayMonthCron} {monthCron} {dayWeekCron} action: {action}")
             self.scheduler.add_job(action, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
 
         except IndexError:
-            print("Error: Invalid cron time format")
+            logger.error("Error: Invalid cron time format")
 
     

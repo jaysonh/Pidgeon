@@ -3,6 +3,7 @@ import json
 from Action import Action
 from DeviceOutControl import DeviceOutControl
 from MathHelper import *
+from Logging import *
 
 # similiar to the ActionRamp fucntion except that this will go from the initial value to a target
 class ActionRampTarget(Action):
@@ -14,6 +15,7 @@ class ActionRampTarget(Action):
         self.interval = json_data["interval"]
 
         target = json_data["target"]
+        logger.info(f"Creating ActionRampTarget {self.target} {self.duration} {self.interval}")
 
         if type(target) != list:
             v = target
@@ -24,7 +26,7 @@ class ActionRampTarget(Action):
 
 
     def run(self, device : DeviceOutControl ):
-        print("run ActionRampTarget")
+        logger.info("Running ActionRampTarget")
 
         t_start = time.time()
         t_end   = t_start + self.duration
@@ -33,10 +35,10 @@ class ActionRampTarget(Action):
 
         while time.time() < t_end:
            
-            print(f"self.numVals: {self.numVals}, startVals: {startVals} self.target: {self.target}")
+            logger.debug(f"self.numVals: {self.numVals}, startVals: {startVals} self.target: {self.target}")
             
             device.sendData( [map_data( time.time(), t_start, t_end, startVals[i], self.target[i] ) for i in range(0, len(self.target))] )
             time.sleep( self.interval )
 
         device.sendData( self.target )      
-        pass
+        

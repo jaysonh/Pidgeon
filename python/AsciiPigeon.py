@@ -1,4 +1,4 @@
-def drawPigeon():
+def DrawAsciiPigeon():
     print("     .-''-.                            ") 
     print("    / ,    \                           ") 
     print(" .-'`(o)    ;                          ")  

@@ -12,16 +12,10 @@ class DeviceHandler:
         for json_device in devices_json_out.getJson():
             key = json_device["id"]
             self.devices[key] = Device(json_device)
-            print(f"adding device {key}: {self.devices[key]}")
-        #for json_device in devices_json_out:
-        #    key = json_device["id"]
-        #    self.devices[key] = Device(json_device)
-        #    print(f"adding device {key}: {self.devices[key]}")
-        pass
-
+            logger.info(f"adding device {key}: {self.devices[key]}")
+        
     def get(self, keyID : str ) -> DeviceOutControl:
         return self.devices[keyID]
-        pass
 
     def getAction(self, keyID : str):
         pass

@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 from MQTTBroker import *
+from Logging import *
 
 class MQTTHandler():
 
@@ -21,14 +22,14 @@ class MQTTHandler():
          MQTTHandler.__instance = self
     
     def add_broker(self, mqtt_json : json) -> MQTTBroker:
-
-        print(f"mqttJson: {mqtt_json}")
         key = mqtt_json["addr"] #json.dumps(mqtt_json, separators=(',', ':'))
+        
+        logger.info(f"Searching for broker {key}")
         print(f"mqtt key: {key}")
         if key in self.broker_list:
-            print("MQTT broker already found")
+            logger.info(f"MQTT broker already found")
         else:
-            print("adding broker: ", mqtt_json)
+            logger.info(f"adding broker: {mqtt_json}") 
             # Connect to the MQTT broker
             self.broker_list[ key ] = MQTTBroker( mqtt_json )
 

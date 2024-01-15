@@ -3,6 +3,7 @@ import json
 from Action import Action
 from DeviceOutControl import DeviceOutControl
 from MathHelper import *
+from Logging import *
 
 class ActionRamp(Action):
     v = 0
@@ -15,9 +16,10 @@ class ActionRamp(Action):
         if len(self.start) != len(self.end):
             raise Exception("start and end arrays must be the same length")
         self.numVals = len(self.start) 
+        logger.info(f"Creating ActionRamp {self.target} {self.duration} {self.interval}")
 
     def run(self, device : DeviceOutControl):
-        print("run ActionRamp")
+        logger.info("Run ActionRamp")
 
         t_start = time.time()
         t_end   = t_start + self.duration

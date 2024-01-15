@@ -6,6 +6,7 @@ from DeviceMQTT import *
 from DeviceOSC import *
 from DeviceKKC import *
 from DeviceCommandLine import *
+from Logging import *
 
 class Device:
     
@@ -17,6 +18,8 @@ class Device:
         self.name = json_data["name"]
         self.numChannels = json_data["numChannels"]
         self.type = json_data["type"]
+
+        logger.info(f"Creating device {self.id} {self.name} {self.type}")
 
         if( self.type == "dmxftdi"):
             self.outputDevice = DeviceDMXFTDI(json_data  )
@@ -34,11 +37,9 @@ class Device:
             raise  Exception(f"Invalid device type: {self.type}")
     
     def sendData(self, data = [] ):
+        logger.debug(f"sending data {data}")
         self.outputDevice.sendData( data )
         pass
-    #def sendData(self, v : float):
-    #    self.outputDevice.sendData( [v] )
-    #    pass
 
     def getValue(self) -> int:
         return self.outputDevice.getValue()

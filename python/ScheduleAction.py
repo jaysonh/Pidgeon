@@ -7,18 +7,20 @@ from ActionSet import ActionSet
 from ActionRamp import ActionRamp
 from ActionRampTarget import *
 from datetime import datetime
+from Logging import *
 
 class ScheduleAction:
     deviceID = ""
     
     def __init__(self, deviceID : str,  d :DeviceOutControl, a : ActionSet ):
+        logger.debug(f"Initialising ScheduleAction for {deviceID}")
         self.deviceID = deviceID
         self.action = a
         self.device = d
 
     def run(self):
+        logger.debug(f"Start running action for device: {self.deviceID}")
+        
         self.time = str(datetime.now())
-        self.action.run( self.device )
-        #print(f"{self.time}setting {self.action.get()} from: {self.deviceID} ")  
-        #self.device.sendData( self.action.get() )      
+        self.action.run( self.device )    
        

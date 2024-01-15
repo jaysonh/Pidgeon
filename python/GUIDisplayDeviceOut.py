@@ -10,7 +10,8 @@ class GUIDisplayDeviceOut:
 
     def __init__(self, root : Tk, json_data : json, json_data_parent : JsonParams, addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None):
 
-
+        logger.info("creating GUIDisplayDeviceOut")
+        
         self.parent = root
         self.addJsonFunc = addJsonFunc
         self.removeJsonFunc = removeJsonFunc

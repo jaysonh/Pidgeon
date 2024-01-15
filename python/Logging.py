@@ -3,6 +3,8 @@ import calendar
 import time
 import datetime
 
+logger = logging.getLogger(__name__)
+
 def SetupLogging():
     
 
@@ -14,7 +16,16 @@ def SetupLogging():
     logFileName = "log" + custom_timestamp + ".log"
     logPath = "../logs/" + logFileName
     print(f"timestamp: {custom_timestamp}")
-    logging.basicConfig(filename=logPath, encoding='utf-8', level=logging.DEBUG)
+
+    logger.setLevel(logging.DEBUG)
+    c_handler = logging.StreamHandler()
+    f_handler = logging.FileHandler(logPath)
+    c_handler.setLevel(logging.DEBUG)
+    f_handler.setLevel(logging.DEBUG)
+    logger.addHandler(c_handler)
+    logger.addHandler(f_handler)
+
+    logger.debug(f"Started logging at time {custom_timestamp }")
 
 if __name__ == "__main__":
   SetupLogging()

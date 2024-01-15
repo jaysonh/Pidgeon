@@ -1,11 +1,13 @@
 import json
 from tkinter.filedialog import asksaveasfile
+from Logging import *
 
 class JsonParams:
     def __init__(self, json_data : json,key : str):
 
         self.json_data = json_data
         self.key = key
+        logger.info(f"Saved JsonParam for key: {key}")
         pass
 
     def getJson(self) -> json:
@@ -17,7 +19,6 @@ class JsonParams:
     def addWithoutKey(self, json_data : json):
         self.json_data.append( json_data )
     
-
     def remove(self, indx):
         del self.json_data[indx]
         pass

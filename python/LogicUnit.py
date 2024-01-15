@@ -6,6 +6,7 @@ from ScheduleAction import *
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from jsonLogic import *
+from Logging import *
 
 class LogicUnit:
     def __init__(self, json_data : json):
@@ -15,6 +16,7 @@ class LogicUnit:
         self.outputDeviceID = json_data["outputDevice"] # : "00000010",
         self.jsonLogic = json_data["logic"] # : { ">": [{"var": "temp"}, 30]},
         self.updateCronTime = json_data["updateTime"]
+        logger.info("creating LoggicUnit: " + str(self.name))
         self.action = self.selectAction(json_data["action"], self.updateCronTime)
         pass
 
@@ -27,10 +29,8 @@ class LogicUnit:
             self.action = ActionRampTarget( json_data )
         else:
             self.action = None
-            print("ERROR invalid action type")
-        #if action != None:
-        #    self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
-        #
+            logger.error("ERROR invalid action type")
+        
         self.parse_cron( updateTime, self.action.run )
 
     def parse_cron( self, cron_time : str, action : ScheduleAction ):
@@ -46,7 +46,7 @@ class LogicUnit:
             #self.scheduler.add_job(action, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
 
         except IndexError:
-            print("Error: Invalid cron time format")
+            logger.error("Error: Invalid cron time format")
 
     def add_cron(self, scheduler : BackgroundScheduler):
         pass
