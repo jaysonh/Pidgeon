@@ -1,0 +1,85 @@
+Started logging at time 2024-01-16_12-25-29
+Pigeon version 0.0.1
+Loading config file C:\projects\Pigeon\Pigeon\python/../data/config/devices.json
+Saved JsonParam for key: devices
+Loading config file C:\projects\Pigeon\Pigeon\python/../data/config/sensors.json
+Saved JsonParam for key: sensors
+Loading config file C:\projects\Pigeon\Pigeon\python/../data/config/schedule.json
+Saved JsonParam for key: schedule
+Loading config file C:\projects\Pigeon\Pigeon\python/../data/config/logic.json
+Saved JsonParam for key: logic
+Loading config file C:\projects\Pigeon\Pigeon\python/../data/config/ui.json
+Saved JsonParam for key: userinterface
+Creating device 00000001 Rebble01 rebble
+Creating DeviceValueRange {self.min} {self.max}
+Creating Device Rebble
+Searching for broker 127.0.0.1
+adding broker: {'addr': '127.0.0.1', 'port': 1883}
+connecting to broker 127.0.0.1 1883
+subscribed to topic: /devices/00000001
+Connected to MQTT Broker!
+adding device 00000001: <Device.Device object at 0x000001B9985127A0>
+Creating device 00000002 CustomScript1 command_line
+Creating DeviceValueRange {self.min} {self.max}
+creating device CommandLine: ['dir', '..']
+adding device 00000002: <Device.Device object at 0x000001B998512E30>
+Creating device 00000010 MQTT1 mqtt
+Creating DeviceValueRange {self.min} {self.max}
+creating device MQTT
+Searching for broker 127.0.0.1
+MQTT broker already found
+adding device 00000010: <Device.Device object at 0x000001B998512F50>
+Creating device 00000011 MQTT1 mqtt
+Creating DeviceValueRange {self.min} {self.max}
+creating device MQTT
+Searching for broker 127.0.0.1
+MQTT broker already found
+adding device 00000011: <Device.Device object at 0x000001B9985130D0>
+Creating device 00000012 KKControl1 kkc
+Creating DeviceValueRange {self.min} {self.max}
+Creating device MQTT
+Searching for broker 127.0.0.1
+MQTT broker already found
+adding device 00000012: <Device.Device object at 0x000001B9985131F0>
+Creating device 00000020 OSC1 osc
+Creating DeviceValueRange {self.min} {self.max}
+creating device OSC at 127.0.0.1, 5005, /filter
+adding device 00000020: <Device.Device object at 0x000001B998513310>
+Creating sensor MQTT
+Searching for broker localhost
+adding broker: {'addr': 'localhost', 'port': 1883}
+connecting to broker localhost 1883
+Connected to MQTT Broker!
+subscribed to topic: /devices/00000004/receive
+Error invalid sensor type
+added sensor sens00000004: <DeviceIn.DeviceIn object at 0x000001B998513460>
+Creating sensor MQTT
+Searching for broker localhost
+MQTT broker already found
+subscribed to topic: /devices/00000005/receive
+Error invalid sensor type
+added sensor sens00000005: <DeviceIn.DeviceIn object at 0x000001B9985139A0>
+creating sensor Rest HTTP: {self.request_addr}
+added sensor sens00044192: <DeviceIn.DeviceIn object at 0x000001B9985138E0>
+Loading Scheduler
+Creating ActionSet {self.data  }
+Initialising ScheduleAction for 00000010
+Adding job to scheduler 0 * * * * * action: <bound method ScheduleAction.run of <ScheduleAction.ScheduleAction object at 0x000001B9986840A0>>
+Creating ActionSet {self.data  }
+Initialising ScheduleAction for 00000010
+Adding job to scheduler 1 * * * * * action: <bound method ScheduleAction.run of <ScheduleAction.ScheduleAction object at 0x000001B998684100>>
+Creating ActionSet {self.data  }
+Initialising ScheduleAction for 00000012
+Adding job to scheduler 27 * * * * * action: <bound method ScheduleAction.run of <ScheduleAction.ScheduleAction object at 0x000001B998685870>>
+Creating ActionSet {self.data  }
+Initialising ScheduleAction for 00000012
+Adding job to scheduler 30 * * * * * action: <bound method ScheduleAction.run of <ScheduleAction.ScheduleAction object at 0x000001B998685F60>>
+Creating ActionRampTarget [100, 100, 100, 100] 2.0 0.2
+Initialising ScheduleAction for 00000012
+Adding job to scheduler 33 * * * * * action: <bound method ScheduleAction.run of <ScheduleAction.ScheduleAction object at 0x000001B998686620>>
+Creating ActionSet {self.data  }
+Initialising ScheduleAction for 00000002
+Adding job to scheduler 50 * * * * * action: <bound method ScheduleAction.run of <ScheduleAction.ScheduleAction object at 0x000001B998686CE0>>
+Creating ActionSet {self.data  }
+Initialising ScheduleAction for 00000020
+Adding job to scheduler 50 * * * * * action: <bound method ScheduleAction.run of <ScheduleAction.ScheduleAction object at 0x000001B9986873A0>>

@@ -16,7 +16,7 @@ class ActionRamp(Action):
         if len(self.start) != len(self.end):
             raise Exception("start and end arrays must be the same length")
         self.numVals = len(self.start) 
-        logger.info(f"Creating ActionRamp {self.target} {self.duration} {self.interval}")
+        logger.info(f"Creating ActionRamp {self.start} {self.end} {self.duration} {self.intervalTime}")
 
     def run(self, device : DeviceOutControl):
         logger.info("Run ActionRamp")

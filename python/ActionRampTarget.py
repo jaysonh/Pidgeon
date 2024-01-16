@@ -15,7 +15,7 @@ class ActionRampTarget(Action):
         self.interval = json_data["interval"]
 
         target = json_data["target"]
-        logger.info(f"Creating ActionRampTarget {self.target} {self.duration} {self.interval}")
+        logger.info(f"Creating ActionRampTarget {target} {self.duration} {self.interval}")
 
         if type(target) != list:
             v = target
