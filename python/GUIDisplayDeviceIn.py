@@ -32,21 +32,19 @@ class GUIDisplayDeviceIn:
             self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
             self.tree.pack(side="top", fill="both", expand=True)
         
-            self.bottomframe = Frame(root)
-            self.bottomframe.pack( side = BOTTOM )
-
-            self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceInDialog)
-            self.addButton.pack(side="right", fill="none", expand=False)
-            
-            self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeDeviceInItem)
-            self.removeButton.pack(side="left", fill="none", expand=False)
-
-            self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
-            self.saveButton.pack(side="left", fill="none", expand=False)
-
-            self.sensorsListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectSensors ) 
+        self.sensorsListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectSensors ) 
         
-        pass
+        self.bottomframe = Frame(root)
+        self.bottomframe.pack( side = BOTTOM )
+
+        self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceInDialog)
+        self.addButton.pack(side="right", fill="none", expand=False)
+        
+        self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeDeviceInItem)
+        self.removeButton.pack(side="left", fill="none", expand=False)
+
+        self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
+        self.saveButton.pack(side="left", fill="none", expand=False)
 
     def replaceDevicesListBox(self, items : json):
         

@@ -3,6 +3,7 @@ import asyncio
 from pyartnet import ArtNetNode
 from DeviceOutControl import DeviceOutControl
 from Logging import *
+from MQTTHandler import *
 
 class DeviceArtnet(DeviceOutControl):
     
@@ -10,26 +11,32 @@ class DeviceArtnet(DeviceOutControl):
         super().__init__( json_data )
         self.port = json_data["port"]
         self.host = json_data["host"]
-
+        self.mqttTopic  = json_data["mqttTopic"]
+        self.universeID = json_data["universe"]
         logger.info(f"Creating device ArtNet at {self.host}, {self.port}")    
-       
         
-
-    #async def asyncMain(self):
-    #    await self.node.start()
-    #    pass
+        m = MQTTHandler.getInstance()
+        self.mqtt = m.add_broker( json_data["broker"]  )
+        
+        self.mqtt.subscribe( self.mqttTopic, self.mqttAction )
+       
+    def mqttAction(self, v : []):
+        self.sendData(v[0])
+        pass
 
     async def asyncSend(self, v : float):
         self.node = ArtNetNode(self.host, self.port )
-        self.universe = self.node.add_universe(0) 
+        self.universe = self.node.add_universe(self.universeID) 
 
-        self.universe.add_channel(start=0, width=255, channel_name='Dimmer1')
+        logger.debug(f"sending channel: {self.id} data: {v}")
+        self.universe.add_channel(start=1, width=1, channel_name=self.id)
 
         # access is then by name
-        self.channel = self.universe['Dimmer1']
-        self.channel = self.universe.get_channel('Dimmer1')
+        self.channel = self.universe[self.id]
+        self.channel = self.universe.get_channel(self.id)
         self.value = v
-        self.channel.add_fade([self.value,0,0], 5000)
+        
+        self.channel.add_fade([self.value], 100)
         await(self.channel)
         pass
 

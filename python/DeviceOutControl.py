@@ -10,7 +10,7 @@ class DeviceValueRange:
     def clamp(self, v : float) -> float:
         return max(min(v, self.max), self.min)
     
-    def clamp(self, arr : []) -> []:
+    def clampArr(self, arr : []) -> []:
         result = []
         for v in arr:
             result.append( max(min(v, self.max), self.min) )
@@ -22,6 +22,8 @@ class DeviceOutControl:
 
     def __init__(self, json_data : json ):
         self.numChannels = json_data["numChannels"]
+        
+        self.id = json_data["id"]
         self.range       = DeviceValueRange( json_data["range"] )
 
     def sendData(self, data = [] ):

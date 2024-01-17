@@ -14,7 +14,9 @@ class MQTTBroker:
         
         self.port = mqtt_json.get( "port" )
         self.addr = mqtt_json.get( "addr" )
-         
+
+        self.actionDict = {}
+
         logger.info(f"connecting to broker {self.addr} {self.port}")
         client_id = f'subscribe-{random.randint(0, 100)}'
         self.broker = mqtt.Client(client_id)
@@ -28,12 +30,16 @@ class MQTTBroker:
         self.broker.connect(self.addr, self.port)        
         self.broker.loop_start()
         
-    def subscribe( self, topic : str ):
+    def subscribe( self, topic : str, action ):
         def on_message(client, userdata, msg):
             logger.debug(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+            v = [ float(msg.payload.decode()) ]
+            self.actionDict[msg.topic](v)
         logger.info(f"subscribed to topic: {topic}")
         self.broker.subscribe( topic )
-        self.broker.on_message =on_message
+        self.broker.on_message = on_message
+
+        self.actionDict[topic] = action
         pass
 
 

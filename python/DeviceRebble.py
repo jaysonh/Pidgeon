@@ -14,8 +14,12 @@ class DeviceRebble(DeviceOutControl):
 
         m = MQTTHandler.getInstance()
         self.mqtt = m.add_broker( json_data["broker"]  )
-        self.mqtt.subscribe( self.mqttTopic )
+        self.mqtt.subscribe( self.mqttTopic, self.mqttAction )
        
+    def mqttAction(self, v : []):
+        self.sendData(v[0])
+        pass
+
     def sendData(self, v : float ):
         self.value = int(self.range.clamp(v))
         logger.info(f"sendData Rebble: {v}")

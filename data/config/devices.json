@@ -21,8 +21,10 @@
                 "port" : 6454,
                 "host" : "192.168.1.200",
                 "numChannels" : 1,
+                "universe" : 1,
                 "range" : { "min": 0, "max": 255 },
-                "topic" : "/Greenhouse/2/cableX/1",
+            
+                "mqttTopic" : "/Greenhouse/2/cableX/1",
                 "broker":{
                     "addr" : "localhost",
                     "port"   : 1883
@@ -35,9 +37,10 @@
                 "type" : "artnet",
                 "port" : 6454,
                 "host" : "192.168.1.200",
-                "numChannels" : 4,
+                "universe" : 2,
+                "numChannels" : 1,
                 "range" : { "min": 0, "max": 255 },
-                "topic" : "/Greenhouse/1/RGBWLinear/1",
+                "mqttTopic" : "/Greenhouse/1/RGBWLinear/1",
                 "broker":{
                     "addr" : "localhost",
                     "port"   : 1883
