@@ -4,6 +4,7 @@ from tkinter import ttk
 import tkinter as tk
 import json
 from JsonParams import *
+from Logging import *
 
 class GUIDisplayDeviceIn:
 
@@ -118,6 +119,25 @@ class GUIDisplayDeviceIn:
                    width = 20)
         self.id_input.grid(row=0, column=2)
 
+        # device type input
+        frame_type_input = Frame(self.pop, bg="gray71")
+        frame_type_input.pack(pady=2)
+        type_label = tk.Label( frame_type_input, text="type")
+        type_label.grid(row=0, column=1)
+        self.type_input = tk.Text(frame_type_input, 
+                   height = 1, 
+                   width = 20)
+        self.type_input.grid(row=0, column=2)
+        
+        # device num channels input
+        frame_num_channels_input = Frame(self.pop, bg="gray71")
+        frame_num_channels_input.pack(pady=2)
+        num_channels_label = tk.Label( frame_num_channels_input, text="numChannels")
+        num_channels_label.grid(row=0, column=1)
+        self.num_channels_input = tk.Text(frame_num_channels_input, 
+                   height = 1, 
+                   width = 20)
+        self.num_channels_input.grid(row=0, column=2)
         
         # Add a Frame
         frameBtns = Frame(self.pop, bg="gray71")
@@ -150,8 +170,11 @@ class GUIDisplayDeviceIn:
         self.pop.update()
 
     def okDialog(self):
-        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), "id" : self.id_input.get("1.0", 'end-1c') }
-        print("saving deviceInjson:")
+        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
+                      "id" : self.id_input.get("1.0", 'end-1c'),
+                      "numChannels" : self.num_channels_input.get("1.0", 'end-1c'), 
+                      "type" : self.type_input.get("1.0", 'end-1c') }
+        logger.info(f"saving deviceIn: {json_data}")
         print(json_data)
         self.addJsonFunc( json_data )
         self.replaceDevicesListBox(self.sensors.getJson())
