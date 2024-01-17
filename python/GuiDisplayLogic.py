@@ -7,7 +7,7 @@ from JsonParams import *
 from Logging import *
 
 class GuiDisplayLogic:
-    def __init__(self, root : tk , json_data : json,json_data_parent : JsonParams,  addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None) -> None:
+    def __init__(self, root : tk , json_data_parent : JsonParams,  addJsonFunc = None, saveJsonFunc = None, removeJsonFunc = None) -> None:
         
         logger.info("creating GuiDisplayLogic")
         self.parent = root
@@ -21,15 +21,19 @@ class GuiDisplayLogic:
         self.tree.column("paramValue", width=100)
         self.tree.heading("paramName", text="Name")
         self.tree.heading("paramValue", text="Value")
-        self.tree.insert("" , "end", text="Line 1", values=("Name",json_data["name"]))
-        self.tree.insert("" , "end", text="Line 1", values=("ID",json_data["id"]))
-        self.tree.insert("" , "end", text="Line 1", values=("inputDevice",json_data["inputDevice"]))
-        self.tree.insert("" , "end", text="Line 1", values=("outputDevice",json_data["outputDevice"]))
-        self.tree.insert("" , "end", text="Line 1", values=("updateTime",json_data["updateTime"]))
-        self.tree.insert("" , "end", text="Line 1", values=("logic",json_data["logic"]))
-        self.tree.insert("" , "end", text="Line 1", values=("action",json_data["action"]))
-        self.tree.pack(side="top", fill="both", expand=True)
-           
+        if json_data_parent.GetNumData() > 0:
+
+            self.tree.insert("" , "end", text="Line 1", values=("Name",json_data["name"]))
+            self.tree.insert("" , "end", text="Line 1", values=("ID",json_data["id"]))
+            self.tree.insert("" , "end", text="Line 1", values=("inputDevice",json_data["inputDevice"]))
+            self.tree.insert("" , "end", text="Line 1", values=("outputDevice",json_data["outputDevice"]))
+            self.tree.insert("" , "end", text="Line 1", values=("updateTime",json_data["updateTime"]))
+            self.tree.insert("" , "end", text="Line 1", values=("logic",json_data["logic"]))
+            self.tree.insert("" , "end", text="Line 1", values=("action",json_data["action"]))
+            self.tree.pack(side="top", fill="both", expand=True)
+            
+            self.logicListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
+
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
 
@@ -42,7 +46,6 @@ class GuiDisplayLogic:
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 
-        self.logicListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
 
     def replaceDevicesListBox(self, items : json):
         

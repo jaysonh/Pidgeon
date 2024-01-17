@@ -1,104 +1,211 @@
 {
     "schedule" :[
             {
-                "id" : "s00012",
-                "time" : "0 * * * * *",
-                "deviceID" : "00000010",
+                "id" : "s00001",
+                "time" : "0 0 * * * *",
+                "deviceID" : "rebble01",
                 "address" : "0",
                 "action" : 
                 {
                     "type" : "setData",
-                    "value": 66  
+                    "value": 0  
                 }
             },
             {
-                "id" : "s00013",
-                "time" : "1 * * * * *",
-                "deviceID" : "00000010",
+                "id" : "s00002",
+                "time" : "0 0 * * * *",
+                "deviceID" : "carpo01",
                 "address" : "0",
                 "action" : 
                 {
                     "type" : "setData",
-                    "value": 99  
-                }
-            },
-            
-            
-            {
-                "id" : "s00013",
-                "time" : "27 * * * * *",
-                "deviceID" : "00000012",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setData",
-                    "value": [ 0, 0, 0, 0 ]  
-                }
-            },
-            {
-                "id" : "s00013",
-                "time" : "30 * * * * *",
-                "deviceID" : "00000012",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setData",
-                    "value": [ 125, 54, 22, 233 ]  
-                }
-            },
-            {
-                "id" : "s00014",
-                "time" : "33 * * * * *",
-                "deviceID" : "00000012",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setRampTarget",
-                    "duration": 2.0,
-                    "target": [100, 100, 100,100],
-                    "interval": 0.2
-                }
-            },
-            
-            
-            {
-                "id" : "s000172",
-                "time" : "50 * * * * *",
-                "deviceID" : "00000002",
-                "address" : "0",
-                "action" : 
-                {
-                    "type" : "setData",
-                    "value": 66  
+                    "value": 0  
                 }
             },
 
-
             {
-                "id" : "s00014533",
-                "time" : "50 * * * * *",
-                "deviceID" : "00000020",
+                "id" : "s00001",
+                "time" : "30 18 * * * *",
+                "deviceID" : "rebble01",
                 "address" : "0",
                 "action" : 
                 {
                     "type" : "setData",
-                    "value": [ 11, 22, 33, 44 ]  
+                    "value": 12.5  
                 }
             },
-
-
             {
-                "id" : "s00014533",
-                "time" : "55 * * * * *",
-                "deviceID" : "00000020",
+                "id" : "s00002",
+                "time" : "30 18 * * * *",
+                "deviceID" : "carpo01",
                 "address" : "0",
                 "action" : 
                 {
-                    "type" : "setRamp",
-                    "duration": 2.0,
-                    "start": [10, 30, 50,60],
-                    "end": [100, 100, 100,100],
-                    "interval": 0.2 
+                    "type" : "setData",
+                    "value": 12.5  
+                }
+            },
+
+            {
+                "id" : "s00001",
+                "time" : "40 18 * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 25  
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "40 18 * * * *",
+                "deviceID" : "carpo01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 25  
+                }
+            },
+
+            {
+                "id" : "s00001",
+                "time" : "50 18 * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 37.5  
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "50 18 * * * *",
+                "deviceID" : "carpo01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 37.5  
+                }
+            },
+            
+            {
+                "id" : "s00001",
+                "time" : "0 19 * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 50.0  
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "0 19 * * * *",
+                "deviceID" : "carpo01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 50.0  
+                }
+            },
+
+            {
+                "id" : "s00001",
+                "time" : "10 19 * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 62.5  
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "10 19 * * * *",
+                "deviceID" : "carpo01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 62.5  
+                }
+            },
+
+            
+            {
+                "id" : "s00001",
+                "time" : "20 19 * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 75  
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "20 19 * * * *",
+                "deviceID" : "carpo01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 75  
+                }
+            },
+
+            {
+                "id" : "s00001",
+                "time" : "30 19 * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 87.5  
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "30 19 * * * *",
+                "deviceID" : "carpo01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 87.5  
+                }
+            },
+
+            
+            {
+                "id" : "s00001",
+                "time" : "0 21 * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 0.0  
+                }
+            },
+            {
+                "id" : "s00002",
+                "time" : "0 21 * * * *",
+                "deviceID" : "carpo01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 0.0  
                 }
             }
     ]

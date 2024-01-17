@@ -1,0 +1,105 @@
+{
+    "schedule" :[
+            {
+                "id" : "s00012",
+                "time" : "0 * * * * *",
+                "deviceID" : "00000010",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 66  
+                }
+            },
+            {
+                "id" : "s00013",
+                "time" : "1 * * * * *",
+                "deviceID" : "00000010",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 99  
+                }
+            },
+            
+            
+            {
+                "id" : "s00013",
+                "time" : "27 * * * * *",
+                "deviceID" : "00000012",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": [ 0, 0, 0, 0 ]  
+                }
+            },
+            {
+                "id" : "s00013",
+                "time" : "30 * * * * *",
+                "deviceID" : "00000012",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": [ 125, 54, 22, 233 ]  
+                }
+            },
+            {
+                "id" : "s00014",
+                "time" : "33 * * * * *",
+                "deviceID" : "00000012",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setRampTarget",
+                    "duration": 2.0,
+                    "target": [100, 100, 100,100],
+                    "interval": 0.2
+                }
+            },
+            
+            
+            {
+                "id" : "s000172",
+                "time" : "50 * * * * *",
+                "deviceID" : "00000002",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 66  
+                }
+            },
+
+
+            {
+                "id" : "s00014533",
+                "time" : "50 * * * * *",
+                "deviceID" : "00000020",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": [ 11, 22, 33, 44 ]  
+                }
+            },
+
+
+            {
+                "id" : "s00014533",
+                "time" : "55 * * * * *",
+                "deviceID" : "00000020",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setRamp",
+                    "duration": 2.0,
+                    "start": [10, 30, 50,60],
+                    "end": [100, 100, 100,100],
+                    "interval": 0.2 
+                }
+            }
+    ]
+}

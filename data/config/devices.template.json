@@ -15,7 +15,7 @@
             },
             
             {
-                "name" : "LEDGrowLight",
+                "name" : "Carpo",
                 "id"   : "carpo01",
                 "type" : "artnet",
                 "port" : 6454,
@@ -28,20 +28,41 @@
                     "port"   : 1883
                 }
             },
-                        
+            
             {
-                "name" : "RGBWColLight",
-                "id"   : "rgbw01",
-                "type" : "artnet",
-                "port" : 6454,
-                "host" : "192.168.1.200",
-                "numChannels" : 4,
+                "name" : "MQTT1",
+                "id"   : "00000011",
+                "type" : "mqtt",
+                "numChannels" : 1,
                 "range" : { "min": 0, "max": 255 },
-                "topic" : "/Greenhouse/1/RGBWLinear/1",
+                "topic" : "/devices/00000011",
                 "broker":{
-                    "addr" : "localhost",
+                    "addr"   : "127.0.0.1",
                     "port"   : 1883
                 }
+            },
+            {
+                "name" : "KKControl1",
+                "id"   : "00000012",
+                "type" : "kkc",
+                "numChannels" : 4,
+                "range" : { "min": 0, "max": 255 },
+                "topic" : "/zqwlGE104M_01/getData",
+                "broker":{
+                    "addr"   : "127.0.0.1",
+                    "port"   : 1883
+                }
+            },
+            {
+                "type" : "osc",
+                "name" : "OSC1",
+                "id"   : "00000020",
+                "port" : 5005,
+                "numChannels" : 4,
+                "range" : { "min": 0, "max": 255 },
+                "host":"127.0.0.1",
+                "address":"/filter"
             }
+
     ]
 }

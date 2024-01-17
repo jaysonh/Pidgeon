@@ -10,6 +10,9 @@ class JsonParams:
         logger.info(f"Saved JsonParam for key: {key}")
         pass
 
+    def GetNumData(self) -> int:
+        return len(self.json_data) 
+
     def getJson(self) -> json:
         return self.json_data
     

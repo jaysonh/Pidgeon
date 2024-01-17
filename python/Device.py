@@ -6,6 +6,7 @@ from DeviceMQTT import *
 from DeviceOSC import *
 from DeviceKKC import *
 from DeviceCommandLine import *
+from DeviceArtnet import *
 from Logging import *
 
 class Device:
@@ -23,6 +24,8 @@ class Device:
 
         if( self.type == "dmxftdi"):
             self.outputDevice = DeviceDMXFTDI(json_data  )
+        elif( self.type == "artnet"):
+            self.outputDevice = DeviceArtnet( json_data  )
         elif( self.type == "rebble"):
             self.outputDevice = DeviceRebble( json_data  )
         elif( self.type == "mqtt"):

@@ -1,34 +1,5 @@
 {
     "sensors" :[
-            {
-                "name" : "sensor01",
-                "id"   : "sens00000004",
-                "type" : "mqtt",
-                "requestTopic" : "/devices/00000004/request",
-                "receiveTopic" : "/devices/00000004/receive",
-                "broker" :
-                {
-                    "addr" : "localhost",
-                    "port" : 1883
-                }
-            },
-            {
-                "name" : "sensor02",
-                "id"   : "sens00000005",
-                "type" : "mqtt",
-                "requestTopic" : "/devices/00000005/request",
-                "receiveTopic" : "/devices/00000005/receive",
-                "broker" :
-                {
-                    "addr" : "localhost",
-                    "port" : 1883
-                }
-            },{
-                   "name" : "Siggrow 44192",
-                   "id"   : "sens00044192",
-                   "type" : "httpGet",
-                   "requestAddr" : "https://app.sigrow.com/api/v2/remote/44192/data",
-                   "apiKey" : "c61e7d20-3ab1-43f9-ad32-b04e3fd9a822"
-                }
+            
     ]
 }
