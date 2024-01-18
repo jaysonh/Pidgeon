@@ -21,7 +21,7 @@ class DeviceOutControl:
     value = 0.0
 
     def __init__(self, json_data : json ):
-        self.numChannels = json_data["numChannels"]
+        self.numChannels = int(json_data["numChannels"])
         
         self.id = json_data["id"]
         self.range       = DeviceValueRange( json_data["range"] )

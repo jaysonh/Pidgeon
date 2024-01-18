@@ -21,7 +21,10 @@ class GuiDisplayLogic:
         self.tree.column("paramValue", width=100)
         self.tree.heading("paramName", text="Name")
         self.tree.heading("paramValue", text="Value")
+        
         if json_data_parent.GetNumData() > 0:
+
+            json_data = json_data_parent.getJson()[0]
 
             self.tree.insert("" , "end", text="Line 1", values=("Name",json_data["name"]))
             self.tree.insert("" , "end", text="Line 1", values=("ID",json_data["id"]))

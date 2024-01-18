@@ -14,7 +14,7 @@ class DeviceArtnet(DeviceOutControl):
         self.mqttTopic  = json_data["mqttTopic"]
         self.universeID = json_data["universe"]
         logger.info(f"Creating device ArtNet at {self.host}, {self.port}")    
-        
+        self.fade_time = 100
         m = MQTTHandler.getInstance()
         self.mqtt = m.add_broker( json_data["broker"]  )
         
@@ -29,14 +29,17 @@ class DeviceArtnet(DeviceOutControl):
         self.universe = self.node.add_universe(self.universeID) 
 
         logger.debug(f"sending channel: {self.id} data: {v}")
-        self.universe.add_channel(start=1, width=1, channel_name=self.id)
+        self.universe.add_channel(start=1, width= self.numChannels, channel_name=self.id)
 
         # access is then by name
         self.channel = self.universe[self.id]
         self.channel = self.universe.get_channel(self.id)
         self.value = v
         
-        self.channel.add_fade([self.value], 100)
+        send_data = []
+        for i in range(self.numChannels):
+            send_data.append(self.value)
+        self.channel.add_fade(send_data, self.fade_time)
         await(self.channel)
         pass
 

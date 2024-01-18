@@ -32,6 +32,11 @@ class GUIDisplayDeviceIn:
             self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
             self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
             self.tree.pack(side="top", fill="both", expand=True)
+        else:
+            self.tree.insert("" , "end",    text="Line 1", values=("Name","" ))
+            self.tree.insert("" , "end",    text="Line 1", values=("ID",  "" ))
+            self.tree.insert("" , "end",    text="Line 1", values=("Type","" ))
+            self.tree.pack(side="top", fill="both", expand=True)
         
         self.sensorsListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectSensors ) 
         
