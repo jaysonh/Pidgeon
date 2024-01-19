@@ -21,6 +21,6 @@ class ScheduleAction:
     def run(self):
         logger.debug(f"Start running action for device: {self.deviceID}")
         
-        self.time = str(datetime.now())
+        self.time = str(datetime.datetime.now())
         self.action.run( self.device )    
        

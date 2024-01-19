@@ -106,7 +106,7 @@ class GuiScheduleDisplay:
 
     def add_schedule( self, cron_str ):
 
-        print("adding schedule: " + cron_str)
+        logger.info(f"adding schedule: {cron_str}")
         pass
 
     def openAddScheduleDialog(self):

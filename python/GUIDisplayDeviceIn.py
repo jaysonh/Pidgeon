@@ -28,14 +28,14 @@ class GUIDisplayDeviceIn:
         if json_data_parent.GetNumData() > 0:
             json_data = json_data_parent.getJson()[0]
 
-            self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
-            self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
-            self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
+            self.tree.insert("" , "end",     values=("Name",json_data["name"]))
+            self.tree.insert("" , "end",     values=("ID",json_data["id"]))
+            self.tree.insert("" , "end",     values=("Type",json_data["type"]))
             self.tree.pack(side="top", fill="both", expand=True)
         else:
-            self.tree.insert("" , "end",    text="Line 1", values=("Name","" ))
-            self.tree.insert("" , "end",    text="Line 1", values=("ID",  "" ))
-            self.tree.insert("" , "end",    text="Line 1", values=("Type","" ))
+            self.tree.insert("" , "end",     values=("Name","" ))
+            self.tree.insert("" , "end",     values=("ID",  "" ))
+            self.tree.insert("" , "end",     values=("Type","" ))
             self.tree.pack(side="top", fill="both", expand=True)
         
         self.sensorsListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectSensors ) 
@@ -91,10 +91,10 @@ class GUIDisplayDeviceIn:
         for item in self.tree.get_children():
             self.tree.delete(item)
 
-        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("Type",json_data["type"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("Num Channels",json_data["numChannels"]))
+        self.tree.insert("" , "end", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end", values=("Type",json_data["type"]))
+        self.tree.insert("" , "end", values=("Num Channels",json_data["numChannels"]))
 
     def openAddDeviceInDialog(self):
         #global pop

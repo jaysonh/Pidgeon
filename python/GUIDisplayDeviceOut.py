@@ -150,8 +150,8 @@ class GUIDisplayDeviceOut:
     def okDialog(self):
 
         json_data = { "name" : self.name_input.get("1.0", 'end-1c'), "id" : self.id_input.get("1.0", 'end-1c') }
-        print("saving deviceOut json:")
-        print(json_data)
+        logger.info(f"saving deviceOut json: {json_data}")
+       
         self.addJsonFunc( json_data )
         # update the listbox
         self.replaceDevicesListBox(self.devices.getJson())

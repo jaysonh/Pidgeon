@@ -31,7 +31,7 @@ class JsonParams:
         if key == self.key:
             self.json_data.append( json_data )            
         else: 
-            print(f"Cannot find key: {key}")
+            logger.error(f"Cannot find key: {key}")
             raise KeyError
         pass
 

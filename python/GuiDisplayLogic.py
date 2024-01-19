@@ -26,22 +26,22 @@ class GuiDisplayLogic:
 
             json_data = json_data_parent.getJson()[0]
 
-            self.tree.insert("" , "end", text="Line 1", values=("Name",json_data["name"]))
-            self.tree.insert("" , "end", text="Line 1", values=("ID",json_data["id"]))
-            self.tree.insert("" , "end", text="Line 1", values=("inputDevice",json_data["inputDevice"]))
-            self.tree.insert("" , "end", text="Line 1", values=("outputDevice",json_data["outputDevice"]))
-            self.tree.insert("" , "end", text="Line 1", values=("updateTime",json_data["updateTime"]))
-            self.tree.insert("" , "end", text="Line 1", values=("logic",json_data["logic"]))
-            self.tree.insert("" , "end", text="Line 1", values=("action",json_data["action"]))
+            self.tree.insert("" , "end", values=("Name",json_data["name"]))
+            self.tree.insert("" , "end", values=("ID",json_data["id"]))
+            self.tree.insert("" , "end", values=("inputDevice",json_data["inputDevice"]))
+            self.tree.insert("" , "end", values=("outputDevice",json_data["outputDevice"]))
+            self.tree.insert("" , "end", values=("updateTime",json_data["updateTime"]))
+            self.tree.insert("" , "end", values=("logic",json_data["logic"]))
+            self.tree.insert("" , "end", values=("action",json_data["action"]))
             self.tree.pack(side="top", fill="both", expand=True)
         else:
-            self.tree.insert("" , "end", text="Line 1", values=("Name",""))
-            self.tree.insert("" , "end", text="Line 1", values=("ID",""))
-            self.tree.insert("" , "end", text="Line 1", values=("inputDevice",""))
-            self.tree.insert("" , "end", text="Line 1", values=("outputDevice",""))
-            self.tree.insert("" , "end", text="Line 1", values=("updateTime",""))
-            self.tree.insert("" , "end", text="Line 1", values=("logic",""))
-            self.tree.insert("" , "end", text="Line 1", values=("action",""))
+            self.tree.insert("" , "end", values=("Name",""))
+            self.tree.insert("" , "end", values=("ID",""))
+            self.tree.insert("" , "end", values=("inputDevice",""))
+            self.tree.insert("" , "end", values=("outputDevice",""))
+            self.tree.insert("" , "end", values=("updateTime",""))
+            self.tree.insert("" , "end", values=("logic",""))
+            self.tree.insert("" , "end", values=("action",""))
             self.tree.pack(side="top", fill="both", expand=True)
             
         self.logicListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
@@ -242,13 +242,13 @@ class GuiDisplayLogic:
         for item in self.tree.get_children():
             self.tree.delete(item)
 
-        self.tree.insert("" , "end",    text="Line 1", values=("Name",json_data["name"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("ID",json_data["id"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("inputDevice",json_data["inputDevice"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("outputDevice",json_data["outputDevice"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("updateTime",json_data["updateTime"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("logic",json_data["logic"]))
-        self.tree.insert("" , "end",    text="Line 1", values=("action",json_data["action"]))
+        self.tree.insert("" , "end", values=("Name",json_data["name"]))
+        self.tree.insert("" , "end", values=("ID",json_data["id"]))
+        self.tree.insert("" , "end", values=("inputDevice",json_data["inputDevice"]))
+        self.tree.insert("" , "end", values=("outputDevice",json_data["outputDevice"]))
+        self.tree.insert("" , "end", values=("updateTime",json_data["updateTime"]))
+        self.tree.insert("" , "end", values=("logic",json_data["logic"]))
+        self.tree.insert("" , "end", values=("action",json_data["action"]))
         
     def closeDialog(self):
         self.pop.destroy()

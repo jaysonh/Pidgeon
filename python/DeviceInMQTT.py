@@ -20,7 +20,7 @@ class DeviceInMQTT(DeviceInControl):
         self.mqtt.send_msg( self.request_topic, "")
         
     def on_message(client, userdata, msg):
-        print(f"Message received [{msg.topic}]: {msg.payload}")
+        logger.info(f"Message received [{msg.topic}]: {msg.payload}")
 
     def getData(self) ->float :
         pass

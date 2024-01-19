@@ -25,7 +25,7 @@ class MQTTHandler():
         key = mqtt_json["addr"] #json.dumps(mqtt_json, separators=(',', ':'))
         
         logger.info(f"Searching for broker {key}")
-        print(f"mqtt key: {key}")
+        logger.info(f"mqtt key: {key}")
         if key in self.broker_list:
             logger.info(f"MQTT broker already found")
         else:

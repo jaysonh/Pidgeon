@@ -39,6 +39,3 @@ class DeviceInGetHttp(DeviceInControl):
     
     def sendData(self, v : float):
         self.value = v
-        #print(f"sendData MQTT: {v}")
-        #self.mqtt.send_msg( self.topic, str(v) )
-        pass

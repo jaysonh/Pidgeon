@@ -25,5 +25,5 @@ class LogicHandler:
     
         result = jsonLogic(rules, data)
 
-        print("logic result: " + str(result))
-        pass
+        logger.info(f"logic result: f{result}" )
+        

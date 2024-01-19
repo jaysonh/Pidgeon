@@ -36,4 +36,4 @@ class Configuration:
         return self.params[key]
 
 if __name__ == "__main__":
-    print("Testing Configuration.py")
+    logger.info("Testing Configuration.py")
