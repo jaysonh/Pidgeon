@@ -15,7 +15,7 @@ class GuiDisplayLogic:
         self.removeJsonFunc = removeJsonFunc
         self.logic = json_data_parent
 
-        self.tree = ttk.Treeview(root)
+        self.tree = ttk.Treeview(root, columns=2, show=["headings"])
         self.tree["columns"]=("paramName","paramValue")
         self.tree.column("paramName", width=100 )
         self.tree.column("paramValue", width=100)

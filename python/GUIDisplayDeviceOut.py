@@ -19,9 +19,6 @@ class GUIDisplayDeviceOut:
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
         
-        self.topframe = Frame(root)
-        self.topframe.pack( side = BOTTOM )
-
         self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceOutDialog)
         self.addButton.pack(side="right", fill="none", expand=False)
         
@@ -31,7 +28,7 @@ class GUIDisplayDeviceOut:
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 
-        self.tree = ttk.Treeview(self.topframe)
+        self.tree = ttk.Treeview(root, columns=2, show=["headings"])
         self.tree["columns"]=("paramName","paramValue")
         self.tree.column("paramName", width=100 )
         self.tree.column("paramValue", width=100)
