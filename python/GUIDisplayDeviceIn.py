@@ -18,6 +18,20 @@ class GUIDisplayDeviceIn:
         self.removeJsonFunc = removeJsonFunc
              
         self.sensors = json_data_parent
+
+        self.bottomframe = Frame(root)
+        self.bottomframe.pack( side = BOTTOM )
+
+        self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceInDialog)
+        self.addButton.pack(side="right", fill="none", expand=False)
+        
+        self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeDeviceInItem)
+        self.removeButton.pack(side="left", fill="none", expand=False)
+
+        self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
+        self.saveButton.pack(side="left", fill="none", expand=False)
+
+
         self.tree = ttk.Treeview(root, columns=2, show=["headings"])
         self.tree["columns"]=("paramName","paramValue")
         self.tree.column("paramName", width=100 )
@@ -40,18 +54,7 @@ class GUIDisplayDeviceIn:
         
         self.sensorsListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectSensors ) 
         
-        self.bottomframe = Frame(root)
-        self.bottomframe.pack( side = BOTTOM )
-
-        self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceInDialog)
-        self.addButton.pack(side="right", fill="none", expand=False)
         
-        self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeDeviceInItem)
-        self.removeButton.pack(side="left", fill="none", expand=False)
-
-        self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
-        self.saveButton.pack(side="left", fill="none", expand=False)
-
     def replaceDevicesListBox(self, items : json):
         
         # clear treeview
