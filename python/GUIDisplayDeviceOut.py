@@ -16,15 +16,13 @@ class GUIDisplayDeviceOut:
         self.addJsonFunc = addJsonFunc
         self.removeJsonFunc = removeJsonFunc
         self.devices = json_data_parent
+
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
-        
         self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceOutDialog)
         self.addButton.pack(side="right", fill="none", expand=False)
-        
         self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeDeviceOutItem)
         self.removeButton.pack(side="left", fill="none", expand=False)
-
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 

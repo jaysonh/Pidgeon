@@ -14,7 +14,7 @@ class DeviceInMQTT(DeviceInControl):
         self.mqtt = m.add_broker( json_data["broker"]  )
         self.request_topic = json_data["requestTopic"]
         self.receive_topic = json_data["receiveTopic"]
-        self.mqtt.subscribe(self.receive_topic)
+        self.mqtt.subscribe(self.receive_topic,self.update)
 
     def update(self):
         self.mqtt.send_msg( self.request_topic, "")

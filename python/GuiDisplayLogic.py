@@ -44,7 +44,7 @@ class GuiDisplayLogic:
             self.tree.insert("" , "end", values=("updateTime",json_data["updateTime"]))
             self.tree.insert("" , "end", values=("logic",json_data["logic"]))
             self.tree.insert("" , "end", values=("action",json_data["action"]))
-            self.tree.pack(side="top", fill="both", expand=True)
+           
         else:
             self.tree.insert("" , "end", values=("Name",""))
             self.tree.insert("" , "end", values=("ID",""))
@@ -53,9 +53,10 @@ class GuiDisplayLogic:
             self.tree.insert("" , "end", values=("updateTime",""))
             self.tree.insert("" , "end", values=("logic",""))
             self.tree.insert("" , "end", values=("action",""))
-            self.tree.pack(side="top", fill="both", expand=True)
+
+        self.tree.pack(side="top", fill="both", expand=True)
             
-        self.logicListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
+        self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectDevices ) 
 
        
 
@@ -69,26 +70,38 @@ class GuiDisplayLogic:
             self.logicListBox.insert('', tk.END, values=i["id"])             
         pass
 
-    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
-        listbox = ttk.Treeview(root, selectmode="extended",show='headings')
-        listbox.pack()
+    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ):
+        self.midframe = Frame(root)
+        self.midframe.pack( side = TOP )
         
-        listbox = ttk.Treeview(root, columns=("Column1"))
-        listbox.pack(side="bottom", fill="both", expand=True)
-               
+        self.logicListBox = ttk.Treeview(self.midframe, columns=("Column1"))
+        self.logicListBox.pack(side="left", fill="both", expand=True)
         contacts = []
         for i in items:     
             contacts.append(i["id"])
-
         # add data to the treeview
         for contact in contacts:
-            listbox.insert('', tk.END, values=contact)
+            self.logicListBox.insert('', tk.END, values=contact)
         if len(contacts) == 0:
-            listbox.insert('', tk.END, values=[""])
- 
-        listbox.bind("<<TreeviewSelect>>", func )
+            self.logicListBox.insert('', tk.END, values=[""])
+        self.logicListBox.bind("<<TreeviewSelect>>", func )
 
-        return listbox
+        #listbox = ttk.Treeview(root, selectmode="extended",show='headings')
+        #listbox.pack()
+        #
+        #listbox = ttk.Treeview(root, columns=("Column1"))
+        #listbox.pack(side="bottom", fill="both", expand=True)
+        #       
+        #contacts = []
+        #for i in items:     
+        #    contacts.append(i["id"])
+        ## add data to the treeview
+        #for contact in contacts:
+        #    listbox.insert('', tk.END, values=contact)
+        #if len(contacts) == 0:
+        #    listbox.insert('', tk.END, values=[""])
+        #listbox.bind("<<TreeviewSelect>>", func )
+        #return listbox
 
     def onListboxSelectDevices(self, evt):
         selection = self.logicListBox.selection()

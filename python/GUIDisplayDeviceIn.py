@@ -21,16 +21,12 @@ class GUIDisplayDeviceIn:
 
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
-
         self.addButton = Button(self.bottomframe, text ="add", command = self.openAddDeviceInDialog)
         self.addButton.pack(side="right", fill="none", expand=False)
-        
         self.removeButton = Button(self.bottomframe, text ="remove", command = self.removeDeviceInItem)
         self.removeButton.pack(side="left", fill="none", expand=False)
-
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
-
 
         self.tree = ttk.Treeview(root, columns=2, show=["headings"])
         self.tree["columns"]=("paramName","paramValue")
@@ -41,18 +37,16 @@ class GUIDisplayDeviceIn:
 
         if json_data_parent.GetNumData() > 0:
             json_data = json_data_parent.getJson()[0]
-
             self.tree.insert("" , "end",     values=("Name",json_data["name"]))
             self.tree.insert("" , "end",     values=("ID",json_data["id"]))
             self.tree.insert("" , "end",     values=("Type",json_data["type"]))
-            self.tree.pack(side="top", fill="both", expand=True)
         else:
             self.tree.insert("" , "end",     values=("Name","" ))
             self.tree.insert("" , "end",     values=("ID",  "" ))
             self.tree.insert("" , "end",     values=("Type","" ))
-            self.tree.pack(side="top", fill="both", expand=True)
         
-        self.sensorsListBox = self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectSensors ) 
+        self.tree.pack(side="top", fill="both", expand=True)
+        self.createDevicesListBox(root, json_data_parent.getJson(), root, self.onListboxSelectSensors ) 
         
         
     def replaceDevicesListBox(self, items : json):
@@ -65,24 +59,36 @@ class GUIDisplayDeviceIn:
             self.sensorsListBox.insert('', tk.END, values=i["id"])             
         pass
 
-    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ) -> ttk.Treeview:
-        listbox = ttk.Treeview(root, selectmode="extended",show='headings')
-        listbox.pack()
+    def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ):
+
+        self.midframe = Frame(root)
+        self.midframe.pack( side = TOP )
         
-        listbox = ttk.Treeview(root, columns=("Column1"))
-        listbox.pack(side="bottom", fill="both", expand=True)
-               
+        self.sensorsListBox = ttk.Treeview(self.midframe, columns=("Column1"))
+        self.sensorsListBox.pack(side="left", fill="both", expand=True)
         contacts = []
         for i in items:     
             contacts.append(i["id"])
-
         # add data to the treeview
         for contact in contacts:
-            listbox.insert('', tk.END, values=contact)
- 
-        listbox.bind("<<TreeviewSelect>>", func )
+            self.sensorsListBox.insert('', tk.END, values=contact)
+        self.sensorsListBox.bind("<<TreeviewSelect>>", func )
 
-        return listbox    
+        #
+        #listbox = ttk.Treeview(root, selectmode="extended",show='headings')
+        #listbox.pack()
+        #
+        #listbox = ttk.Treeview(root, columns=("Column1"))
+        #listbox.pack(side="bottom", fill="both", expand=True)
+        #       
+        #contacts = []
+        #for i in items:     
+        #    contacts.append(i["id"])
+        ## add data to the treeview
+        #for contact in contacts:
+        #    listbox.insert('', tk.END, values=contact)
+        #listbox.bind("<<TreeviewSelect>>", func )
+        #return listbox    
 
     def onListboxSelectSensors(self, evt):
         selection = self.sensorsListBox.selection()
