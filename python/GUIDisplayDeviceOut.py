@@ -60,7 +60,7 @@ class GUIDisplayDeviceOut:
         self.midframe = Frame(root)
         self.midframe.pack( side = TOP )
         
-        self.devicesListBox = ttk.Treeview(self.midframe, columns=("Column1"))
+        self.devicesListBox = ttk.Treeview(self.midframe, columns=("Column1"), selectmode="browse")
         self.devicesListBox.pack(side="left", fill="both", expand=True)
             
         contacts = []

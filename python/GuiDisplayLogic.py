@@ -26,7 +26,7 @@ class GuiDisplayLogic:
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 
-        self.tree = ttk.Treeview(root, columns=2, show=["headings"])
+        self.tree = ttk.Treeview(root, columns=2, show=["headings"], selectmode="browse")
         self.tree["columns"]=("paramName","paramValue")
         self.tree.column("paramName", width=100 )
         self.tree.column("paramValue", width=100)

@@ -15,7 +15,7 @@ class GuiScheduleDisplay:
         self.addJsonFunc = addJsonFunc
         self.removeJsonFunc = removeJsonFunc
         self.schedule = json_data
-        self.listbox = ttk.Treeview(root, columns=3,  show=["headings"])
+        self.listbox = ttk.Treeview(root, columns=3,  show=["headings"], selectmode="browse")
         self.listbox["columns"]=("paramName","paramDevice","paramAction")
         self.listbox.pack(side="top", fill="both", expand=True)
 
