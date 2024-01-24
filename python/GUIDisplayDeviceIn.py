@@ -91,9 +91,11 @@ class GUIDisplayDeviceIn:
         #return listbox    
 
     def onListboxSelectSensors(self, evt):
-        selection = self.sensorsListBox.selection()
-        current_idx = self.sensorsListBox.index(selection)
-        self.fromJson(self.sensors.getJson()[current_idx] )    
+
+        if len(self.sensors.getJson()) > 0:
+            selection = self.sensorsListBox.selection()
+            current_idx = self.sensorsListBox.index(selection)
+            self.fromJson(self.sensors.getJson()[current_idx] )    
 
     def fromJson(self, json_data : json):
                 
@@ -103,7 +105,7 @@ class GUIDisplayDeviceIn:
         self.tree.insert("" , "end", values=("Name",json_data["name"]))
         self.tree.insert("" , "end", values=("ID",json_data["id"]))
         self.tree.insert("" , "end", values=("Type",json_data["type"]))
-        self.tree.insert("" , "end", values=("Num Channels",json_data["numChannels"]))
+
 
     def openAddDeviceInDialog(self):
         #global pop
@@ -142,17 +144,7 @@ class GUIDisplayDeviceIn:
                    height = 1, 
                    width = 20)
         self.type_input.grid(row=0, column=2)
-        
-        # device num channels input
-        frame_num_channels_input = Frame(self.pop, bg="gray71")
-        frame_num_channels_input.pack(pady=2)
-        num_channels_label = tk.Label( frame_num_channels_input, text="numChannels")
-        num_channels_label.grid(row=0, column=1)
-        self.num_channels_input = tk.Text(frame_num_channels_input, 
-                   height = 1, 
-                   width = 20)
-        self.num_channels_input.grid(row=0, column=2)
-        
+                
         # Add a Frame
         frameBtns = Frame(self.pop, bg="gray71")
         frameBtns.pack(pady=10)
@@ -186,7 +178,6 @@ class GUIDisplayDeviceIn:
     def okDialog(self):
         json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
                       "id" : self.id_input.get("1.0", 'end-1c'),
-                      "numChannels" : self.num_channels_input.get("1.0", 'end-1c'), 
                       "type" : self.type_input.get("1.0", 'end-1c') }
         logger.info(f"saving deviceIn: {json_data}")
         print(json_data)

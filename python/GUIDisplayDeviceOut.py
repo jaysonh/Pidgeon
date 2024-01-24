@@ -51,10 +51,10 @@ class GUIDisplayDeviceOut:
 
 
     def onListboxSelectDevices(self, evt):
-        
-        selection = self.devicesListBox.selection()
-        current_idx = self.devicesListBox.index(selection)        
-        self.fromJson(self.devices.getJson()[current_idx] )
+        if len(self.devices.getJson()) > 0:    
+            selection = self.devicesListBox.selection()
+            current_idx = self.devicesListBox.index(selection)        
+            self.fromJson(self.devices.getJson()[current_idx] )
 
     def createDevicesListBox( self, root : Tk, items : json, frame : Frame, func ):
         self.midframe = Frame(root)

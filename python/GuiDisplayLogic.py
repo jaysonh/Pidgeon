@@ -104,9 +104,10 @@ class GuiDisplayLogic:
         #return listbox
 
     def onListboxSelectDevices(self, evt):
-        selection = self.logicListBox.selection()
-        current_idx = self.logicListBox.index(selection)
-        self.fromJson(self.logic.getJson()[current_idx] )
+        if len(self.logic.getJson()) > 0: 
+            selection = self.logicListBox.selection()
+            current_idx = self.logicListBox.index(selection)
+            self.fromJson(self.logic.getJson()[current_idx] )
 
     def openAddLogicDialog(self):
         #global pop

@@ -348,7 +348,8 @@ class GuiScheduleDisplay:
         pass        
 
     def removeScheduleItem(self):
+        
         selection = self.listbox.selection()
         self.removeJsonFunc( self.listbox.index(selection) )
         self.listbox.delete( selection )
-        pass
+        
