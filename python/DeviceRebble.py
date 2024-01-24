@@ -15,20 +15,27 @@ class DeviceRebble(DeviceOutControl):
         m = MQTTHandler.getInstance()
         self.mqtt = m.add_broker( json_data["broker"]  )
         self.mqtt.subscribe( self.mqttTopic, self.mqttAction )
+
+        self.timeout = 15 # second timeout
        
     def mqttAction(self, v : []):
         self.sendData(v[0])
         pass
 
-    def sendData(self, v : float ):
-        self.value = int(self.range.clamp(v))
-        logger.info(f"sendData Rebble: {v}")
+    def sendData(self, v : [] ):
+        if len(v) > 0:
+            self.value = int(self.range.clamp(v[0]))
+            logger.info(f"sendData Rebble: {v[0]}")
 
-        url = "http://" + self.remoteAddr + "/set_single.html?value=" + str(self.value) + "&id=4"
+            url = "http://" + self.remoteAddr + "/set_single.html?value=" + str(self.value) + "&id=4"
 
-        logger.debug(f"Sending URL request to: {url}")
-        response = requests.get(url)
-        response_json = response.json()
-
-        logger.debug(f"Response from HTTP: {response_json}")
+            logger.debug(f"Sending URL request to: {url}")
+            try:
+                response = requests.get(url, timeout= self.timeout )
+                response_json = response.json()
+                logger.debug(f"Response from HTTP: {response_json}")
+            except requests.exceptions.Timeout:
+                logger.error("HTTP Request timeout")
+        else:
+            raise("Invalid input ")
         

@@ -12,6 +12,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from ScheduleAction import *
 from JsonParams import *
+from Event import *
 
 class Scheduler:
     devices = {}        
@@ -20,39 +21,69 @@ class Scheduler:
 
         logger.info(f"Loading Scheduler")
         self.scheduler = BackgroundScheduler()
+
+        # Event scheduling
+        self.updateScheduleEvent = Event()
+        self.updateScheduleEvent += self.reloadSchedule
+
+        self.removeScheduleEvent = Event()
+        self.removeScheduleEvent += self.removeItem
+
+        self.devicesIn = devices
         for schedule_item in schedule_json.getJson():
-            id = schedule_item["id"]
-            deviceID = schedule_item["deviceID"]
             
-            if schedule_item["action"]["type"] == "setData":
-                action = ActionSet( schedule_item["action"] )
-            elif schedule_item["action"]["type"] == "setRamp":
-                action = ActionRamp( schedule_item["action"] )
-            elif schedule_item["action"]["type"] == "setRampTarget":
-                action = ActionRampTarget( schedule_item["action"] )
-            else:
-                action = None
-                logger.error("ERROR invalid action type")
-            if action != None:
-                self.scheduleActions[ id ] = ScheduleAction( schedule_item["deviceID"], devices.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+            self.scheduleActions[ id ] = self.createScheduleAction( schedule_item )
+            self.add_job( schedule_item["time"], self.scheduleActions[ id ] )
             
-            self.parse_cron( schedule_item["time"], self.scheduleActions[ id ].run )
         logger.info(f"Starting scheduler")
         self.scheduler.start()
 
-    def parse_cron( self, cron_time : str, action : ScheduleAction ):
+    def createScheduleAction( self, json_data : json) -> ScheduleAction:
+        deviceID = json_data["deviceID"]
+        
+        if json_data["action"]["type"] == "setData":
+            action = ActionSet( json_data["action"] )
+        elif json_data["action"]["type"] == "setRamp":
+            action = ActionRamp( json_data["action"] )
+        elif json_data["action"]["type"] == "setRampTarget":
+            action = ActionRampTarget( json_data["action"] )
+        else:
+            action = None
+            logger.error("ERROR invalid action type")
+
+        if action != None:
+            return ScheduleAction( deviceID, self.devicesIn.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+        else:
+            raise("ERROR invalid action type")   
+
+    
+    def reloadSchedule( self, cron_time : str, json_data : json ):
+        logger.info(f"adding to schedule: {json_data}")
+
+        self.scheduleActions[ id ] = self.createScheduleAction( json_data)
+        self.add_job( cron_time, self.scheduleActions[ id ] )
+        
+    def removeItem( self, id : str):
+        self.scheduler.remove_job( self.scheduleActions[ id ].getJobID() )
+        del (self.scheduleActions[ id ] )
+        
+
+    def add_job( self, cron_time : str, action : ScheduleAction ):
         try:
             # all these are numbers represented as strings
 
-            secCron  = cron_time.split(" ")[0]
-            minCron  = cron_time.split(" ")[1]
-            hourCron = cron_time.split(" ")[2] 
+            secCron      = cron_time.split(" ")[0]
+            minCron      = cron_time.split(" ")[1]
+            hourCron     = cron_time.split(" ")[2] 
             dayMonthCron = cron_time.split(" ")[3]
-            monthCron = cron_time.split(" ")[4]
-            dayWeekCron = cron_time.split(" ")[5]
+            monthCron    = cron_time.split(" ")[4]
+            dayWeekCron  = cron_time.split(" ")[5]
 
             logger.info(f"Adding job to scheduler {secCron} {minCron} {hourCron} {dayMonthCron} {monthCron} {dayWeekCron} action: {action}")
-            self.scheduler.add_job(action, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
+            job_id = self.scheduler.add_job(action.run, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
+            
+            action.setJobID( job_id )
+
 
         except IndexError:
             logger.error("Error: Invalid cron time format")

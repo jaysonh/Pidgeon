@@ -31,6 +31,7 @@ if __name__ == "__main__":
     configFiles.append(configPath + "/logic.json")
     configFiles.append(configPath + "/ui.json")
 
+    
     configuration  = Configuration( configFiles )
     
     device_handler = DeviceHandler( configuration.get("devices") )
@@ -45,7 +46,10 @@ if __name__ == "__main__":
                          configuration.get("devices"), 
                          configuration.get("sensors"), 
                          configuration.get("schedule"), 
-                         configuration.get("logic") )
+                         configuration.get("logic"),
+                         scheduler.updateScheduleEvent,
+                         scheduler.removeScheduleEvent )
+    
     
     logger.info("End of application") 
    

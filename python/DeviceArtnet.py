@@ -43,9 +43,9 @@ class DeviceArtnet(DeviceOutControl):
         await(self.channel)
         pass
 
-    def sendData(self, v : float):
-        logger.debug(f"sendData Artnet: {v}")
-        asyncio.run(self.asyncSend(v))
+    def sendData(self, v : []):
+        logger.debug(f"sendData Artnet: {v[0]}")
+        asyncio.run(self.asyncSend(v[0]))
 
         # this can be used to wait till the fade is complete
         #await channel.wait_till_fade_complete() # problem

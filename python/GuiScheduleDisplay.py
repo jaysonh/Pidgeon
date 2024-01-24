@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter import *
 import json
 from Logging import *
+from Event import *
 
 class GuiScheduleDisplay:
     deviceID = ""
@@ -41,6 +42,11 @@ class GuiScheduleDisplay:
 
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
+
+    def setUpdateEvent(self, updateEvt, removeEvt):
+        logger.debug(f"setting update event: {updateEvt} {removeEvt}")
+        self.scheduleUpdateEvent  = updateEvt
+        self.scheduleRemoveEvenet = removeEvt
 
     def replaceDevicesListBox(self, items : json):
         
@@ -95,27 +101,32 @@ class GuiScheduleDisplay:
         return value 
         
     def okDialog(self):
-        json_data = { "name" : self.name_input.get("1.0", 'end-1c'), 
-                       "id" : self.name_input.get("1.0", 'end-1c'),
-                       "time" : "* * * * ",
+        cron_str =  self.cron_second_var.get()+ " " + self.cron_minute_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_day_var.get() + " " +self.cron_month_var.get() + " " + self.cron_day_week_var .get() 
+       
+        json_data = { "name" :      self.name_input.get("1.0", 'end-1c'), 
+                       "id" :       self.name_input.get("1.0", 'end-1c'),
+                       "time" :     cron_str,
                        "deviceID" : self.device_id_input.get("1.0", 'end-1c'),
-                       "address" : self.address_input.get("1.0", 'end-1c'),
+                       "address" :  self.address_input.get("1.0", 'end-1c'),
                        "next run" : "",
-                       "action" : self.get_action(self.action_str.get())
+                       "action" :   self.get_action(self.action_str.get())
                        }
         
         
         self.addJsonFunc( json_data )
 
-        cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
-        self.add_schedule( cron_str )
+        #cron_str = self.cron_day_week_var .get() + " " + self.cron_month_var.get() + " " + self.cron_day_var.get() + " " + self.cron_hour_var.get() + " " + self.cron_minute_var.get() + " " + self.cron_second_var.get()
+        
+        self.add_schedule( cron_str, json_data )
         self.replaceDevicesListBox( self.schedule)
         self.pop.destroy()
         self.pop.update()
 
-    def add_schedule( self, cron_str ):
+    def add_schedule( self, cron_str, json_data ):
+        # need to raise an event here that enables the Scheduler class to update
+        logger.info(f"adding schedule: {cron_str} {json_data}")
+        self.scheduleUpdateEvent.notify(cron_str,json_data)
 
-        logger.info(f"adding schedule: {cron_str}")
         pass
 
     def openAddScheduleDialog(self):
@@ -350,6 +361,12 @@ class GuiScheduleDisplay:
     def removeScheduleItem(self):
         
         selection = self.listbox.selection()
+        curItem = self.listbox.focus()
+
+        print(self.listbox.index(selection))
+        
+        #self.scheduleRemoveEvent.notify(["id"])
+        
         self.removeJsonFunc( self.listbox.index(selection) )
         self.listbox.delete( selection )
         
