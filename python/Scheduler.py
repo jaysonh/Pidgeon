@@ -31,9 +31,10 @@ class Scheduler:
 
         self.devicesIn = devices
         for schedule_item in schedule_json.getJson():
-            
+            id = schedule_item["id"]
+            logger.info(f"creating schedule action for{id}")
             self.scheduleActions[ id ] = self.createScheduleAction( schedule_item )
-            self.add_job( schedule_item["time"], self.scheduleActions[ id ] )
+            self.add_job( schedule_item["time"], self.scheduleActions[ id ], id )
             
         logger.info(f"Starting scheduler")
         self.scheduler.start()
@@ -59,16 +60,17 @@ class Scheduler:
     
     def reloadSchedule( self, cron_time : str, json_data : json ):
         logger.info(f"adding to schedule: {json_data}")
-
+        id = json_data["id"]
         self.scheduleActions[ id ] = self.createScheduleAction( json_data)
-        self.add_job( cron_time, self.scheduleActions[ id ] )
+        self.add_job( cron_time, self.scheduleActions[ id ], id )
         
     def removeItem( self, id : str):
-        self.scheduler.remove_job( self.scheduleActions[ id ].getJobID() )
+        logger.info(f"removing job from scheduler: {id} {self.scheduleActions[ id ].getJobID()}")
+        self.scheduler.remove_job( id )
         del (self.scheduleActions[ id ] )
         
 
-    def add_job( self, cron_time : str, action : ScheduleAction ):
+    def add_job( self, cron_time : str, action : ScheduleAction, id : str  ):
         try:
             # all these are numbers represented as strings
 
@@ -80,9 +82,9 @@ class Scheduler:
             dayWeekCron  = cron_time.split(" ")[5]
 
             logger.info(f"Adding job to scheduler {secCron} {minCron} {hourCron} {dayMonthCron} {monthCron} {dayWeekCron} action: {action}")
-            job_id = self.scheduler.add_job(action.run, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron )
+            self.scheduler.add_job(action.run, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron,id= id, )
             
-            action.setJobID( job_id )
+            action.setJobID( id )
 
 
         except IndexError:

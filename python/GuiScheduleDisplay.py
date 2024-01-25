@@ -17,19 +17,21 @@ class GuiScheduleDisplay:
         self.removeJsonFunc = removeJsonFunc
         self.schedule = json_data
         self.listbox = ttk.Treeview(root, columns=3,  show=["headings"], selectmode="browse")
-        self.listbox["columns"]=("paramName","paramDevice","paramAction")
+        self.listbox["columns"]=("paramID","paramName","paramDevice","paramAction")
         self.listbox.pack(side="top", fill="both", expand=True)
 
+        self.listbox.column("paramID", width=100 )
         self.listbox.column("paramName", width=100 )
         self.listbox.column("paramDevice", width=100)
         self.listbox.column("paramAction", width=100)
+        self.listbox.heading("paramID", text="Name")
         self.listbox.heading("paramName", text="Name")
         self.listbox.heading("paramDevice", text="Device")
         self.listbox.heading("paramAction", text="Action")
 
 
         for job in json_data:
-            self.listbox.insert("", "end", text=job["id"], values=( job["time"], job["deviceID"], job["address"], "next run:", job["action"] ))
+            self.listbox.insert("", "end", text=job["id"], values=(job["id"], job["time"], job["deviceID"], job["address"], "next run:", job["action"] ))
                 
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
@@ -46,7 +48,7 @@ class GuiScheduleDisplay:
     def setUpdateEvent(self, updateEvt, removeEvt):
         logger.debug(f"setting update event: {updateEvt} {removeEvt}")
         self.scheduleUpdateEvent  = updateEvt
-        self.scheduleRemoveEvenet = removeEvt
+        self.scheduleRemoveEvent = removeEvt
 
     def replaceDevicesListBox(self, items : json):
         
@@ -363,9 +365,8 @@ class GuiScheduleDisplay:
         selection = self.listbox.selection()
         curItem = self.listbox.focus()
 
-        print(self.listbox.index(selection))
-        
-        #self.scheduleRemoveEvent.notify(["id"])
+        removeID = str( self.listbox.item(curItem, "text"))
+        self.scheduleRemoveEvent.notify(removeID)
         
         self.removeJsonFunc( self.listbox.index(selection) )
         self.listbox.delete( selection )
