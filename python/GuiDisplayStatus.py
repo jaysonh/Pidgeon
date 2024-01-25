@@ -8,6 +8,7 @@ from Event import *
 import threading
 import time
 from datetime import datetime
+from MQTTHandler import *
 
 class GuiDisplayStatus:
     deviceID = ""
@@ -30,6 +31,29 @@ class GuiDisplayStatus:
         self.uptime_label = tk.Label( frame_name_input, text="Uptime: ")
         self.uptime_label.grid(row=0, column=1)
         
+
+        self.listbox = ttk.Treeview(root, columns=3,  show=["headings"], selectmode="browse")
+        self.listbox["columns"]=("paramAddr","paramPort","paramConnStatus")
+        self.listbox.pack(side="top", fill="both", expand=True)
+
+        self.listbox.column("paramAddr", width=100 )
+        self.listbox.column("paramPort", width=100 )
+        self.listbox.column("paramConnStatus", width=100)
+        self.listbox.heading("paramAddr", text="Address")
+        self.listbox.heading("paramPort", text="Port")
+        self.listbox.heading("paramConnStatus", text="Connection Status")
+
+
+        self.bottomframe = Frame(root)
+        self.bottomframe.pack( side = BOTTOM )
+
+        self.addButton = Button(self.bottomframe, text ="ok")
+        self.addButton.pack(side="right", fill="none", expand=False)
+
+        
+        m = MQTTHandler.getInstance()
+        self.update_broker_info( m.get_broker_json() )
+
         uptimeThread = threading.Thread(target=self.updateUpTime)
         self.runningUptime = True
         uptimeThread.start()
@@ -38,11 +62,11 @@ class GuiDisplayStatus:
         self.runningCurrentTime = True
         currentTimeThread.start()
 
-        self.bottomframe = Frame(root)
-        self.bottomframe.pack( side = BOTTOM )
-
-        self.addButton = Button(self.bottomframe, text ="ok")
-        self.addButton.pack(side="right", fill="none", expand=False)
+    def update_broker_info(self, json_data : json):
+        #for broker in json_data:
+        #    self.listbox.insert("", "end", text=json_data["address"], values=(json_data["address"], json_data["port"], "connected" ))
+            
+        pass
 
     def getUpTime(self)->str:
         elapsed_time = time.time() - self.start_time
@@ -64,7 +88,7 @@ class GuiDisplayStatus:
     def updateCurrentTime(self):
         while self.runningCurrentTime:
             # Code to be executed in the thread
-            current_time = datetime.now()
+            current_time = datetime.now().strftime("%I:%M%p on %B %d, %Y")#datetime.now()
             new_label = "Current Local Time: " + current_time.strftime("%H:%M:%S")
             self.current_time_label.config(text=new_label)           
             time.sleep(1)

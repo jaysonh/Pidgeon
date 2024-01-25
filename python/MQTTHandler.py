@@ -21,6 +21,21 @@ class MQTTHandler():
       else:
          MQTTHandler.__instance = self
     
+    def get_broker_json(self)->json:
+       
+        json_data = {"brokers":[]}
+        existing_json = '[]'
+        existing_list = json.loads(existing_json)
+
+        for key in self.broker_list:
+           existing_list.append(self.broker_list[key].getJson())
+
+        json_data = json.dumps(existing_list)
+        print("Getting broker json data")
+        print(json_data)
+
+        return json_data
+    
     def add_broker(self, mqtt_json : json) -> MQTTBroker:
         key = mqtt_json["addr"] #json.dumps(mqtt_json, separators=(',', ':'))
         

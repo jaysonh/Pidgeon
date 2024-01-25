@@ -51,5 +51,6 @@ if __name__ == "__main__":
                          scheduler.removeScheduleEvent )
     
     
+    
     logger.info("End of application") 
    

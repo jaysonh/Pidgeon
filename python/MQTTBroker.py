@@ -30,6 +30,12 @@ class MQTTBroker:
         self.broker.connect(self.addr, self.port)        
         self.broker.loop_start()
         
+    def getJson(self) -> json:
+
+        json_data = {"address" : self.addr, "port" : self.port}
+
+        return json.dumps(json_data)
+    
     def subscribe( self, topic : str, action ):
         def on_message(client, userdata, msg):
             logger.debug(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
