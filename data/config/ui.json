@@ -5,6 +5,7 @@
                 "width"   : 600,
                 "height" : 500,
                 "tabs" :[
+                    { "title" : "Status" },
                     { "title" : "DevicesOut" },
                     { "title" : "DevicesIn"  },
                     { "title" : "Schedule"   },
