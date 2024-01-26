@@ -5,6 +5,8 @@ from tkinter import *
 import json
 from Logging import *
 from Event import *
+import threading
+import random
 
 class GuiScheduleDisplay:
     deviceID = ""
@@ -17,21 +19,24 @@ class GuiScheduleDisplay:
         self.removeJsonFunc = removeJsonFunc
         self.schedule = json_data
         self.listbox = ttk.Treeview(root, columns=3,  show=["headings"], selectmode="browse")
-        self.listbox["columns"]=("paramID","paramName","paramDevice","paramAction")
+        self.listbox["columns"]=("paramID","paramName","paramDevice","paramAction","paramNext")
         self.listbox.pack(side="top", fill="both", expand=True)
 
         self.listbox.column("paramID", width=100 )
         self.listbox.column("paramName", width=100 )
         self.listbox.column("paramDevice", width=100)
         self.listbox.column("paramAction", width=100)
+        self.listbox.column("paramNext", width=100)
+
         self.listbox.heading("paramID", text="Name")
         self.listbox.heading("paramName", text="Name")
         self.listbox.heading("paramDevice", text="Device")
         self.listbox.heading("paramAction", text="Action")
+        self.listbox.heading("paramNext", text="NextRun")
 
 
         for job in json_data:
-            self.listbox.insert("", "end", text=job["id"], values=(job["id"], job["time"], job["deviceID"], job["address"], "next run:", job["action"] ))
+            self.listbox.insert("", "end", text=job["id"], values=(job["id"], job["time"], job["deviceID"], job["address"], ":", job["action"] ))
                 
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
@@ -45,10 +50,40 @@ class GuiScheduleDisplay:
         self.saveButton = Button(self.bottomframe, text ="save", command = saveJsonFunc)
         self.saveButton.pack(side="left", fill="none", expand=False)
 
-    def setUpdateEvent(self, updateEvt, removeEvt):
-        logger.debug(f"setting update event: {updateEvt} {removeEvt}")
+    def startThreads(self):
+        self.updateNextTimeThread = threading.Thread(target=self.updateNextRun)
+        self.runningUpdateNextRun = True
+        self.updateNextTimeThread.start()
+
+    
+    def updateNextRun(self):
+        while self.runningUpdateNextRun:
+
+            # event to get next run times for all jobs
+            if self.updateNextTimeEvent is None:
+                logger.info(f"updateNextTimeEvent not set")
+                time.sleep(1)
+            else:
+                jobs = self.updateNextTimeEvent.notify()
+                if jobs is None:
+                    continue
+                else:
+                    for job in jobs:
+                        print(job)
+
+                for item in self.listbox.get_children():                       
+
+                    self.listbox.set(item, column="paramNext", value=str(random.randint(0,9))  )
+                    
+                self.listbox.update()
+                time.sleep(1)
+        pass
+
+    def setUpdateEvent(self, updateEvt, removeEvt,updateNextTimeEvent):
+        logger.debug(f"\n\n\nsetting update event: {updateEvt} {removeEvt} {updateNextTimeEvent}\n\n\n")
         self.scheduleUpdateEvent  = updateEvt
         self.scheduleRemoveEvent = removeEvt
+        self.updateNextTimeEvent = updateNextTimeEvent
 
     def replaceDevicesListBox(self, items : json):
         

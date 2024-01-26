@@ -9,7 +9,7 @@ from ActionRampTarget import *
 from DeviceMQTT import DeviceMQTT
 import threading
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime
+
 from ScheduleAction import *
 from JsonParams import *
 from Event import *
@@ -28,6 +28,9 @@ class Scheduler:
 
         self.removeScheduleEvent = Event()
         self.removeScheduleEvent += self.removeItem
+
+        self.getNextRunTimesEvent = Event()
+        self.getNextRunTimesEvent += self.getNextRunTimes
 
         self.devicesIn = devices
         for schedule_item in schedule_json.getJson():
@@ -57,7 +60,16 @@ class Scheduler:
         else:
             raise("ERROR invalid action type")   
 
-    
+    def getNextRunTimes(self ) -> []:
+
+        job_list = []
+        if self.scheduler.running == True:
+            for job in self.scheduler.get_jobs():
+                #job_list.append( job.next_run_time() )
+                #print(job.next_run_time())
+                t=0
+        return job_list
+
     def reloadSchedule( self, cron_time : str, json_data : json ):
         logger.info(f"adding to schedule: {json_data}")
         id = json_data["id"]

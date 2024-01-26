@@ -15,7 +15,7 @@ from Logging import *
 
 class GuiMainWindow( ):
     #def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json , scheduleJson : json, logicJson : json):
-    def __init__(self, ui_settings : JsonParams, devicesJson : JsonParams, sensorsJson : JsonParams , scheduleJson : JsonParams, logicJson : JsonParams, scheduleUpdateEvent,scheduleRemoveEvent):
+    def __init__(self, ui_settings : JsonParams, devicesJson : JsonParams, sensorsJson : JsonParams , scheduleJson : JsonParams, logicJson : JsonParams, scheduleUpdateEvent,scheduleRemoveEvent,updateNextTimeEvent ):
          
         self.root = ThemedTk(theme="clam")
 
@@ -49,8 +49,9 @@ class GuiMainWindow( ):
         self.scheduleTab = GuiScheduleDisplay( self.tabList[3], scheduleJson.getJson(), scheduleJson.addWithoutKey, scheduleJson.save_file, scheduleJson.remove)
         self.logicTab = GuiDisplayLogic      ( self.tabList[4], logicJson, logicJson.addWithoutKey, logicJson.save_file, logicJson.remove)
 
-        self.scheduleTab.setUpdateEvent(scheduleUpdateEvent, scheduleRemoveEvent)
-
+        self.scheduleTab.setUpdateEvent(scheduleUpdateEvent, scheduleRemoveEvent, updateNextTimeEvent)
+        self.scheduleTab.startThreads()
+        
         logger.debug("starting main GUI loop")
         self.root.mainloop()
 

@@ -12,10 +12,21 @@ import tkinter as tk
 from GUIMainWindow import *
 from LogicHandler import *
 from Logging import *
+import sys
 
 version = "0.0.1"
     
+def mainLoop():
+    while True:
+        time.sleep(0.01)
+
 if __name__ == "__main__":
+
+    # can give an option to run in headless mode
+    if len(sys.argv) == 2:
+        headless = sys.argv[1]
+    else:
+        headless = 0
 
     SetupLogging()
     DrawAsciiPigeon()
@@ -41,14 +52,19 @@ if __name__ == "__main__":
     scheduler = Scheduler( configuration.get("schedule"), device_handler, sensor_handler )
      
     logic = LogicHandler( configuration.get("logic") ) 
-    # main loop
-    gui = GuiMainWindow( configuration.get("userinterface"), 
-                         configuration.get("devices"), 
-                         configuration.get("sensors"), 
-                         configuration.get("schedule"), 
-                         configuration.get("logic"),
-                         scheduler.updateScheduleEvent,
-                         scheduler.removeScheduleEvent )
+
+    if headless == 0:
+        # main loop
+        gui = GuiMainWindow( configuration.get("userinterface"), 
+                            configuration.get("devices"), 
+                            configuration.get("sensors"), 
+                            configuration.get("schedule"), 
+                            configuration.get("logic"),
+                            scheduler.updateScheduleEvent,
+                            scheduler.removeScheduleEvent,
+                            scheduler.getNextRunTimesEvent )
+    else:
+        mainLoop()
     
     
     

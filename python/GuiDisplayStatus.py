@@ -7,7 +7,6 @@ from Logging import *
 from Event import *
 import threading
 import time
-from datetime import datetime
 from MQTTHandler import *
 
 class GuiDisplayStatus:
@@ -54,13 +53,13 @@ class GuiDisplayStatus:
         m = MQTTHandler.getInstance()
         self.update_broker_info( m.get_broker_json() )
 
-        uptimeThread = threading.Thread(target=self.updateUpTime)
+        self.uptimeThread = threading.Thread(target=self.updateUpTime)
         self.runningUptime = True
-        uptimeThread.start()
+        self.uptimeThread.start()
         
-        currentTimeThread = threading.Thread(target=self.updateCurrentTime)
+        self.currentTimeThread = threading.Thread(target=self.updateCurrentTime)
         self.runningCurrentTime = True
-        currentTimeThread.start()
+        self.currentTimeThread.start()
 
     def update_broker_info(self, json_data : json):
         #for broker in json_data:
@@ -88,8 +87,8 @@ class GuiDisplayStatus:
     def updateCurrentTime(self):
         while self.runningCurrentTime:
             # Code to be executed in the thread
-            current_time = datetime.now().strftime("%I:%M%p on %B %d, %Y")#datetime.now()
-            new_label = "Current Local Time: " + current_time.strftime("%H:%M:%S")
-            self.current_time_label.config(text=new_label)           
+            current_time = str(time.time()) #datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")#datetime.now()
+            #new_label = "Current Local Time: " + current_time.strftime("%H:%M:%S")
+            self.current_time_label.config(text=current_time)           
             time.sleep(1)
         

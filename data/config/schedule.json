@@ -1,5 +1,16 @@
 {
     "schedule" :[
+        {
+            "id" : "s01001",
+            "time" : "0 * * * * *",
+            "deviceID" : "rebble01",
+            "address" : "0",
+            "action" : 
+            {
+                "type" : "setData",
+                "value": 0  
+            }
+        },
             {
                 "id" : "s00001",
                 "time" : "0 0 * * * *",
