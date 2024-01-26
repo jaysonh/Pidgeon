@@ -22,12 +22,11 @@ def mainLoop():
 
 if __name__ == "__main__":
 
+    headless = 0
     # can give an option to run in headless mode
     if len(sys.argv) == 2:
-        headless = sys.argv[1]
-    else:
-        headless = 0
-
+        headless = int(sys.argv[1])
+    
     SetupLogging()
     DrawAsciiPigeon()
     logger.info(f"Pigeon version {version}")
