@@ -30,6 +30,10 @@ class DeviceInGetHttp(DeviceInControl):
         logger.debug(f"Result from HTTP: {resultJson}" )
 
 
+    def stop(self):
+        
+        pass
+
     def on_message(client, userdata, msg):
         #print(f"Message received [{msg.topic}]: {msg.payload}")
         pass

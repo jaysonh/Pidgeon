@@ -14,6 +14,10 @@ class DeviceMQTT(DeviceOutControl):
         self.mqtt = m.add_broker( json_data["broker"]  )
         self.topic = json_data["topic"]
         
+    def stop(self):
+        self.mqtt.disconnect()
+        pass
+
     def sendData(self, v = [] ):
         self.vals = v
 

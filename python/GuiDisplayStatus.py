@@ -61,6 +61,13 @@ class GuiDisplayStatus:
         self.runningCurrentTime = True
         self.currentTimeThread.start()
 
+    def stopThreads(self):
+        self.runningUptime = False
+        self.runningCurrentTime = False
+        self.currentTimeThread.join()
+        self.uptimeThread.join()
+
+        
     def update_broker_info(self, json_data : json):
         #for broker in json_data:
         #    self.listbox.insert("", "end", text=json_data["address"], values=(json_data["address"], json_data["port"], "connected" ))

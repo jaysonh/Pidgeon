@@ -55,6 +55,10 @@ class GuiScheduleDisplay:
         self.runningUpdateNextRun = True
         self.updateNextTimeThread.start()
 
+    def stopThreads(self):
+        self.runningUpdateNextRun = False
+        self.updateNextTimeThread.join()
+
     
     def updateNextRun(self):
         while self.runningUpdateNextRun:
@@ -81,6 +85,7 @@ class GuiScheduleDisplay:
 
     def setUpdateEvent(self, updateEvt, removeEvt,updateNextTimeEvent):
         logger.debug(f"\n\n\nsetting update event: {updateEvt} {removeEvt} {updateNextTimeEvent}\n\n\n")
+        
         self.scheduleUpdateEvent  = updateEvt
         self.scheduleRemoveEvent = removeEvt
         self.updateNextTimeEvent = updateNextTimeEvent

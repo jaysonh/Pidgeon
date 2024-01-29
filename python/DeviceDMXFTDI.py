@@ -21,6 +21,11 @@ class DeviceDMXFTDI(DeviceOutControl):
 
             pass
 
+    def stop(self):
+        
+        pass
+
+        
     def sendData(self, v : []):
         self.value = v[0]
 

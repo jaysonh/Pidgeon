@@ -64,8 +64,9 @@ if __name__ == "__main__":
                             scheduler.getNextRunTimesEvent )
     else:
         mainLoop()
-    
-    
+
+    scheduler.stop()
+    MQTTHandler.getInstance().stopAll()
     
     logger.info("End of application") 
    

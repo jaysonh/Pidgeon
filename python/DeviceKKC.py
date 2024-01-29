@@ -28,5 +28,9 @@ class DeviceKKC(DeviceOutControl):
         logger.debug(f"sendData KKC MQTT: {data} as bye array: {byte_arr} to {self.topic}")
         self.mqtt.send_msg( self.topic, byte_arr )
     
+    def stop(self):
+        self.mqtt.disconnect()
+        pass
+
     def getValues(self):
         return self.vals

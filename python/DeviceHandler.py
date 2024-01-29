@@ -19,3 +19,8 @@ class DeviceHandler:
 
     def getAction(self, keyID : str):
         pass
+
+    def stopAll(self):
+        for key in self.devices:
+            
+            self.devices[key].stop()

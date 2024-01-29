@@ -53,4 +53,8 @@ class MQTTBroker:
         logger.debug(f"Sending MQTT msg: {topic} {value}")
         self.broker.publish(topic, value)
         pass
+
+    def disconnect(self):
+        logger.debug(f"Disconnecting from MQTT server {self.addr}:{self.port}")
+        self.broker.disconnect()
     

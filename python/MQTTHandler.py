@@ -21,6 +21,11 @@ class MQTTHandler():
       else:
          MQTTHandler.__instance = self
     
+    def stopAll(self):
+        for key in self.broker_list:
+           self.broker_list[key].disconnect()
+       
+
     def get_broker_json(self)->json:
        
         json_data = {"brokers":[]}

@@ -11,6 +11,10 @@ class DeviceCommandLine(DeviceOutControl):
         self.command = json_data["command"].split(" ")
         logger.info(f"creating device CommandLine: {self.command}")
 
+    def stop(self):
+        
+        pass
+
     def sendData(self, v : []):
         logger.debug(f"running subprocess.command: {self.command} ")
         subprocess.run(self.command, shell=True, check=True) 

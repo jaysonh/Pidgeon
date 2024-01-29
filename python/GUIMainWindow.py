@@ -55,4 +55,7 @@ class GuiMainWindow( ):
         logger.debug("starting main GUI loop")
         self.root.mainloop()
 
+        logger.info("stopping gui threads")
+        self.statusTab.stopThreads()
+        self.scheduleTab.stopThreads()
         

@@ -15,3 +15,8 @@ class DeviceRunScript(DeviceOutControl):
     def sendData(self, v : int):
         #self.mqtt.send_msg( self.topic, str(v) )
         pass
+    
+    def stop(self):
+        
+        pass
+

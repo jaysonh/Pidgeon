@@ -24,6 +24,10 @@ class DeviceArtnet(DeviceOutControl):
         self.sendData(v[0])
         pass
 
+    def stop(self):
+        
+        pass
+
     async def asyncSend(self, v : float):
         self.node = ArtNetNode(self.host, self.port )
         self.universe = self.node.add_universe(self.universeID) 

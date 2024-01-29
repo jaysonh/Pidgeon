@@ -16,6 +16,10 @@ class DeviceInMQTT(DeviceInControl):
         self.receive_topic = json_data["receiveTopic"]
         self.mqtt.subscribe(self.receive_topic,self.update)
 
+    def stop(self):
+        self.mqtt.disconnect()
+        pass
+
     def update(self):
         self.mqtt.send_msg( self.request_topic, "")
         

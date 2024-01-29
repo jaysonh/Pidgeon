@@ -39,6 +39,10 @@ class Device:
         else:
             raise  Exception(f"Invalid device type: {self.type}")
     
+    def stop(self):
+        self.outputDevice.stop()
+        pass
+
     def sendData(self, data = [] ):
         logger.debug(f"sending data {data}")
         self.outputDevice.sendData( data )

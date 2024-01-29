@@ -81,6 +81,10 @@ class Scheduler:
         self.scheduler.remove_job( id )
         del (self.scheduleActions[ id ] )
         
+    def stop(self):
+        logger.info("stopping sheduler")
+        self.scheduler.remove_all_jobs()
+        self.scheduler.shutdown()
 
     def add_job( self, cron_time : str, action : ScheduleAction, id : str  ):
         try:

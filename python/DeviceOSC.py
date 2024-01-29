@@ -18,6 +18,10 @@ class DeviceOSC(DeviceOutControl):
 
         self.client =   udp_client.SimpleUDPClient(self.host, self.port)
         
+    def stop(self):
+        self.client.disconnect()
+        pass
+
     def sendData(self, data : []):
         
         self.values = self.range.clamp(data)

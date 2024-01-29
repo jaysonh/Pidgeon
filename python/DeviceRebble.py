@@ -22,6 +22,11 @@ class DeviceRebble(DeviceOutControl):
         self.sendData(v[0])
         pass
 
+    def stop(self):
+        self.mqtt.disconnect()
+        
+        pass
+
     def sendData(self, v : [] ):
         if len(v) > 0:
             self.value = int(self.range.clamp(v[0]))
