@@ -13,5 +13,4 @@ class DeviceInHandler:
             key = json_device["id"]
             self.sensors[key] = DeviceIn(json_device)
             logger.info(f"added sensor {key}: {self.sensors[key]}")
-        pass
-
+      

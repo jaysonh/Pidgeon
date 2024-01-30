@@ -18,7 +18,7 @@ version = "0.0.1"
     
 def mainLoop():
     while True:
-        time.sleep(0.01)
+        time.sleep(0.01) # wait
 
 if __name__ == "__main__":
 

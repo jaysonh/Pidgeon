@@ -13,6 +13,7 @@ class ActionSet(Action):
 
     def run(self, device : DeviceOutControl):
         logger.debug(f"run ActionSet: {self.data}")
+        
         if type(self.data) is list:
             device.sendData(self.data )
         else:

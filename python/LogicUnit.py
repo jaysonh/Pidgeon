@@ -8,6 +8,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from jsonLogic import *
 from Logging import *
 
+# This is work in progress, not implemented yet
 class LogicUnit:
     def __init__(self, json_data : json):
         self.name = json_data["name"]

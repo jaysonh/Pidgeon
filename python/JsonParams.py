@@ -23,8 +23,7 @@ class JsonParams:
         self.json_data.append( json_data )
     
     def remove(self, indx):
-        del self.json_data[indx]
-        pass
+        del self.json_data[indx]        
 
     # add this json item to the array at key
     def add(self, key : str, json_data : json): 
@@ -33,7 +32,6 @@ class JsonParams:
         else: 
             logger.error(f"Cannot find key: {key}")
             raise KeyError
-        pass
 
     def save_file(self):
         file = asksaveasfile(initialfile = 'settings.json',
@@ -42,5 +40,3 @@ class JsonParams:
             return
         
         json.dump(self.json_data, file)
-
-

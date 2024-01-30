@@ -19,8 +19,6 @@ class DeviceDMXFTDI(DeviceOutControl):
             self.interface.set_frame(self.universe.serialise())
             self.interface.send_update()
 
-            pass
-
     def stop(self):
         
         pass

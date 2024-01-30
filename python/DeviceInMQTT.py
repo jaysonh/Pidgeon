@@ -10,6 +10,7 @@ class DeviceInMQTT(DeviceInControl):
         super().__init__( json_data )
         logger.info("Creating sensor MQTT")
         
+        # connect to MQTT client
         m = MQTTHandler.getInstance()
         self.mqtt = m.add_broker( json_data["broker"]  )
         self.request_topic = json_data["requestTopic"]

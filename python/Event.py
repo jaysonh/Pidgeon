@@ -1,3 +1,5 @@
+# Generaic event class
+
 class Event:
     def __init__(self):
         self.listeners = []

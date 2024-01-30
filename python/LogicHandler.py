@@ -4,6 +4,8 @@ from jsonLogic import *
 #from json_logic import jsonLogic
 from LogicUnit import *
 from JsonParams import *
+
+#This is work in progress, just testing at this stage of the project
 class LogicHandler:
     def __init__(self, json_data : JsonParams):
 

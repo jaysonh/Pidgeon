@@ -9,7 +9,6 @@
 import json
 from MQTTHandler import MQTTHandler
 from DeviceInControl import *
-import urllib.request
 from Logging import *
 
 class DeviceInGetHttp(DeviceInControl):

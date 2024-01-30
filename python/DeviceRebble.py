@@ -42,5 +42,5 @@ class DeviceRebble(DeviceOutControl):
             except requests.exceptions.Timeout:
                 logger.error("HTTP Request timeout")
         else:
-            raise("Invalid input ")
+            raise(f"Invalid input: {v}")
         

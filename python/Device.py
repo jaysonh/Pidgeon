@@ -15,13 +15,14 @@ class Device:
 
     def __init__(self, json_data : json ):
         
-        self.id = json_data["id"]
-        self.name = json_data["name"]
+        self.id          = json_data["id"]
+        self.name        = json_data["name"]
         self.numChannels = json_data["numChannels"]
-        self.type = json_data["type"]
+        self.type        = json_data["type"]
 
         logger.info(f"Creating device {self.id} {self.name} {self.type}")
 
+        # select the device type
         if( self.type == "dmxftdi"):
             self.outputDevice = DeviceDMXFTDI(json_data  )
         elif( self.type == "artnet"):
@@ -41,13 +42,11 @@ class Device:
     
     def stop(self):
         self.outputDevice.stop()
-        pass
-
+        
     def sendData(self, data = [] ):
         logger.debug(f"sending data {data}")
         self.outputDevice.sendData( data )
-        pass
-
+        
     def getValue(self) -> int:
         return self.outputDevice.getValue()
     

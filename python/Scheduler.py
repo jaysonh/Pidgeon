@@ -101,8 +101,6 @@ class Scheduler:
             self.scheduler.add_job(action.run, 'cron', second=secCron, minute=minCron, hour=hourCron, day_of_week=dayWeekCron, month=monthCron,id= id, )
             
             action.setJobID( id )
-
-
         except IndexError:
             logger.error("Error: Invalid cron time format")
 

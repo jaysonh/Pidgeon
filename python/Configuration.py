@@ -1,6 +1,5 @@
 import json
 from typing import List
-from ConfigFile import ConfigFile
 from JsonParams import *
 from Logging import *
 
@@ -20,6 +19,7 @@ class Configuration:
                     logger.error(f"Loading config file {file_name}")
                     raise FileExistsError
                 
+                # load json data
                 with open(file_name) as f:
                     json_data = json.load(f)
                 key = list(json_data.keys())[0]              

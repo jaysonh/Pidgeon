@@ -3,9 +3,6 @@ import paho.mqtt.client as mqtt
 import random
 from Logging import *
 
-def hello( client, userdata, msg):
-    print(f"hello Message received [{msg.topic}]: {msg.payload}")
-    pass
 class MQTTBroker:
 
     subscribe_list = []
@@ -32,7 +29,7 @@ class MQTTBroker:
         
     def getJson(self) -> json:
 
-        json_data = {"address" : self.addr, "port" : self.port}
+        json_data = {"address" : self.addr, "port" : self.port, "connection_status" : self.broker.is_connected()}
 
         return json.dumps(json_data)
     
@@ -46,13 +43,10 @@ class MQTTBroker:
         self.broker.on_message = on_message
 
         self.actionDict[topic] = action
-        pass
-
-
+        
     def send_msg( self, topic : str, value : str):
         logger.debug(f"Sending MQTT msg: {topic} {value}")
-        self.broker.publish(topic, value)
-        pass
+        self.broker.publish(topic, value)       
 
     def disconnect(self):
         logger.debug(f"Disconnecting from MQTT server {self.addr}:{self.port}")

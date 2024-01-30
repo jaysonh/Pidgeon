@@ -1,13 +1,9 @@
 import logging
-import calendar
-import time
 import datetime
 
 logger = logging.getLogger(__name__)
 
 def SetupLogging():
-    
-
     
     current_datetime = datetime.datetime.now()
     timestamp_format = "%Y-%m-%d_%H-%M-%S"

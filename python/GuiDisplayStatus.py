@@ -68,12 +68,12 @@ class GuiDisplayStatus:
         self.uptimeThread.join()
 
         
-    def update_broker_info(self, json_data : json):
-        #for broker in json_data:
-        #    self.listbox.insert("", "end", text=json_data["address"], values=(json_data["address"], json_data["port"], "connected" ))
-            
-        pass
+    def update_broker_info(self, broker_list : [] ):
 
+        for broker in broker_list:
+            broker_json = json.loads( broker )
+            self.listbox.insert("", "end", text=broker_json["address"], values=(broker_json["address"], broker_json["port"], "connected" if broker_json["connection_status"] == True else "disconnected" ))
+        
     def getUpTime(self)->str:
         elapsed_time = time.time() - self.start_time
         secs = int(elapsed_time) % 60

@@ -12,10 +12,11 @@ class DeviceCommandLine(DeviceOutControl):
         logger.info(f"creating device CommandLine: {self.command}")
 
     def stop(self):
-        
         pass
 
     def sendData(self, v : []):
         logger.debug(f"running subprocess.command: {self.command} ")
+
+        # run command on the command line
         subprocess.run(self.command, shell=True, check=True) 
         
