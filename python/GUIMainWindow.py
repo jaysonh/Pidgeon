@@ -53,9 +53,16 @@ class GuiMainWindow( ):
         self.scheduleTab.startThreads()
         
         logger.debug("starting main GUI loop")
+        self.root.protocol("WM_DELETE_WINDOW", self.close_gui)
         self.root.mainloop()
 
+
+    def close_gui(self):
         logger.info("stopping gui threads")
         self.statusTab.stopThreads()
         self.scheduleTab.stopThreads()
+        self.root.destroy()
+
+
+
         
