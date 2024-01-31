@@ -1,4 +1,4 @@
-# Generaic event class
+# Generic event class
 
 class Event:
     def __init__(self):

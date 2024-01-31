@@ -1,8 +1,10 @@
 APScheduler==3.10.4
-paho_mqtt==1.6.1
+paho-mqtt==1.6.1
 pyartnet==1.0.1
 PyDMX==0.1.0
+dmx==1.0
 PyDMX-Drivers-FTDI==0.1.0
 PyDMXControl==2.0.0
-python_osc==1.8.3
+python-osc==1.8.3
 ttkthemes==3.2.2
+requests==2.31.0
