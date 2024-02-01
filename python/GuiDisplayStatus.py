@@ -94,8 +94,7 @@ class GuiDisplayStatus:
     def updateCurrentTime(self):
         while self.runningCurrentTime:
             # Code to be executed in the thread
-            current_time = str(time.time()) #datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")#datetime.now()
-            #new_label = "Current Local Time: " + current_time.strftime("%H:%M:%S")
+            current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
             self.current_time_label.config(text=current_time)           
             time.sleep(1)
         
