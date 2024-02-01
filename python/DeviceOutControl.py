@@ -34,4 +34,7 @@ class DeviceOutControl:
     
     def getValue(self) -> int:
         return self.value
+    
+    def stop(self):
+        pass
         

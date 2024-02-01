@@ -35,16 +35,18 @@ class DeviceRebble(DeviceOutControl):
                     response = requests.get(request_url, timeout= self.timeout )
                     response_json = response.json()
                     logger.debug(f"Response from HTTP: {response_json}")
+                    logger.debug(f"ended http request thread")
                 except requests.exceptions.Timeout:
                     logger.error("HTTP Request timeout")                    
 
             time.sleep(0.01)
-        pass
-
+        
     def mqttAction(self, v : []):
         self.sendData(v)
         
     def stop(self):
+        self.message_thread_running = False
+        self.message_thread.join()
         self.mqtt.disconnect()
         
     def sendData(self, v : [] ):

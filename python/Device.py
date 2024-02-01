@@ -40,6 +40,9 @@ class Device:
         else:
             raise  Exception(f"Invalid device type: {self.type}")
     
+    def stopThread(self):
+        self.outputDevice.stop()
+        
     def stop(self):
         self.outputDevice.stop()
         

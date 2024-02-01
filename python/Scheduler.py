@@ -82,7 +82,7 @@ class Scheduler:
         del (self.scheduleActions[ id ] )
         
     def stop(self):
-        logger.info("stopping sheduler")
+        #logger.info("stopping sheduler")
         self.scheduler.remove_all_jobs()
         self.scheduler.shutdown()
 

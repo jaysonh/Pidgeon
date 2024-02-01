@@ -67,6 +67,9 @@ if __name__ == "__main__":
 
     scheduler.stop()
     MQTTHandler.getInstance().stopAll()
+    device_handler.stopThreads()
     
-    logger.info("End of application") 
+    for thread in threading.enumerate():
+        print(thread.name)
+  
    

@@ -14,6 +14,10 @@ class DeviceHandler:
             self.devices[key] = Device(json_device)
             logger.info(f"adding device {key}: {self.devices[key]}")
         
+    def stopThreads(self):
+        for key in self.devices:
+            self.devices[key].stopThread()
+            
     def get(self, keyID : str ) -> DeviceOutControl:
         return self.devices[keyID]
 
