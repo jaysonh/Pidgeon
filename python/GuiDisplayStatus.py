@@ -46,8 +46,8 @@ class GuiDisplayStatus:
         self.bottomframe = Frame(root)
         self.bottomframe.pack( side = BOTTOM )
 
-        self.addButton = Button(self.bottomframe, text ="ok")
-        self.addButton.pack(side="right", fill="none", expand=False)
+        #self.addButton = Button(self.bottomframe, text ="close", command = self.exitApp)
+        #self.addButton.pack(side="right", fill="none", expand=False)
 
         
         m = MQTTHandler.getInstance()
