@@ -84,7 +84,7 @@ class GuiScheduleDisplay:
         pass
 
     def setUpdateEvent(self, updateEvt, removeEvt,updateNextTimeEvent):
-        logger.debug(f"\n\n\nsetting update event: {updateEvt} {removeEvt} {updateNextTimeEvent}\n\n\n")
+        logger.debug(f"setting update event: {updateEvt} {removeEvt} {updateNextTimeEvent}")
         
         self.scheduleUpdateEvent  = updateEvt
         self.scheduleRemoveEvent = removeEvt

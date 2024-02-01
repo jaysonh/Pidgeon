@@ -9,6 +9,7 @@ from GUIDisplayDeviceIn import *
 from GuiScheduleDisplay import *
 from GuiDisplayLogic import *
 from GuiDisplayStatus import *
+from GuiDisplayLog import *
 from JsonParams import *
 from ttkthemes import ThemedTk
 from Logging import *
@@ -43,11 +44,13 @@ class GuiMainWindow( ):
         
         self.tabControl.pack(fill ="both")
 
+        self.logTab = GuiDisplayLog      ( self.tabList[5])
         self.statusTab = GuiDisplayStatus(self.tabList[0])
         self.deviceTab = GUIDisplayDeviceOut ( self.tabList[1], devicesJson, devicesJson.addWithoutKey, devicesJson.save_file, devicesJson.remove )
         self.sensorTab = GUIDisplayDeviceIn  ( self.tabList[2], sensorsJson, sensorsJson.addWithoutKey, sensorsJson.save_file, sensorsJson.remove )
         self.scheduleTab = GuiScheduleDisplay( self.tabList[3], scheduleJson.getJson(), scheduleJson.addWithoutKey, scheduleJson.save_file, scheduleJson.remove)
         self.logicTab = GuiDisplayLogic      ( self.tabList[4], logicJson, logicJson.addWithoutKey, logicJson.save_file, logicJson.remove)
+        
 
         self.scheduleTab.setUpdateEvent(scheduleUpdateEvent, scheduleRemoveEvent, updateNextTimeEvent)
         self.scheduleTab.startThreads()

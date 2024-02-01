@@ -9,7 +9,8 @@
                     { "title" : "DevicesOut" },
                     { "title" : "DevicesIn"  },
                     { "title" : "Schedule"   },
-                    { "title" : "Logic"      }
+                    { "title" : "Logic"      },
+                    { "title" : "Log"        }
                 ]
             }
     ]

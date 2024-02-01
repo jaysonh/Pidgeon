@@ -2,7 +2,6 @@ import logging
 import datetime
 
 logger = logging.getLogger(__name__)
-
 def SetupLogging():
     
     current_datetime = datetime.datetime.now()
@@ -20,8 +19,8 @@ def SetupLogging():
     f_handler.setLevel(logging.DEBUG)
     logger.addHandler(c_handler)
     logger.addHandler(f_handler)
-
     logger.debug(f"Started logging at time {custom_timestamp }")
+
 
 if __name__ == "__main__":
   SetupLogging()

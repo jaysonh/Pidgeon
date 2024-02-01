@@ -8,6 +8,7 @@ from Event import *
 import threading
 import time
 from MQTTHandler import *
+import logging
 
 class GuiDisplayStatus:
     deviceID = ""
