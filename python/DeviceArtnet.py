@@ -22,7 +22,7 @@ class DeviceArtnet(DeviceOutControl):
         self.mqtt.subscribe( self.mqttTopic, self.mqttAction )
        
     def mqttAction(self, v : []):
-        self.sendData(v[0])        
+        self.sendData(v)        
 
     def stop(self):
         self.mqtt.disconnect()
@@ -49,7 +49,7 @@ class DeviceArtnet(DeviceOutControl):
         
 
     def sendData(self, v : []):
-        logger.debug(f"sendData Artnet: {v[0]}")
+        logger.debug(f"sendData Artnet: {v}")
         asyncio.run(self.asyncSend(v[0]))
 
         # this can be used to wait till the fade is complete

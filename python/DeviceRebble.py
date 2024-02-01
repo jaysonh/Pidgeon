@@ -42,7 +42,7 @@ class DeviceRebble(DeviceOutControl):
         pass
 
     def mqttAction(self, v : []):
-        self.sendData(v[0])
+        self.sendData(v)
         
     def stop(self):
         self.mqtt.disconnect()
