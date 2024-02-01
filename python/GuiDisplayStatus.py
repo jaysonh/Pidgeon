@@ -80,9 +80,9 @@ class GuiDisplayStatus:
         min  = int(int(elapsed_time) / 60)% 60
         hour  = int(int(elapsed_time) /3600)% 24
 
-        padding_lambda = lambda x,length: x if len(str(x)) >= length else f"0{x}"
+        padding_lambda = lambda x,length: str(x) if x >= length else f"0{x}"
 
-        timeStr = padding_lambda(hour,24) + ":" + padding_lambda(min,60) + ":" + padding_lambda(secs,60)
+        timeStr = padding_lambda(hour,10) + ":" + padding_lambda(min,10) + ":" + padding_lambda(secs,10)
         return timeStr
     def updateUpTime(self):
         while self.runningUptime:

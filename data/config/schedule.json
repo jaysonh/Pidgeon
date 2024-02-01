@@ -1,16 +1,49 @@
 {
     "schedule" :[
-        {
-            "id" : "s01001",
-            "time" : "0 * * * * *",
-            "deviceID" : "rebble01",
-            "address" : "0",
-            "action" : 
             {
-                "type" : "setData",
-                "value": 0  
-            }
-        },
+                "id" : "s02001",
+                "time" : "0 * * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 0  
+                }
+            },
+            {
+                "id" : "s02002",
+                "time" : "2 * * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 120  
+                }
+            },
+            {
+                "id" : "s02003",
+                "time" : "4 * * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 220  
+                }
+            },
+            {
+                "id" : "s01001",
+                "time" : "0 * * * * *",
+                "deviceID" : "rebble01",
+                "address" : "0",
+                "action" : 
+                {
+                    "type" : "setData",
+                    "value": 0  
+                }
+            },
             {
                 "id" : "s00001",
                 "time" : "0 0 * * * *",
