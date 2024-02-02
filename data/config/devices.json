@@ -7,7 +7,7 @@
                 "remoteAddr" : "192.168.1.101",
                 "numChannels" : 1,
                 "range" : { "min": 0, "max": 100 },
-                "mqttTopic" : "/devices/00000001",
+                "mqttTopic" : "/Greenhouse/1/RebbleModbusLight/2",
                 "broker":{
                     "addr" : "127.0.0.1",
                     "port"   : 1883
@@ -24,7 +24,7 @@
                 "universe" : 1,
                 "range" : { "min": 0, "max": 255 },
             
-                "mqttTopic" : "/Greenhouse/2/cableX/1",
+                "mqttTopic" : "/Greenhouse/2/cableX/1/0",
                 "broker":{
                     "addr" : "localhost",
                     "port"   : 1883

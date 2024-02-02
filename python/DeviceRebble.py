@@ -33,11 +33,13 @@ class DeviceRebble(DeviceOutControl):
                 try:
                     logger.debug(f"sending request: {request_url}")
                     response = requests.get(request_url, timeout= self.timeout )
-                    response_json = response.json()
-                    logger.debug(f"Response from HTTP: {response_json}")
-                    logger.debug(f"ended http request thread")
+                    logger.debug(f"response code: {response.status_code}")
+                    #if response.status_code == 200:
+                    #    response_json = response.json()
+                    #    logger.debug(f"Response from HTTP: {response_json}")
+                    #    logger.debug(f"ended http request thread")
                 except requests.exceptions.Timeout:
-                    logger.error("HTTP Request timeout")                    
+                    logger.error("HTTP Request timeout or null response")                    
 
             time.sleep(0.01)
         
