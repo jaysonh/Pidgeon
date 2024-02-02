@@ -13,4 +13,11 @@ class DeviceInHandler:
             key = json_device["id"]
             self.sensors[key] = DeviceIn(json_device)
             logger.info(f"added sensor {key}: {self.sensors[key]}")
-      
+
+    def get(self, keyID : str ) -> DeviceInControl:
+        return self.sensors[keyID]
+    
+    def stopThreads(self):
+         for json_device in json_data.getJson():
+            key = json_device["id"]
+            #self.sensors[key].stop()      

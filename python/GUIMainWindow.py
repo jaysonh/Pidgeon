@@ -16,7 +16,7 @@ from Logging import *
 
 class GuiMainWindow( ):
     #def __init__(self, jsonSettings : json, devicesJson : json, sensorsJson : json , scheduleJson : json, logicJson : json):
-    def __init__(self, ui_settings : JsonParams, devicesJson : JsonParams, sensorsJson : JsonParams , scheduleJson : JsonParams, logicJson : JsonParams, scheduleUpdateEvent,scheduleRemoveEvent,updateNextTimeEvent ):
+    def __init__(self, ui_settings : JsonParams, devicesJson : JsonParams, sensorsJson : JsonParams , scheduleJson : JsonParams, scheduleInput : JsonParams, logicJson : JsonParams, scheduleUpdateEvent,scheduleRemoveEvent,updateNextTimeEvent ):
          
         self.root = ThemedTk(theme="clam")
 

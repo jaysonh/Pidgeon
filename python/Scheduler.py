@@ -6,6 +6,7 @@ from DeviceInControl import DeviceInControl
 from ActionSet import ActionSet
 from ActionRamp import ActionRamp
 from ActionRampTarget import *
+from ActionSensor import *
 from DeviceMQTT import DeviceMQTT
 import threading
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -17,7 +18,7 @@ from Event import *
 class Scheduler:
     devices = {}        
     scheduleActions = {}    
-    def __init__(self, schedule_json : JsonParams, devices : DeviceHandler, sensors : DeviceInControl ):
+    def __init__(self, schedule_json : JsonParams, schedule_input_json : JsonParams, devices : DeviceHandler, sensors : DeviceInHandler ):
 
         logger.info(f"Loading Scheduler")
         self.scheduler = BackgroundScheduler()
@@ -38,9 +39,31 @@ class Scheduler:
             logger.info(f"creating schedule action for{id}")
             self.scheduleActions[ id ] = self.createScheduleAction( schedule_item )
             self.add_job( schedule_item["time"], self.scheduleActions[ id ], id )
+
+            
+        self.devicesOut = sensors
+        for schedule_item in schedule_input_json.getJson():
+            id = schedule_item["id"]
+            logger.info(f"creating schedule action for input{id}")
+            self.scheduleActions[ id ] = self.createScheduleActionInput( schedule_item )
+            self.add_job( schedule_item["time"], self.scheduleActions[ id ], id )
+
             
         logger.info(f"Starting scheduler")
         self.scheduler.start()
+
+    def createScheduleActionInput(self, json_data : json) ->ScheduleAction:
+        deviceID = json_data["deviceID"]
+        if json_data["action"]["type"] == "sensor":
+            action = ActionSensor( json_data["action"] )
+        else:
+            action = None
+
+        if action != None:
+            return ScheduleAction( deviceID, self.devicesOut.get( deviceID ), action) #ActionRampTarget( schedule_item["action"]["target"], schedule_item["action"]["duration"], schedule_item["action"]["interval"] )  )
+        else:
+            raise("ERROR invalid action type") 
+        pass
 
     def createScheduleAction( self, json_data : json) -> ScheduleAction:
         deviceID = json_data["deviceID"]
@@ -51,6 +74,8 @@ class Scheduler:
             action = ActionRamp( json_data["action"] )
         elif json_data["action"]["type"] == "setRampTarget":
             action = ActionRampTarget( json_data["action"] )
+        elif json_data["action"]["type"] == "sensor":
+            action = ActionSensor( json_data["action"] )
         else:
             action = None
             logger.error("ERROR invalid action type")

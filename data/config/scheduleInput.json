@@ -1,0 +1,15 @@
+{
+    "scheduleInput":[
+        {
+            "id" : "r00001",
+            "time" : "10 * * * * *",
+            "deviceID" : "rebbleData01",
+            "address" : "0",
+            "action" : 
+            {
+                "type" : "sensor",
+                "value": 0  
+            }
+        }
+    ]
+}

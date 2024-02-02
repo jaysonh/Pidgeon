@@ -3,6 +3,8 @@ from typing import List
 from MQTTHandler import *
 from DeviceInMQTT import *
 from DeviceInGetHttp import *
+from DeviceInRebble import *
+
 from Logging import *
 
 class DeviceIn:
@@ -15,7 +17,11 @@ class DeviceIn:
             self.device = DeviceInMQTT(json_data  )
         if( self.type == "httpGet"):
             self.device = DeviceInGetHttp(json_data  )
+        if( self.type == "rebbleIn"):
+            self.device = DeviceInRebble(json_data)
         else:
             logger.error("Error invalid sensor type")
         
+    def update(self):
+        self.device.update()
                                                                                                                      

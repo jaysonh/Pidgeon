@@ -11,6 +11,19 @@
                 "addr" : "localhost",
                 "port" : 1883
             }
+        },
+
+        {
+            "name" : "rebbleData01",
+            "id"   : "rebbleData01",
+            "type" : "rebbleIn",
+            "addr" : "http://192.168.1.101/status_all.json",
+            "receiveTopic" : "/Greenhouse/1/RebbleModbusLight/updateData/2",
+            "broker" :
+            {
+                "addr" : "localhost",
+                "port" : 1883
+            }
         }
     ]
 }

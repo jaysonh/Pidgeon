@@ -38,6 +38,7 @@ if __name__ == "__main__":
     configFiles.append(configPath + "/devices.json")
     configFiles.append(configPath + "/sensors.json")
     configFiles.append(configPath + "/schedule.json")
+    configFiles.append(configPath + "/scheduleInput.json")
     configFiles.append(configPath + "/logic.json")
     configFiles.append(configPath + "/ui.json")
 
@@ -48,7 +49,7 @@ if __name__ == "__main__":
     sensor_handler = DeviceInHandler( configuration.get("sensors") )
     
     # initalise scheduler last to ensure other components have been set up
-    scheduler = Scheduler( configuration.get("schedule"), device_handler, sensor_handler )
+    scheduler = Scheduler( configuration.get("scheduleOutput"),configuration.get("scheduleInput"), device_handler, sensor_handler )
      
     logic = LogicHandler( configuration.get("logic") ) 
 
@@ -57,7 +58,8 @@ if __name__ == "__main__":
         gui = GuiMainWindow( configuration.get("userinterface"), 
                             configuration.get("devices"), 
                             configuration.get("sensors"), 
-                            configuration.get("schedule"), 
+                            configuration.get("scheduleOutput"), 
+                            configuration.get("scheduleInput"), 
                             configuration.get("logic"),
                             scheduler.updateScheduleEvent,
                             scheduler.removeScheduleEvent,
@@ -68,6 +70,7 @@ if __name__ == "__main__":
     scheduler.stop()
     MQTTHandler.getInstance().stopAll()
     device_handler.stopThreads()
+    sensor_handler.stopThreads()
     
     for thread in threading.enumerate():
         print(thread.name)
