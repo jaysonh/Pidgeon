@@ -11,7 +11,7 @@ from MQTTHandler import MQTTHandler
 from DeviceInControl import *
 from Logging import *
 import requests
-
+import time
 class DeviceInRebble(DeviceInControl):
     
     def __init__(self, json_data : json):
@@ -19,7 +19,13 @@ class DeviceInRebble(DeviceInControl):
         
         self.request_addr = json_data["addr"]
         self.receiveTopic = json_data["receiveTopic"]
+        self.channel = 4
 
+        
+        # connect to MQTT client
+        m = MQTTHandler.getInstance()
+        self.mqtt = m.add_broker( json_data["broker"]  )
+        
         logger.info("creating sensor Rebble:")
 
     def update(self):       
@@ -27,25 +33,22 @@ class DeviceInRebble(DeviceInControl):
         response = requests.get(self.request_addr)
         if response.status_code == 200:
             response_json = response.json()
+            #logger.debug(f"{response_json}")
+            id = "id" + str(self.channel)
+            temp = response_json["fixtures"][id]["status"]["temperature"] / 100.0
+            current = response_json["fixtures"][id]["status"]["current"]
+            dim_level = response_json["fixtures"][id]["status"]["dim_level"]
 
-            #need to implement this in python to get data 
-            #println("Getting data from address: " + remoteAddr, true);
-            #GetRequest get = new GetRequest("http://" + remoteAddr + "/status_all.json");
-            #get.send();
-            #
-            #if(get.getContent() != null)
-            #{
-            #    String     data = get.getContent();      
-            #    JSONObject json = parseJSONObject(data);        
-            #    JSONObject fixs = json.getJSONObject("fixtures");
-            #    
-            #    String idPrefix = "id" + str(channel);
-            #    
-            #    JSONObject fixStatus = fixs.getJSONObject(idPrefix).getJSONObject("status");
-            #    
-            #    status.dimLevel = fixStatus.getFloat("dim_level");
-            #    status.current  = fixStatus.getFloat("current");
-            #    status.temp     = fixStatus.getFloat("temperature") / 100;  
+                
+            
+            self.mqtt.send_msg(self.receiveTopic + "/temp",  temp)
+            self.mqtt.send_msg(self.receiveTopic  + "/current", current)
+            self.mqtt.send_msg(self.receiveTopic  + "/dimmer",  dim_level)
+            self.mqtt.send_msg(self.receiveTopic  + "/time",    int(time.time()))     
+            
+            logger.debug(f"temp: {temp} current: {current} dimlevel: {dim_level}")
+            
+            # now send to mqtt
 
     def stop(self):
         
