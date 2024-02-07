@@ -91,11 +91,15 @@ class GuiDisplayStatus:
             new_label = "Uptime: " + self.getUpTime()
             self.uptime_label.config(text=new_label)
             time.sleep(1)
+            logger.debug("running up time thread")
+        logger.debug("ending up time thread")
 
     def updateCurrentTime(self):
         while self.runningCurrentTime:
             # Code to be executed in the thread
             current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-            self.current_time_label.config(text=current_time)           
+            self.current_time_label.config(text=current_time)      
+            logger.debug("running current time thread")     
             time.sleep(1)
+        logger.debug("ending current time thread")
         

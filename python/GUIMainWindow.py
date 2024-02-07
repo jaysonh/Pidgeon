@@ -63,8 +63,11 @@ class GuiMainWindow( ):
     def close_gui(self):
         logger.info("stopping gui threads")
         self.statusTab.stopThreads()
+        logger.debug("stopped status tab")
         self.scheduleTab.stopThreads()
+        logger.debug("destroying tkinter root display")
         self.root.destroy()
+        logger.info("finished stopping gui threads")
 
 
 

@@ -14,6 +14,8 @@ class DeviceInControl:
     def getValue(self) -> int:
         return self.value
         
+    def stop(self):
+        pass
 
     def update(self):    
         pass

@@ -18,6 +18,5 @@ class DeviceInHandler:
         return self.sensors[keyID]
     
     def stopThreads(self):
-         for json_device in json_data.getJson():
-            key = json_device["id"]
-            #self.sensors[key].stop()      
+        for key in self.sensors:
+            self.sensors[key].stop()      

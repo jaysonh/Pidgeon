@@ -51,7 +51,7 @@ class DeviceInRebble(DeviceInControl):
             # now send to mqtt
 
     def stop(self):
-        
+        self.mqtt.disconnect()
         pass
 
     def on_message(client, userdata, msg):

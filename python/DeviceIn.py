@@ -24,4 +24,7 @@ class DeviceIn:
         
     def update(self):
         self.device.update()
+
+    def stop(self):
+        self.device.stop()
                                                                                                                      

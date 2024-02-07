@@ -64,6 +64,8 @@ if __name__ == "__main__":
                             scheduler.updateScheduleEvent,
                             scheduler.removeScheduleEvent,
                             scheduler.getNextRunTimesEvent )
+        
+        gui.close_gui()
     else:
         mainLoop()
 
@@ -71,7 +73,6 @@ if __name__ == "__main__":
     MQTTHandler.getInstance().stopAll()
     device_handler.stopThreads()
     sensor_handler.stopThreads()
-    
     for thread in threading.enumerate():
         print(thread.name)
   
